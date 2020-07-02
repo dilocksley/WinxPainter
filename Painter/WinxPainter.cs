@@ -12,26 +12,24 @@ namespace Painter
 {
     public partial class Painter : Form
     {
+        
         Color CurrentColor;
         Point CurrentPoint;
         Point PreviuosPoint;
         bool mouseDown;
-        
+        Point FirstPoint;
+        Point SecondPoint;
+
+         
 
         public Painter()
         {
             InitializeComponent();
+
             CurrentColor = Color.Red;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-        }
-        private void PaintPixel(Point point)
-        {
-
-            StaticBitmap.Bitmap.SetPixel(point.X, point.Y, CurrentColor);
-            pictureBox.Image = StaticBitmap.Bitmap;
-        }
-
-
+           
+        }      
 
         private void Draw(Point PreviousPoint, Point CurrentPoint, Color color )
         {
@@ -75,9 +73,14 @@ namespace Painter
             //}
         }
 
+        private void DrawLine(Point PreviousPoint, Point CurrentPoint, Color color)
+        {
+            Draw(PreviousPoint, CurrentPoint, color);
+        }
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
+
             if (toolBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Вы не выбрали инструмент для рисования");
@@ -87,16 +90,13 @@ namespace Painter
                 CurrentPoint = e.Location;
             }
             else if (toolBox.SelectedIndex == 1)
-            {
-
-            }
-            
+            {                
+                FirstPoint = e.Location;
+            }            
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-
-
             if (mouseDown)
             {
                 if (toolBox.SelectedIndex == 0)
@@ -107,11 +107,13 @@ namespace Painter
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
-
+                    
                 }
             }
+           
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
+           
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -120,13 +122,18 @@ namespace Painter
             {
                 
             }
-            else if (toolBox.SelectedIndex == 1) { }
+            else if (toolBox.SelectedIndex == 1) 
+            {               
+                SecondPoint = e.Location;               
+                DrawLine(FirstPoint, SecondPoint, CurrentColor);
+            }
 
         }
 
         private void Painter_Load(object sender, EventArgs e)
         {
-
+            
+            
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
@@ -140,7 +147,13 @@ namespace Painter
 
         private void DeletAll_Click(object sender, EventArgs e)
         {
-            pictureBox.Refresh();
+            pictureBox.Image = null;
+            StaticBitmap.Bitmap = null;
+            StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+        }
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
         }
     }
 }
