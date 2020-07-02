@@ -1,0 +1,10 @@
+C:\Users\79313\source\repos\Painter\Painter\bin\Debug\Painter.exe.config
+C:\Users\79313\source\repos\Painter\Painter\bin\Debug\Painter.exe
+C:\Users\79313\source\repos\Painter\Painter\bin\Debug\Painter.pdb
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.csprojAssemblyReference.cache
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.Painter.resources
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.Properties.Resources.resources
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.csproj.GenerateResource.cache
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.csproj.CoreCompileInputs.cache
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.exe
+C:\Users\79313\source\repos\Painter\Painter\obj\Debug\Painter.pdb
