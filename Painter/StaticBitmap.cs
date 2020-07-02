@@ -11,5 +11,12 @@ namespace Painter
     {
         public static Bitmap Bitmap { get; set; }
 
+        public static void SetPixel(int x, int y, Color color)
+        {
+            if(x >= 0 && x < Bitmap.Width && y >= 0 && y < Bitmap.Height)
+            {
+                Bitmap.SetPixel(x, y, color);
+            }
+        }
     }
 }
