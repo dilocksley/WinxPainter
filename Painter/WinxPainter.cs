@@ -12,19 +12,67 @@ namespace Painter
 {
     public partial class Painter : Form
     {
-        Color СurrentColor = Color.Black;
+        Color CurrentColor;
         Point CurrentPoint;
+        Point PreviuosPoint;
         bool mouseDown;
+        
 
         public Painter()
         {
             InitializeComponent();
+            CurrentColor = Color.Red;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
         }
         private void PaintPixel(Point point)
         {
-            StaticBitmap.Bitmap.SetPixel(point.X, point.Y, СurrentColor);
+
+            StaticBitmap.Bitmap.SetPixel(point.X, point.Y, CurrentColor);
             pictureBox.Image = StaticBitmap.Bitmap;
+        }
+
+
+
+        private void Draw(Point PreviousPoint, Point CurrentPoint, Color color )
+        {
+            Point Delta = new Point(0, 0);
+
+            Delta.X = CurrentPoint.X - PreviousPoint.X;
+            Delta.Y = CurrentPoint.Y - PreviousPoint.Y;
+
+            int step;
+            if(Math.Abs(Delta.X) > Math.Abs(Delta.Y))
+            {
+                step = Math.Abs(Delta.X);
+            }
+            else
+            {
+                step = Math.Abs(Delta.Y);
+            }
+
+            double incrementX = Delta.X / (double)step;
+            double incrementY = Delta.Y / (double)step;
+
+            double startX = PreviousPoint.X;
+            double startY = PreviousPoint.Y;
+
+            for (int i = 0; i <= step; i++)
+            {
+                StaticBitmap.Bitmap.SetPixel((int)startX, (int)startY, CurrentColor);
+                startX += incrementX;
+                startY += incrementY;
+            }
+            pictureBox.Image = StaticBitmap.Bitmap;
+
+            //for (int i = PreviousPoint.Y; i < CurrentPoint.Y; i++)
+            //{
+            //  int x = ((-PreviousPoint.X * i) + (CurrentPoint.X * i) - ((PreviousPoint.X * CurrentPoint.Y) - (PreviousPoint.Y * CurrentPoint.X))) / (PreviousPoint.Y - CurrentPoint.Y);
+            //    if (x >= 0 && x < StaticBitmap.Bitmap.Width && i >= 0 && i < StaticBitmap.Bitmap.Height)
+            //    {
+            //        StaticBitmap.Bitmap.SetPixel(x, i, CurrentColor);
+            //    }
+
+            //}
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -42,6 +90,7 @@ namespace Painter
             {
 
             }
+            
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -52,13 +101,17 @@ namespace Painter
             {
                 if (toolBox.SelectedIndex == 0)
                 {
-                    PaintPixel(e.Location);
+                    PreviuosPoint = CurrentPoint;
+                    CurrentPoint = e.Location;
+                    Draw(PreviuosPoint, CurrentPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
 
                 }
             }
+            label1.Text = $"X = {e.X}";
+            label2.Text = $"Y = {e.Y}";
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -69,6 +122,25 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 1) { }
 
+        }
+
+        private void Painter_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ColorBox_Click(object sender, EventArgs e)
+        {
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                CurrentColor = colorDialog1.Color;
+            }
+        }
+
+        private void DeletAll_Click(object sender, EventArgs e)
+        {
+            pictureBox.Refresh();
         }
     }
 }
