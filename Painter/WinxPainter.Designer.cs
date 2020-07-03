@@ -51,7 +51,6 @@
             this.pictureBox.Size = new System.Drawing.Size(899, 538);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
-            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
             this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
@@ -65,7 +64,8 @@
             "Карандаш",
             "Прямая линия",
             "Прямоугольник",
-            "Квадрат"});
+            "Квадрат",
+            "N-угольник"});
             this.toolBox.Location = new System.Drawing.Point(249, 500);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);
@@ -141,7 +141,6 @@
             this.Controls.Add(this.pictureBox);
             this.Name = "Painter";
             this.Text = "Painter";
-            this.Load += new System.EventHandler(this.Painter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);

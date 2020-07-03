@@ -32,11 +32,10 @@ namespace Painter
            
         }
 
-        private void Nfigura(Point PreviousPoint, Point CurrentPoint, Color color)
+        private void NSidedPolygon(Point PreviousPoint, Point CurrentPoint, Color color)
         {
             DrawLine(PreviousPoint, CurrentPoint, color);
-
-            Nfigura(CurrentPoint, PreviousPoint, color);
+            NSidedPolygon(CurrentPoint, PreviousPoint, color);
         }
 
 
@@ -117,10 +116,8 @@ namespace Painter
                 DrawLine(last, first, color);
             }
         }
-        private void Kvadrat(Point first, Point second, Color color)
+        private void Rectangle(Point first, Point second, Color color)
         {
-
-
             next.X = first.X;
             next.Y = second.Y;
             DrawLine(first, next, color);
@@ -201,6 +198,10 @@ namespace Painter
             {
                 FirstPoint = e.Location;
             }
+            else if (toolBox.SelectedIndex == 4)
+            {
+                FirstPoint = e.Location;
+            }
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -241,21 +242,21 @@ namespace Painter
             else if (toolBox.SelectedIndex == 2)
             {
                 SecondPoint = e.Location;
-                Kvadrat(FirstPoint, SecondPoint, CurrentColor);
+                Rectangle(FirstPoint, SecondPoint, CurrentColor);
             }
             else if (toolBox.SelectedIndex == 3)
             {
                 SecondPoint = e.Location;
                 Square(FirstPoint, SecondPoint, CurrentColor);
             }
+            else if (toolBox.SelectedIndex == 4)
+            {
+                SecondPoint = e.Location;
+                NSidedPolygon(FirstPoint, SecondPoint, CurrentColor);
+            }
 
         }
 
-        private void Painter_Load(object sender, EventArgs e)
-        {
-            
-            
-        }
 
         private void ColorBox_Click(object sender, EventArgs e)
         {
@@ -271,10 +272,6 @@ namespace Painter
             pictureBox.Image = null;
             StaticBitmap.Bitmap = null;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-        }
-
-        private void pictureBox_Paint(object sender, PaintEventArgs e)
-        {
         }
     }
 }

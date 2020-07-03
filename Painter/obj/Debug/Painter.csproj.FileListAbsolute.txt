@@ -18,3 +18,13 @@ G:\My работы\Paint\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.cspro
 G:\My работы\Paint\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.CoreCompileInputs.cache
 G:\My работы\Paint\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.exe
 G:\My работы\Paint\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.pdb
+D:\WinxPainter\WinxPainter\Painter\bin\Debug\Painter.exe.config
+D:\WinxPainter\WinxPainter\Painter\bin\Debug\Painter.exe
+D:\WinxPainter\WinxPainter\Painter\bin\Debug\Painter.pdb
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csprojAssemblyReference.cache
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.Painter.resources
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.Properties.Resources.resources
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.GenerateResource.cache
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.CoreCompileInputs.cache
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.exe
+D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.pdb
