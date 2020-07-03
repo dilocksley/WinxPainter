@@ -19,8 +19,9 @@ namespace Painter
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
-
-         
+        Point next;
+        Point middle;
+        Point last;
 
         public Painter()
         {
@@ -29,8 +30,107 @@ namespace Painter
             CurrentColor = Color.Red;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
            
-        }      
+        }
 
+        private void Nfigura(Point PreviousPoint, Point CurrentPoint, Color color)
+        {
+            DrawLine(PreviousPoint, CurrentPoint, color);
+
+            Nfigura(CurrentPoint, PreviousPoint, color);
+        }
+
+
+        private void Square(Point first, Point second, Color color)
+        {
+            int length = 0;
+            if (first.X< second.X && first.Y<second.Y) // 4 четверть
+            {
+                length = second.Y - first.Y;
+
+                next.X = first.X + length;
+                next.Y = first.Y;
+                DrawLine(first, next, color);
+
+                middle.X = next.X;
+                middle.Y = next.Y + length;
+                DrawLine(next, middle, color);
+
+                last.X = middle.X - length;
+                last.Y = middle.Y;
+                DrawLine(middle, last, color);
+
+                DrawLine(last, first, color);
+            }
+            if (first.X > second.X && first.Y > second.Y) // II chetvert
+            {
+                length = first.X - second.X;
+
+
+                next.X = first.X - length;
+                next.Y = first.Y;
+                DrawLine(first, next, color);
+
+                middle.X = next.X;
+                middle.Y = next.Y - length;
+                DrawLine(next, middle, color);
+
+                last.X = middle.X+ length;
+                last.Y = middle.Y;
+                DrawLine(middle, last, color);
+
+                DrawLine(last, first, color);
+            }
+            if (first.X > second.X && first.Y < second.Y) // III chetvert
+            {
+                length = first.X - second.X;
+
+                next.X = first.X ;
+                next.Y = first.Y+ length;
+                DrawLine(first, next, color);
+
+                middle.X = next.X- length;
+                middle.Y = next.Y;
+                DrawLine(next, middle, color);
+
+                last.X = middle.X ;
+                last.Y = middle.Y - length;
+                DrawLine(middle, last, color);
+
+                DrawLine(last, first, color);
+            }
+            if (first.X < second.X && first.Y > second.Y) // I chetvert
+            {
+                length = second.X - first.X;
+
+                next.X = first.X;
+                next.Y = first.Y - length;
+                DrawLine(first, next, color);
+
+                middle.X = next.X + length;
+                middle.Y = next.Y;
+                DrawLine(next, middle, color);
+
+                last.X = middle.X;
+                last.Y = middle.Y + length;
+                DrawLine(middle, last, color);
+
+                DrawLine(last, first, color);
+            }
+        }
+        private void Kvadrat(Point first, Point second, Color color)
+        {
+
+
+            next.X = first.X;
+            next.Y = second.Y;
+            DrawLine(first, next, color);
+            DrawLine(next, second, color);
+
+            next.X = second.X;
+            next.Y = first.Y;
+            DrawLine(second, next, color);
+            DrawLine(next, first, color);
+        }
         private void Draw(Point PreviousPoint, Point CurrentPoint, Color color )
         {
             Point Delta = new Point(0, 0);
@@ -56,7 +156,7 @@ namespace Painter
 
             for (int i = 0; i <= step; i++)
             {
-                StaticBitmap.Bitmap.SetPixel((int)startX, (int)startY, CurrentColor);
+                StaticBitmap.SetPixel((int)startX, (int)startY, CurrentColor);
                 startX += incrementX;
                 startY += incrementY;
             }
@@ -80,7 +180,7 @@ namespace Painter
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-
+            
             if (toolBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Вы не выбрали инструмент для рисования");
@@ -92,7 +192,15 @@ namespace Painter
             else if (toolBox.SelectedIndex == 1)
             {                
                 FirstPoint = e.Location;
-            }            
+            }
+            else if (toolBox.SelectedIndex == 2)
+            {
+                FirstPoint = e.Location;
+            }
+            else if (toolBox.SelectedIndex == 3)
+            {
+                FirstPoint = e.Location;
+            }
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -106,9 +214,11 @@ namespace Painter
                     Draw(PreviuosPoint, CurrentPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 1)
-                {
+                {                   
                     
+                   
                 }
+
             }
            
             label1.Text = $"X = {e.X}";
@@ -123,9 +233,20 @@ namespace Painter
                 
             }
             else if (toolBox.SelectedIndex == 1) 
-            {               
+            {
+                
                 SecondPoint = e.Location;               
                 DrawLine(FirstPoint, SecondPoint, CurrentColor);
+            }
+            else if (toolBox.SelectedIndex == 2)
+            {
+                SecondPoint = e.Location;
+                Kvadrat(FirstPoint, SecondPoint, CurrentColor);
+            }
+            else if (toolBox.SelectedIndex == 3)
+            {
+                SecondPoint = e.Location;
+                Square(FirstPoint, SecondPoint, CurrentColor);
             }
 
         }

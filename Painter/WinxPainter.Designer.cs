@@ -63,7 +63,9 @@
             this.toolBox.FormattingEnabled = true;
             this.toolBox.Items.AddRange(new object[] {
             "Карандаш",
-            "Линейка"});
+            "Прямая линия",
+            "Прямоугольник",
+            "Квадрат"});
             this.toolBox.Location = new System.Drawing.Point(249, 500);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);
@@ -72,7 +74,7 @@
             // 
             // ColorBox
             // 
-            this.ColorBox.Location = new System.Drawing.Point(724, 500);
+            this.ColorBox.Location = new System.Drawing.Point(760, 503);
             this.ColorBox.Name = "ColorBox";
             this.ColorBox.Size = new System.Drawing.Size(127, 23);
             this.ColorBox.TabIndex = 2;
@@ -100,7 +102,7 @@
             // 
             // DeletAll
             // 
-            this.DeletAll.Location = new System.Drawing.Point(537, 500);
+            this.DeletAll.Location = new System.Drawing.Point(573, 503);
             this.DeletAll.Name = "DeletAll";
             this.DeletAll.Size = new System.Drawing.Size(100, 23);
             this.DeletAll.TabIndex = 5;
@@ -110,7 +112,7 @@
             // 
             // Rubber
             // 
-            this.Rubber.Location = new System.Drawing.Point(643, 500);
+            this.Rubber.Location = new System.Drawing.Point(679, 503);
             this.Rubber.Name = "Rubber";
             this.Rubber.Size = new System.Drawing.Size(75, 23);
             this.Rubber.TabIndex = 6;
