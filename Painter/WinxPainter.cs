@@ -14,9 +14,7 @@ namespace Painter
     public partial class Painter : Form
     {
         
-        Color CurrentColor;
-        Point CurrentPoint;
-        Point PreviuosPoint;
+        Color CurrentColor;        
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
@@ -27,7 +25,9 @@ namespace Painter
         int R;//расстояние от центра до стороны       
         Point[] p;
         int count = 0;
-
+        double angle = Math.PI / 2; //Угол поворота на 90 градусов
+        double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
+        double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
 
         public Painter()
         {
@@ -38,6 +38,30 @@ namespace Painter
             textBox1.Text = "0";
         }
 
+        private void DrawTree(double x, double y, double a, double angle)
+        {
+
+            if (a > 2)
+            {
+                a *= 0.7; //Меняем параметр a - это колличество веток
+
+                //Считаем координаты для ветки
+                double xnew = Math.Round(x + a * Math.Cos(angle)),
+                       ynew = Math.Round(y - a * Math.Sin(angle));
+
+                //соединяем вершинами
+                DrawLine((int)x, (int)y, (int)xnew, (int)ynew, CurrentColor);
+
+                //Переприсваеваем координаты
+                x = xnew;
+                y = ynew;
+
+                //Для левой и правой ветки
+                DrawTree(x, y, a, angle + ang1);
+                DrawTree(x, y, a, angle - ang2);
+            }
+            
+        }
         private void Trapezoid(Point first, Point second, Color color)
         {
             if (second.X > first.X)
@@ -76,9 +100,9 @@ namespace Painter
 
                 DrawLine(second, first, color);
             }
-
-
         }
+
+       
         private void PointTriangle(Point FirstPoint, Point SecondPoint, Point ThirdPoint, Color color)
         {
             DrawLine(FirstPoint, SecondPoint, color);
@@ -236,12 +260,12 @@ namespace Painter
             DrawLine(second, next, color);
             DrawLine(next, first, color);
         }
-        private void Draw(Point PreviousPoint, Point CurrentPoint, Color color )
+        private void Draw(Point first, Point second, Color color )
         {
             Point Delta = new Point(0, 0);
 
-            Delta.X = CurrentPoint.X - PreviousPoint.X;
-            Delta.Y = CurrentPoint.Y - PreviousPoint.Y;
+            Delta.X = second.X - first.X;
+            Delta.Y = second.Y - first.Y;
 
             int step;
             if(Math.Abs(Delta.X) > Math.Abs(Delta.Y))
@@ -256,8 +280,8 @@ namespace Painter
             double incrementX = Delta.X / (double)step;
             double incrementY = Delta.Y / (double)step;
 
-            double startX = PreviousPoint.X;
-            double startY = PreviousPoint.Y;
+            double startX = first.X;
+            double startY = first.Y;
 
             for (int i = 0; i <= step; i++)
             {
@@ -268,19 +292,21 @@ namespace Painter
             pictureBox.Image = StaticBitmap.Bitmap;           
         }
 
-        private void DrawLine(Point PreviousPoint, Point CurrentPoint, Color color)
+        private void DrawLine(Point first, Point second, Color color)
         {
-            Draw(PreviousPoint, CurrentPoint, color);
+            Draw(first, second, color);
         }
         private void DrawLine(int x1, int y1, int x2, int y2, Color color)
         {
-            PreviuosPoint.X = x1;
-            PreviuosPoint.Y = y1;
-            CurrentPoint.X = x2;
-            CurrentPoint.Y = y2;
+            FirstPoint.X = x1;
+            FirstPoint.Y = y1;
+            SecondPoint.X = x2;
+            SecondPoint.Y = y2;
 
-            Draw(PreviuosPoint, CurrentPoint, color);
+            Draw(FirstPoint, SecondPoint, color);
         }
+
+        
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -335,7 +361,7 @@ namespace Painter
                 {
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-                    Draw(PreviuosPoint, CurrentPoint, CurrentColor);
+                    Draw(FirstPoint, SecondPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {                   
@@ -391,6 +417,10 @@ namespace Painter
                 {                    
                      IsoscelesTriangle(FirstPoint, SecondPoint, CurrentColor);
                 }
+            else if(toolBox.SelectedIndex == 9)
+            {
+                DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
+            }
 
 
 
