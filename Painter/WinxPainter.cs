@@ -22,6 +22,10 @@ namespace Painter
         Point next;
         Point middle;
         Point last;
+        int n;//количество сторон
+        int R;//расстояние от центра до стороны       
+        Point[] p;
+
 
         public Painter()
         {
@@ -29,16 +33,51 @@ namespace Painter
 
             CurrentColor = Color.Red;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-           
+            
         }
 
-        private void NSidedPolygon(Point PreviousPoint, Point CurrentPoint, Color color)
+        private void NSidedPolygon(int n)
         {
-            DrawLine(PreviousPoint, CurrentPoint, color);
-            NSidedPolygon(CurrentPoint, PreviousPoint, color);
+
+            p = new Point[n + 1];
+            lineAngle((double)(360.0 / (double)n));
+            int i = n;
+            
+            while (i > 0)
+            {
+                DrawLine( p[i], p[i - 1],CurrentColor);
+                i = i - 1;
+            }
         }
 
-
+        private void lineAngle(double angle)
+        {
+            
+            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // 4 четверть
+            {
+                R = SecondPoint.Y - FirstPoint.Y;
+            }
+            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // II chetvert
+            {
+                R =  FirstPoint.Y - SecondPoint.Y;
+            }
+            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // III chetvert
+            {
+                R = FirstPoint.Y - SecondPoint.Y;
+            }
+            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // I chetvert
+            {
+                R = SecondPoint.X - FirstPoint.X;
+            }
+            double z = 0; int i = 0;
+            while (i < n + 1)
+            {
+                p[i].X = FirstPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
+                p[i].Y = FirstPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
+                z = z + angle;
+                i++;
+            }
+        }
         private void Square(Point first, Point second, Color color)
         {
             int length = 0;
@@ -157,51 +196,56 @@ namespace Painter
                 startX += incrementX;
                 startY += incrementY;
             }
-            pictureBox.Image = StaticBitmap.Bitmap;
-
-            //for (int i = PreviousPoint.Y; i < CurrentPoint.Y; i++)
-            //{
-            //  int x = ((-PreviousPoint.X * i) + (CurrentPoint.X * i) - ((PreviousPoint.X * CurrentPoint.Y) - (PreviousPoint.Y * CurrentPoint.X))) / (PreviousPoint.Y - CurrentPoint.Y);
-            //    if (x >= 0 && x < StaticBitmap.Bitmap.Width && i >= 0 && i < StaticBitmap.Bitmap.Height)
-            //    {
-            //        StaticBitmap.Bitmap.SetPixel(x, i, CurrentColor);
-            //    }
-
-            //}
+            pictureBox.Image = StaticBitmap.Bitmap;           
         }
 
         private void DrawLine(Point PreviousPoint, Point CurrentPoint, Color color)
         {
             Draw(PreviousPoint, CurrentPoint, color);
         }
+        private void DrawLine(int x1, int y1, int x2, int y2, Color color)
+        {
+            PreviuosPoint.X = x1;
+            PreviuosPoint.Y = y1;
+            CurrentPoint.X = x2;
+            CurrentPoint.Y = y2;
+
+            Draw(PreviuosPoint, CurrentPoint, color);
+        }
+
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseDown = true;
-            
-            if (toolBox.SelectedIndex == -1)
-            {
-                MessageBox.Show("Вы не выбрали инструмент для рисования");
-            }
-            else if (toolBox.SelectedIndex == 0)
-            {
-                CurrentPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 1)
-            {                
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 2)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 3)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 4)
-            {
-                FirstPoint = e.Location;
-            }
+                     
+                mouseDown = true;
+                if (toolBox.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Вы не выбрали инструмент для рисования");
+                }
+                else if (toolBox.SelectedIndex == 0)
+                {
+                    CurrentPoint = e.Location;
+                }
+                else if (toolBox.SelectedIndex == 1)
+                {
+                    FirstPoint = e.Location;
+                }
+                else if (toolBox.SelectedIndex == 2)
+                {
+                    FirstPoint = e.Location;
+                }
+                else if (toolBox.SelectedIndex == 3)
+                {
+                    FirstPoint = e.Location;
+                }
+                else if (toolBox.SelectedIndex == 4)
+                {
+                    FirstPoint = e.Location;
+                }
+            //else if (toolBox.SelectedIndex == 5)
+            //{
+            //    FillArea(e.X, e.Y, CurrentColor);
+            //}
+
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -216,8 +260,7 @@ namespace Painter
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {                   
-                    
-                   
+
                 }
 
             }
@@ -229,35 +272,39 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-            if (toolBox.SelectedIndex == 0)
-            {
-                
-            }
-            else if (toolBox.SelectedIndex == 1) 
-            {
-                
-                SecondPoint = e.Location;               
-                DrawLine(FirstPoint, SecondPoint, CurrentColor);
-            }
-            else if (toolBox.SelectedIndex == 2)
-            {
-                SecondPoint = e.Location;
-                Rectangle(FirstPoint, SecondPoint, CurrentColor);
-            }
-            else if (toolBox.SelectedIndex == 3)
-            {
-                SecondPoint = e.Location;
-                Square(FirstPoint, SecondPoint, CurrentColor);
-            }
-            else if (toolBox.SelectedIndex == 4)
-            {
-                SecondPoint = e.Location;
-                NSidedPolygon(FirstPoint, SecondPoint, CurrentColor);
-            }
+           
+                if (toolBox.SelectedIndex == 0)
+                {
+
+                }
+                else if (toolBox.SelectedIndex == 1)
+                {
+
+                    SecondPoint = e.Location;
+                    DrawLine(FirstPoint, SecondPoint, CurrentColor);
+                }
+                else if (toolBox.SelectedIndex == 2)
+                {
+                    SecondPoint = e.Location;
+                    Rectangle(FirstPoint, SecondPoint, CurrentColor);
+                }
+                else if (toolBox.SelectedIndex == 3)
+                {
+                    SecondPoint = e.Location;
+                    Square(FirstPoint, SecondPoint, CurrentColor);
+                }
+                else if (toolBox.SelectedIndex == 4)
+                {
+                     n = Convert.ToInt32(textBox1.Text);                                                                      //  Сделать ввод
+                    SecondPoint = e.Location;
+                    NSidedPolygon(n);
+                }
+
+            
 
         }
 
-
+        
         private void ColorBox_Click(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
@@ -272,6 +319,34 @@ namespace Painter
             pictureBox.Image = null;
             StaticBitmap.Bitmap = null;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+        }
+
+        private void FillArea(int x, int y, Color color)
+        {
+            DrawLine(x, y, x, y, color);
+            
+            if (StaticBitmap.Bitmap.GetPixel(x, y+1) == Color.White )
+            {
+                FillArea(x, y + 1, color);
+            }
+            if (StaticBitmap.Bitmap.GetPixel(x, y - 1) == Color.White)
+            {
+                FillArea(x, y - 1, color);
+            }
+            if (StaticBitmap.Bitmap.GetPixel(x+1, y) == Color.White)
+            {
+                FillArea(x + 1, y, color);
+            }
+            if (StaticBitmap.Bitmap.GetPixel(x-1, y) == Color.White)
+            {
+                FillArea(x - 1, y, color);
+            }
+           
+        }
+        private void Fill_Click(object sender, EventArgs e)
+        {
+           
+
         }
     }
 }

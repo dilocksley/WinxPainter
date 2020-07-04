@@ -37,6 +37,8 @@
             this.DeletAll = new System.Windows.Forms.Button();
             this.Rubber = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.Fill = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +59,7 @@
             // 
             // toolBox
             // 
+            this.toolBox.BackColor = System.Drawing.Color.White;
             this.toolBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.toolBox.FormattingEnabled = true;
@@ -65,8 +68,9 @@
             "Прямая линия",
             "Прямоугольник",
             "Квадрат",
-            "N-угольник"});
-            this.toolBox.Location = new System.Drawing.Point(249, 500);
+            "N-угольник",
+            "заливка"});
+            this.toolBox.Location = new System.Drawing.Point(212, 501);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);
             this.toolBox.TabIndex = 1;
@@ -121,16 +125,35 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(383, 502);
+            this.numericUpDown1.Location = new System.Drawing.Point(328, 501);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 8;
+            // 
+            // Fill
+            // 
+            this.Fill.Location = new System.Drawing.Point(492, 503);
+            this.Fill.Name = "Fill";
+            this.Fill.Size = new System.Drawing.Size(75, 23);
+            this.Fill.TabIndex = 9;
+            this.Fill.Text = "Заливка";
+            this.Fill.UseVisualStyleBackColor = true;
+            this.Fill.Click += new System.EventHandler(this.Fill_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(212, 475);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(110, 20);
+            this.textBox1.TabIndex = 10;
             // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 538);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Fill);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.Rubber);
             this.Controls.Add(this.DeletAll);
@@ -159,6 +182,8 @@
         private System.Windows.Forms.Button DeletAll;
         private System.Windows.Forms.Button Rubber;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button Fill;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
