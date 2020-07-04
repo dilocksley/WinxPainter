@@ -23,7 +23,7 @@ namespace Painter
         Point next;
         Point middle;
         Point last;
-        int n;//количество сторон
+        int n = 1;//количество сторон
         int R;//расстояние от центра до стороны       
         Point[] p;
         int count = 0;
@@ -32,12 +32,53 @@ namespace Painter
         public Painter()
         {
             InitializeComponent();
-
-            CurrentColor = Color.Red;
+          
+            CurrentColor = Color.Black;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-            
+            textBox1.Text = "0";
         }
 
+        private void Trapezoid(Point first, Point second, Color color)
+        {
+            if (second.X > first.X)
+            {
+                next.X = first.X + Math.Abs(second.X - first.X) / 4;
+                next.Y = second.Y;
+
+                last.X = next.X + ((second.X - first.X) / 2);
+                last.Y = next.Y;
+
+                second.Y = first.Y;
+
+                DrawLine(first, next, color);
+
+                DrawLine(next, last, color);
+
+                DrawLine(last, second, color);
+
+                DrawLine(second, first, color);
+            }
+            else 
+            {
+                next.X = first.X - Math.Abs(second.X - first.X) / 4;
+                next.Y = second.Y;
+
+                last.X = next.X + ((second.X - first.X) / 2);
+                last.Y = next.Y;
+
+                second.Y = first.Y;
+
+                DrawLine(first, next, color);
+
+                DrawLine(next, last, color);
+
+                DrawLine(last, second, color);
+
+                DrawLine(second, first, color);
+            }
+
+
+        }
         private void PointTriangle(Point FirstPoint, Point SecondPoint, Point ThirdPoint, Color color)
         {
             DrawLine(FirstPoint, SecondPoint, color);
@@ -243,47 +284,16 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-                     
-                mouseDown = true;
+                  mouseDown = true;
+                 
+                  FirstPoint = e.Location;
                 if (toolBox.SelectedIndex == -1)
                 {
                     MessageBox.Show("Вы не выбрали инструмент для рисования");
                 }
-                else if (toolBox.SelectedIndex == 0)
-                {
-                    CurrentPoint = e.Location;
-                }
-                else if (toolBox.SelectedIndex == 1)
-                {
-                    FirstPoint = e.Location;
-                }
-                else if (toolBox.SelectedIndex == 2)
-                {
-                    FirstPoint = e.Location;
-                }
-                else if (toolBox.SelectedIndex == 3)
-                {
-                    FirstPoint = e.Location;
-                }
-                else if (toolBox.SelectedIndex == 4)
-                {
-                    FirstPoint = e.Location;
-                }
-                //else if (toolBox.SelectedIndex == 6)
-                //{
-                //    FirstPoint = e.Location;
-                    
-                //}
-                else if (toolBox.SelectedIndex == 7)
-                {
-                    FirstPoint = e.Location;
-                    
-                }
-                else if (toolBox.SelectedIndex == 8)
-                {
-                   FirstPoint = e.Location;
 
-                }
+                
+               
             //else if (toolBox.SelectedIndex == 5)
             //{
             //    FillArea(e.X, e.Y, CurrentColor);
@@ -323,8 +333,8 @@ namespace Painter
             {
                 if (toolBox.SelectedIndex == 0)
                 {
-                    PreviuosPoint = CurrentPoint;
-                    CurrentPoint = e.Location;
+                    SecondPoint = FirstPoint;
+                    FirstPoint = e.Location;
                     Draw(PreviuosPoint, CurrentPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 1)
@@ -340,43 +350,46 @@ namespace Painter
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+
             mouseDown = false;
-           
+            SecondPoint = e.Location;
                 if (toolBox.SelectedIndex == 0)
                 {
 
                 }
                 else if (toolBox.SelectedIndex == 1)
-                {
-
-                    SecondPoint = e.Location;
+                {                   
                     DrawLine(FirstPoint, SecondPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 2)
-                {
-                    SecondPoint = e.Location;
+                {                    
                     Rectangle(FirstPoint, SecondPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 3)
-                {
-                    SecondPoint = e.Location;
+                {                   
                     Square(FirstPoint, SecondPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 4)
                 {
-                     n = Convert.ToInt32(textBox1.Text);                                                                      //  Сделать ввод
-                    SecondPoint = e.Location;
+                    n = Convert.ToInt32(textBox1.Text);
+                    if (n <= 0)
+                    {
+                       MessageBox.Show("Введите количество граней");
+                    }
+               
                     NSidedPolygon(n);
                 }
+                else if (toolBox.SelectedIndex == 5)
+                {                   
+                   Trapezoid(FirstPoint, SecondPoint, CurrentColor);
+                }
                 else if (toolBox.SelectedIndex == 7)
-                {
-                    SecondPoint = e.Location;
+                {                    
                     PointRightTriangle(FirstPoint, SecondPoint, CurrentColor);
                 }
                 else if (toolBox.SelectedIndex == 8)
-                {
-                    SecondPoint = e.Location;
-                IsoscelesTriangle(FirstPoint, SecondPoint, CurrentColor);
+                {                    
+                     IsoscelesTriangle(FirstPoint, SecondPoint, CurrentColor);
                 }
 
 
@@ -428,5 +441,14 @@ namespace Painter
 
         }
 
+        private void Rubber_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
