@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,7 @@ namespace Painter
         int n;//количество сторон
         int R;//расстояние от центра до стороны       
         Point[] p;
+        int count = 0;
 
 
         public Painter()
@@ -35,6 +37,32 @@ namespace Painter
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             
         }
+
+        private void PointTriangle(Point FirstPoint, Point SecondPoint, Point ThirdPoint, Color color)
+        {
+            DrawLine(FirstPoint, SecondPoint, color);
+            DrawLine(SecondPoint, ThirdPoint, color);
+            DrawLine(ThirdPoint, FirstPoint, color);
+        }
+
+        private void PointRightTriangle(Point first, Point second, Color color)
+        {
+            next.X = first.X;
+            next.Y = second.Y;
+            DrawLine(first, next, color);
+            DrawLine(next, second, color);
+            DrawLine(second, first, color);
+        }
+
+        private void IsoscelesTriangle(Point first, Point second, Color color)
+        {
+            next.X = first.X - (second.X - first.X);
+            next.Y = second.Y;
+            DrawLine(first, second, color);
+            DrawLine(second, next, color);
+            DrawLine(next, first, color);
+        }
+
 
         private void NSidedPolygon(int n)
         {
@@ -241,11 +269,52 @@ namespace Painter
                 {
                     FirstPoint = e.Location;
                 }
+                //else if (toolBox.SelectedIndex == 6)
+                //{
+                //    FirstPoint = e.Location;
+                    
+                //}
+                else if (toolBox.SelectedIndex == 7)
+                {
+                    FirstPoint = e.Location;
+                    
+                }
+                else if (toolBox.SelectedIndex == 8)
+                {
+                   FirstPoint = e.Location;
+
+                }
             //else if (toolBox.SelectedIndex == 5)
             //{
             //    FillArea(e.X, e.Y, CurrentColor);
             //}
 
+        }
+
+        private void pictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            if (toolBox.SelectedIndex == 6)
+            {
+                if (count == 0)
+                {
+                    FirstPoint = e.Location;
+                    count++;
+                }
+                else if (count == 1)
+                {
+                    SecondPoint = e.Location;
+                    count++;
+                }
+                else if (count == 2)
+                {
+
+                    PointTriangle(FirstPoint, SecondPoint, e.Location, CurrentColor);
+                    count = 0;
+                }
+
+                                                  
+            }
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -299,8 +368,18 @@ namespace Painter
                     SecondPoint = e.Location;
                     NSidedPolygon(n);
                 }
+                else if (toolBox.SelectedIndex == 7)
+                {
+                    SecondPoint = e.Location;
+                    PointRightTriangle(FirstPoint, SecondPoint, CurrentColor);
+                }
+                else if (toolBox.SelectedIndex == 8)
+                {
+                    SecondPoint = e.Location;
+                IsoscelesTriangle(FirstPoint, SecondPoint, CurrentColor);
+                }
 
-            
+
 
         }
 
@@ -348,5 +427,6 @@ namespace Painter
            
 
         }
+
     }
 }

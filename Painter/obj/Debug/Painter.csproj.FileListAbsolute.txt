@@ -28,3 +28,13 @@ D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.GenerateResource.cac
 D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.CoreCompileInputs.cache
 D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.exe
 D:\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.pdb
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\bin\Debug\Painter.exe.config
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\bin\Debug\Painter.exe
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\bin\Debug\Painter.pdb
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csprojAssemblyReference.cache
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.Painter.resources
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.Properties.Resources.resources
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.GenerateResource.cache
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.csproj.CoreCompileInputs.cache
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.exe
+C:\Users\annyk\OneDrive\Рабочий стол\Project\WinxPainter\WinxPainter\Painter\obj\Debug\Painter.pdb
