@@ -22,13 +22,13 @@ namespace Painter
         Point middle;
         Point last;
         Point center;
-        int n = 1;//количество сторон
-        int R;//расстояние от центра до стороны       
+        int n = 1;                  //количество сторон
+        int R;                      //расстояние от центра до стороны       
         Point[] p;
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
-        double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
-        double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
+        double angle1 = Math.PI / 4;  //Угол поворота на 45 градусов
+        double angle2 = Math.PI / 6;  //Угол поворота на 30 градусов
 
         public Painter()
         {
@@ -58,8 +58,8 @@ namespace Painter
                 y = ynew;
 
                 //Для левой и правой ветки
-                DrawTree(x, y, a, angle + ang1);
-                DrawTree(x, y, a, angle - ang2);
+                DrawTree(x, y, a, angle + angle1);
+                DrawTree(x, y, a, angle - angle2);
             }
 
         }
@@ -134,7 +134,7 @@ namespace Painter
         {
 
             p = new Point[n + 1];
-            lineAngle((double)(360.0 / (double)n));
+            LineAngle((double)(360.0 / (double)n));
             int i = n;
 
             while (i > 0)
@@ -144,22 +144,22 @@ namespace Painter
             }
         }
 
-        private void lineAngle(double angle)
+        private void LineAngle(double angle)
         {
 
-            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // 4 четверть
+            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // IV четверть
             {
                 R = SecondPoint.Y - FirstPoint.Y;
             }
-            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // II chetvert
+            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // II четверть
             {
                 R = FirstPoint.Y - SecondPoint.Y;
             }
-            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // III chetvert
+            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // III четверть
             {
                 R = FirstPoint.Y - SecondPoint.Y;
             }
-            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // I chetvert
+            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // I четверть
             {
                 R = SecondPoint.X - FirstPoint.X;
             }
@@ -175,7 +175,7 @@ namespace Painter
         private void Square(Point first, Point second, Color color)
         {
             int length = 0;
-            if (first.X < second.X && first.Y < second.Y) // 4 четверть
+            if (first.X < second.X && first.Y < second.Y) // IV четверть
             {
                 length = second.Y - first.Y;
 
@@ -193,7 +193,7 @@ namespace Painter
 
                 DrawLine(last, first, color);
             }
-            if (first.X > second.X && first.Y > second.Y) // II chetvert
+            if (first.X > second.X && first.Y > second.Y) // II четверть
             {
                 length = first.X - second.X;
 
@@ -212,7 +212,7 @@ namespace Painter
 
                 DrawLine(last, first, color);
             }
-            if (first.X > second.X && first.Y < second.Y) // III chetvert
+            if (first.X > second.X && first.Y < second.Y) // III четверть
             {
                 length = first.X - second.X;
 
@@ -230,7 +230,7 @@ namespace Painter
 
                 DrawLine(last, first, color);
             }
-            if (first.X < second.X && first.Y > second.Y) // I chetvert
+            if (first.X < second.X && first.Y > second.Y) // I четверть
             {
                 length = second.X - first.X;
 
@@ -375,10 +375,7 @@ namespace Painter
             SecondPoint.Y = y2;
 
             Draw(FirstPoint, SecondPoint, color);
-
         }
-
-
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -394,7 +391,6 @@ namespace Painter
             //{
             //    FillArea(e.X, e.Y, CurrentColor);
             //}
-
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -494,7 +490,6 @@ namespace Painter
                 Circle(FirstPoint, SecondPoint, CurrentColor);
             }
 
-
         }
 
 
@@ -543,11 +538,6 @@ namespace Painter
         }
 
         private void Rubber_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
         {
 
         }
