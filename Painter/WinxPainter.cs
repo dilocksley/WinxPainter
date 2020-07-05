@@ -298,10 +298,10 @@ namespace Painter
             int error = 0;
             while (y >= 0)
             {
-                StaticBitmap.SetPixel(center.X + x, center.Y + y, CurrentColor);
-                StaticBitmap.SetPixel(center.X + x, center.Y - y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - x, center.Y + y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - x, center.Y - y, CurrentColor);
+                StaticBitmap.SetPixel(center.X + x, center.Y + y, color);
+                StaticBitmap.SetPixel(center.X + x, center.Y - y, color);
+                StaticBitmap.SetPixel(center.X - x, center.Y + y, color);
+                StaticBitmap.SetPixel(center.X - x, center.Y - y, color);
                 error = 2 * (delta + y) - 1;
                 if (delta < 0 && error <= 0)
                 {
@@ -390,56 +390,79 @@ namespace Painter
                     center.Y = first.Y - longLength / 2;
                 }
             }
-            else            // если разница равна, то это окружность, а не эллипс
-            {
-                DrawCircle(first, second, color);
-            }
+            //else            // если разница равна, то это окружность, а не эллипс
+            //{
+            //    DrawCircle(first, second, color);
+            //}
             int longRadius = longLength / 2;
             int shortRadius = shortLength / 2;
-            int _x = 0; // Компонента x
+            int _x = 0;
             int _y = shortRadius;
-            int a_sqr = shortRadius * shortRadius; //  a - большая полуось
-            int b_sqr = longRadius * longRadius; // b - малая полуось
-            int delta = 4 * b_sqr * ((_x + 1) * (_x + 1)) + a_sqr * ((2 * _y - 1) * (2 * _y - 1)) - 4 * a_sqr * b_sqr; // Функция координат точки (x+1, y-1/2)
-            while (a_sqr * (2 * _y - 1) > 2 * b_sqr * (_x + 1)) // Первая часть дуги
+            // Параметры в первой части
+            float delta = (shortRadius * shortRadius) - (longRadius * longRadius * shortRadius) +
+                            (0.25f * longRadius * longRadius);
+            float dx = 2 * shortRadius * shortRadius * _x;
+            float dy = 2 * longRadius * longRadius * _y;
+            float error = 0;
+            while (dx < dy)
             {
-                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, CurrentColor);
-                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, CurrentColor);
-                if (delta < 0) // Переход по горизонтали
+
+                // симметричные точки
+                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
+                error = 2 * (delta + _y) - 1;
+                if (delta < 0)
                 {
                     _x++;
-                    delta += 4 * b_sqr * (2 * _x + 3);
+                    dx = dx + (2 * shortRadius * shortRadius);
+                    delta = delta + dx + (shortRadius * shortRadius);
                 }
-                else // Переход по диагонали
+                else
                 {
                     _x++;
-                    delta = delta - 8 * a_sqr * (_y - 1) + 4 * b_sqr * (2 * _x + 3);
                     _y--;
+                    dx = dx + (2 * shortRadius * shortRadius);
+                    dy = dy - (2 * longRadius * longRadius);
+                    delta = delta + dx - dy + (shortRadius * shortRadius);
+                }
+
+            }
+
+            // Параметры второй части
+            float d2 = ((shortRadius * shortRadius) * ((_x + 0.5f) * (_x + 0.5f)))
+                + ((longRadius * longRadius) * ((_y - 1) * (_y - 1)))
+                - (longRadius * longRadius * shortRadius * shortRadius);
+
+            while (_y >= 0)
+            {
+
+                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
+                error = 2 * (delta + _y) - 1;
+                if (d2 > 0)
+                {
+                    _y--;
+                    dy = dy - (2 * longRadius * longRadius);
+                    d2 = d2 + (longRadius * longRadius) - dy;
+                }
+                else
+                {
+                    _y--;
+                    _x++;
+                    dx = dx + (2 * shortRadius * shortRadius);
+                    dy = dy - (2 * longRadius * longRadius);
+                    d2 = d2 + dx - dy + (longRadius * longRadius);
                 }
             }
-            delta = b_sqr * ((2 * _x + 1) * (2 * _x + 1)) + 4 * a_sqr * ((_y + 1) * (_y + 1)) - 4 * a_sqr * b_sqr; // Функция координат точки (x+1/2, y-1)
-            while (_y + 1 != 0) // Вторая часть дуги, если не выполняется условие первого цикла, значит выполняется a^2(2y - 1) <= 2b^2(x + 1)
-            {
-                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, CurrentColor);
-                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, CurrentColor);
-                if (delta < 0) // Переход по вертикали
-                {
-                    _y--;
-                    delta += 4 * a_sqr * (2 * _y + 3);
-                }
-                else // Переход по диагонали
-                {
-                    _y--;
-                    delta = delta - 8 * b_sqr * (_x + 1) + 4 * a_sqr * (2 * _y + 3);
-                    _x++;
-                }
-            }
+
+            
             pictureBox.Image = StaticBitmap.Bitmap;
         }
+        
         private void DrawRectangle(Point first, Point second, Color color)
         {
             next.X = first.X;
