@@ -114,20 +114,20 @@ namespace Painter
 
         private void DrawPointRightTriangle(Point first, Point second, Color color)
         {
-            next.X = first.X;
-            next.Y = second.Y;
-            DrawLine(first, next, color);
-            DrawLine(next, second, color);
-            DrawLine(second, first, color);
+            //next.X = first.X;
+            //next.Y = second.Y;
+            //DrawLine(first, next, color);
+            //DrawLine(next, second, color);
+            //DrawLine(second, first, color);
         }
 
         private void DrawIsoscelesTriangle(Point first, Point second, Color color)
         {
-            next.X = first.X - (second.X - first.X);
-            next.Y = second.Y;
-            DrawLine(first, second, color);
-            DrawLine(second, next, color);
-            DrawLine(next, first, color);
+            //next.X = first.X - (second.X - first.X);
+            //next.Y = second.Y;
+            //DrawLine(first, second, color);
+            //DrawLine(second, next, color);
+            //DrawLine(next, first, color);
         }
 
 
@@ -577,11 +577,13 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 7)
             {
-                DrawPointRightTriangle(FirstPoint, SecondPoint, _currentColor);
+                _figure = new RightTriangle(FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
             }
             else if (toolBox.SelectedIndex == 8)
             {
-                DrawIsoscelesTriangle(FirstPoint, SecondPoint, _currentColor);
+                _figure = new IsoscelesTriangle(FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor); 
             }
             else if (toolBox.SelectedIndex == 9)
             {
