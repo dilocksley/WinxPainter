@@ -48,9 +48,9 @@ namespace Painter
         {
             if (a > 2)
             {
-                a *= 0.7; //Меняем параметр a - это колличество веток
+                a *= 0.7;                                                                //Меняем параметр a - это колличество веток
 
-                //Считаем координаты для ветки
+                                                                                          //Считаем координаты для ветки
                 double xnew = Math.Round(x + a * Math.Cos(angle)),
                        ynew = Math.Round(y - a * Math.Sin(angle));
 
@@ -62,8 +62,8 @@ namespace Painter
                 y = ynew;
 
                 //Для левой и правой ветки
-                DrawTree(x, y, a, angle + angle1);
-                DrawTree(x, y, a, angle - angle2);
+                DrawTree(x, y, a, angle + ang1);
+                DrawTree(x, y, a, angle - ang2);
             }
         }
         private void DrawTrapezoid(Point first, Point second, Color color)
@@ -111,6 +111,7 @@ namespace Painter
             DrawLine(FirstPoint, SecondPoint, color);
             DrawLine(SecondPoint, ThirdPoint, color);
             DrawLine(ThirdPoint, FirstPoint, color);
+
         }
 
         private void DrawPointRightTriangle(Point first, Point second, Color color)
@@ -444,17 +445,53 @@ namespace Painter
         {
                   mouseDown = true;
           
-            FirstPoint = e.Location;
+                
                 if (toolBox.SelectedIndex == -1)
                 {
                     MessageBox.Show("Вы не выбрали инструмент для рисования");
                 }
-
-            FirstPoint = e.Location;
-            if (toolBox.SelectedIndex == -1)
+            else if (toolBox.SelectedIndex == 0)
             {
-                MessageBox.Show("Вы не выбрали инструмент для рисования");
+                FirstPoint = e.Location;
             }
+            else if (toolBox.SelectedIndex == 1)
+            {
+                FirstPoint = e.Location;
+            }
+            else if (toolBox.SelectedIndex == 2)
+            {
+                FirstPoint = e.Location;
+            }
+            else if (toolBox.SelectedIndex == 3)
+            {
+                FirstPoint = e.Location;
+            }
+            else if (toolBox.SelectedIndex == 4)
+            {
+                FirstPoint = e.Location;
+            }
+            else if (toolBox.SelectedIndex == 5) 
+            { 
+                FirstPoint = e.Location; 
+
+            } 
+            else if (toolBox.SelectedIndex == 7)
+            {
+                FirstPoint = e.Location;
+
+            }
+            else if (toolBox.SelectedIndex == 8)
+            {
+                FirstPoint = e.Location;
+
+            }
+            else if (toolBox.SelectedIndex == 9)
+            {
+                FirstPoint = e.Location;
+
+            }
+          
+
 
             //else if (toolBox.SelectedIndex == 5)
             //{
@@ -464,16 +501,12 @@ namespace Painter
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if(fill)
-            {
-                FillArea();
-            }
-
+            
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
                 {
-                    FirstPoint = e.Location;
+                   FirstPoint = e.Location;
                     count++;
                 }
                 else if (count == 1)
@@ -483,7 +516,7 @@ namespace Painter
                 }
                 else if (count == 2)
                 {
-
+                    
                     DrawPointTriangle(FirstPoint, SecondPoint, e.Location, _currentColor);
                     count = 0;
                 }
@@ -559,9 +592,9 @@ namespace Painter
             {
                 DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
             }
-            
-            
 
+
+            pictureBox.Image = StaticBitmap.Bitmap;
 
         }
 
@@ -590,7 +623,7 @@ namespace Painter
             while(true)
             {
                 StaticBitmap.Bitmap = (Bitmap)pictureBox.Image;
-                if (StaticBitmap.Bitmap.GetPixel(FirstPoint.X,FirstPoint.Y)==CurrentColor)
+                if (StaticBitmap.Bitmap.GetPixel(FirstPoint.X,FirstPoint.Y)== _currentColor)
                 {
                     last.X = FirstPoint.X;
                     last.Y = FirstPoint.Y + i-1;
@@ -607,7 +640,7 @@ namespace Painter
                     last.Y = last.Y + i;
                     while (true)
                     {
-                        if (StaticBitmap.Bitmap.GetPixel(last.X - q, last.Y) != CurrentColor)
+                        if (StaticBitmap.Bitmap.GetPixel(last.X - q, last.Y) != _currentColor)
                         {
                             DrawLine(last.X, last.Y, last.X - q, last.Y, Color.Red);
                         }
@@ -620,7 +653,7 @@ namespace Painter
 
                     while (true)
                     {
-                        if (StaticBitmap.Bitmap.GetPixel(last.X + w, last.Y) != CurrentColor)
+                        if (StaticBitmap.Bitmap.GetPixel(last.X + w, last.Y) != _currentColor)
                         {
                             DrawLine(last.X, last.Y, last.X + w, last.Y, Color.Red);
                         }
@@ -660,13 +693,13 @@ namespace Painter
 
         private void Rubber_Click(object sender, EventArgs e)
         {            
-            if (CurrentColor != Color.White)
+            if (_currentColor != Color.White)
             {
-                copyColor = CurrentColor;
-                CurrentColor = Color.White;
+                copyColor = _currentColor;
+                _currentColor = Color.White;
                 return;
             }
-            CurrentColor = copyColor;
+            _currentColor = copyColor;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -675,6 +708,11 @@ namespace Painter
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Painter_Load(object sender, EventArgs e)
         {
 
         }
