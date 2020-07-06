@@ -30,9 +30,11 @@ namespace Painter
         Point[] p;
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
-        double angle1 = Math.PI / 4;  //Угол поворота на 45 градусов
-        double angle2 = Math.PI / 6;  //Угол поворота на 30 градусов
-
+        double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
+        double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
+        Color copyColor;
+        bool fill = false; //Для  заливки
+       
         public Painter()
         {
             InitializeComponent();
@@ -440,7 +442,13 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseDown = true;
+                  mouseDown = true;
+          
+            FirstPoint = e.Location;
+                if (toolBox.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Вы не выбрали инструмент для рисования");
+                }
 
             FirstPoint = e.Location;
             if (toolBox.SelectedIndex == -1)
@@ -456,6 +464,10 @@ namespace Painter
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
+            if(fill)
+            {
+                FillArea();
+            }
 
             if (toolBox.SelectedIndex == 6)
             {
@@ -490,7 +502,9 @@ namespace Painter
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
-
+                    
+            
+                    
                 }
             }
 
@@ -545,15 +559,10 @@ namespace Painter
             {
                 DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
             }
-            else if (toolBox.SelectedIndex == 10)
-            {
-                DrawCircle(FirstPoint, SecondPoint, _currentColor);
-            }
-            else if (toolBox.SelectedIndex == 11)
-            {
-                DrawEllipse(FirstPoint, SecondPoint, _currentColor);
-            }
-            pictureBox.Image = StaticBitmap.Bitmap;
+            
+            
+
+
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
@@ -572,35 +581,100 @@ namespace Painter
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
         }
 
-        private void FillArea(int x, int y, Color color)
+        private void FillArea()
         {
-            DrawLine(x, y, x, y, color);
 
-            if (StaticBitmap.Bitmap.GetPixel(x, y + 1) == Color.White)
+            int q = 0;
+            int w = 0;
+            int i = 0;
+            while(true)
             {
-                FillArea(x, y + 1, color);
+                StaticBitmap.Bitmap = (Bitmap)pictureBox.Image;
+                if (StaticBitmap.Bitmap.GetPixel(FirstPoint.X,FirstPoint.Y)==CurrentColor)
+                {
+                    last.X = FirstPoint.X;
+                    last.Y = FirstPoint.Y + i-1;
+                    break;
+                }
+                FirstPoint.Y = FirstPoint.Y + 1;
+                
             }
-            if (StaticBitmap.Bitmap.GetPixel(x, y - 1) == Color.White)
+            i = 0;
+            while (true)
             {
-                FillArea(x, y - 1, color);
+                if (true)
+                {
+                    last.Y = last.Y + i;
+                    while (true)
+                    {
+                        if (StaticBitmap.Bitmap.GetPixel(last.X - q, last.Y) != CurrentColor)
+                        {
+                            DrawLine(last.X, last.Y, last.X - q, last.Y, Color.Red);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        q++;
+                    }
+
+                    while (true)
+                    {
+                        if (StaticBitmap.Bitmap.GetPixel(last.X + w, last.Y) != CurrentColor)
+                        {
+                            DrawLine(last.X, last.Y, last.X + w, last.Y, Color.Red);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        w++;
+                    }
+                }
+                i++;
             }
-            if (StaticBitmap.Bitmap.GetPixel(x + 1, y) == Color.White)
-            {
-                FillArea(x + 1, y, color);
-            }
-            if (StaticBitmap.Bitmap.GetPixel(x - 1, y) == Color.White)
-            {
-                FillArea(x - 1, y, color);
-            }
+            //DrawLine(x, y, x, y, color);
+
+            //if (StaticBitmap.Bitmap.GetPixel(x, y+1) == Color.White )
+            //{
+            //    FillArea(x, y + 1, color);
+            //}
+            //if (StaticBitmap.Bitmap.GetPixel(x, y - 1) == Color.White)
+            //{
+            //    FillArea(x, y - 1, color);
+            //}
+            //if (StaticBitmap.Bitmap.GetPixel(x+1, y) == Color.White)
+            //{
+            //    FillArea(x + 1, y, color);
+            //}
+            //if (StaticBitmap.Bitmap.GetPixel(x-1, y) == Color.White)
+            //{
+            //    FillArea(x - 1, y, color);
+            //}
 
         }
         private void Fill_Click(object sender, EventArgs e)
         {
-
-
+            // fill = true;
         }
 
         private void Rubber_Click(object sender, EventArgs e)
+        {            
+            if (CurrentColor != Color.White)
+            {
+                copyColor = CurrentColor;
+                CurrentColor = Color.White;
+                return;
+            }
+            CurrentColor = copyColor;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
 
         }
