@@ -32,6 +32,18 @@ namespace Painter
             }
             DrawLine(tmp, list[0], color);       // соедиение последней точки с первой
         }
+        public static void DrawRoundShapedFigure(List<Point> list, Color color)
+        {
+            Point tmp = new Point(-1, -1);
+            foreach (Point point in list)
+            {
+                if (tmp.X != -1)
+                {
+
+                }
+                tmp = point;
+            }
+        }
         private static void DrawVoluntary(Point first, Point second, Color color)
         {
             Point Delta = new Point(0, 0);

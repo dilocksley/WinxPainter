@@ -74,7 +74,9 @@
             "Треугольник (3 точки)",
             "Прямоугольный треугольник",
             "Равнобедренный треугольник ",
-            "дерево"});
+            "Дерево",
+            "Круг",
+            "Эллипс"});
             this.toolBox.Location = new System.Drawing.Point(130, 10);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);

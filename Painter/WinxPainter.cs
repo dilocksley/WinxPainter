@@ -530,8 +530,6 @@ namespace Painter
                 else if (toolBox.SelectedIndex == 1)
                 {
                     
-            
-                    
                 }
             }
 
@@ -556,7 +554,6 @@ namespace Painter
             {
                 _figure = new RectangleMath(FirstPoint, SecondPoint);
                 StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                // DrawRectangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 3)
             {
@@ -589,6 +586,15 @@ namespace Painter
             else if (toolBox.SelectedIndex == 9)
             {
                 DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
+            }
+            else if (toolBox.SelectedIndex == 10)
+            {
+                _figure = new Line(FirstPoint, SecondPoint);
+                StaticBitmap.DrawRoundShapedFigure(_figure.GetPoints(), _currentColor);
+            }
+            else if (toolBox.SelectedIndex == 11)
+            {
+                _figure = new Line(FirstPoint, SecondPoint);
             }
 
 
