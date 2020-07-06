@@ -317,152 +317,210 @@ namespace Painter
             }
             pictureBox.Image = StaticBitmap.Bitmap;
         }
-
         private void DrawEllipse(Point first, Point second, Color color)
         {
-            int differenceY = second.Y - first.Y;
-            int differenceX = second.X - first.X;
-            int anotherDifferenceY = first.Y - second.Y;
-            int anotherDifferenceX = first.X - second.X;
-            int shortLength = 0;
-            int longLength = 0;
-            // если разница у меньше разницы х - горизонатльный
-            // если разница y > разницы х - вертикальный
-            if (differenceY < differenceX || anotherDifferenceY < anotherDifferenceX) // горизонтальный
+            //ищем диаметр
+            int diameterY = Math.Abs(second.Y - first.Y); 
+            int diameterX = Math.Abs(second.X - first.X);
+            //ищем радиус
+            int radiusY = diameterY / 2;
+            int radiusX = diameterX / 2;
+            //ищем центр эллипса, определяем старт рисования
+            int centerY = radiusY + first.Y;            
+            if (first.Y > second.Y)
             {
-                if (first.X < second.X && first.Y < second.Y) // IV четверть
-                {
-                    shortLength = second.Y - first.Y;
-                    longLength = second.X - first.X;
-                    center.X = first.X + longLength / 2;
-                    center.Y = first.Y + shortLength / 2;
-                }
-                if (first.X > second.X && first.Y > second.Y) // II четверть
-                {
-                    shortLength = first.Y - second.Y;
-                    longLength = first.X - second.X;
-                    center.X = first.X - longLength / 2;
-                    center.Y = first.Y - shortLength / 2;
-                }
-                if (first.X > second.X && first.Y < second.Y) // III четверть
-                {
-                    shortLength = second.Y - first.Y;
-                    longLength = first.X - second.X;
-                    center.X = first.X - longLength / 2;
-                    center.Y = first.Y + shortLength / 2;
-                }
-                if (first.X < second.X && first.Y > second.Y) // I четверть
-                {
-                    shortLength = first.Y - second.Y;
-                    longLength = second.X - first.X;
-                    center.X = first.X + longLength / 2;
-                    center.Y = first.Y - shortLength / 2;
-                }
-            }
-            else if (differenceY > differenceX || anotherDifferenceY > anotherDifferenceX) // вертикальный
-            {
-                if (first.X < second.X && first.Y < second.Y) // IV четверть
-                {
-                    shortLength = second.X - first.X;
-                    longLength = second.Y - first.Y;
-                    center.X = first.X + shortLength / 2;
-                    center.Y = first.Y + longLength / 2;
-                }
-                if (first.X > second.X && first.Y > second.Y) // II четверть
-                {
-                    shortLength = first.X - second.X;
-                    longLength = first.Y - second.Y;
-                    center.X = first.X - shortLength / 2;
-                    center.Y = first.Y - longLength / 2;
-                }
-                if (first.X > second.X && first.Y < second.Y) // III четверть
-                {
-                    shortLength = first.X - second.X;
-                    longLength = second.Y - first.Y;
-                    center.X = first.X - shortLength / 2;
-                    center.Y = first.Y + longLength / 2;
-                }
-                if (first.X < second.X && first.Y > second.Y) // I четверть
-                {
-                    shortLength = second.X - first.X;
-                    longLength = first.Y - second.Y;
-                    center.X = first.X + shortLength / 2;
-                    center.Y = first.Y - longLength / 2;
-                }
-            }
-            //else            // если разница равна, то это окружность, а не эллипс
-            //{
-            //    DrawCircle(first, second, color);
-            //}
-            int longRadius = longLength / 2;
-            int shortRadius = shortLength / 2;
-            int _x = 0;
-            int _y = shortRadius;
-            // Параметры в первой части
-            float delta = (shortRadius * shortRadius) - (longRadius * longRadius * shortRadius) +
-                            (0.25f * longRadius * longRadius);
-            float dx = 2 * shortRadius * shortRadius * _x;
-            float dy = 2 * longRadius * longRadius * _y;
-            float error = 0;
-            while (dx < dy)
-            {
-
-                // симметричные точки
-                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
-                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
-                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
-                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
-                error = 2 * (delta + _y) - 1;
-                if (delta < 0)
-                {
-                    _x++;
-                    dx = dx + (2 * shortRadius * shortRadius);
-                    delta = delta + dx + (shortRadius * shortRadius);
-                }
-                else
-                {
-                    _x++;
-                    _y--;
-                    dx = dx + (2 * shortRadius * shortRadius);
-                    dy = dy - (2 * longRadius * longRadius);
-                    delta = delta + dx - dy + (shortRadius * shortRadius);
-                }
-
+                centerY = radiusY + second.Y;
             }
 
-            // Параметры второй части
-            float d2 = ((shortRadius * shortRadius) * ((_x + 0.5f) * (_x + 0.5f)))
-                + ((longRadius * longRadius) * ((_y - 1) * (_y - 1)))
-                - (longRadius * longRadius * shortRadius * shortRadius);
-
-            while (_y >= 0)
+            int centerX = radiusX + first.X;
+            int startX = first.X;
+            if (first.X > second.X)
             {
-
-                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
-                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
-                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
-                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
-                error = 2 * (delta + _y) - 1;
-                if (d2 > 0)
-                {
-                    _y--;
-                    dy = dy - (2 * longRadius * longRadius);
-                    d2 = d2 + (longRadius * longRadius) - dy;
-                }
-                else
-                {
-                    _y--;
-                    _x++;
-                    dx = dx + (2 * shortRadius * shortRadius);
-                    dy = dy - (2 * longRadius * longRadius);
-                    d2 = d2 + dx - dy + (longRadius * longRadius);
-                }
+                centerX = radiusX + second.X;
+                startX = second.X;
             }
-
             
+            int previousX = startX;
+            int previousY = DrawEllipseGetY(previousX, centerX, centerY, radiusX, radiusY);
+            int previousYMirror = previousY;
+
+            for (int X = startX+1; X <= startX + diameterX; X++)
+            {
+                int Y = DrawEllipseGetY(X, centerX, centerY, radiusX, radiusY);
+                int YMirror = Y - (Y - centerY) * 2;
+
+                DrawLine(new Point(previousX, previousY), new Point(X, Y), color);
+                DrawLine(new Point(previousX, previousYMirror), new Point(X, YMirror), color);
+
+                previousX = X;
+                previousY = Y;
+                previousYMirror = YMirror;
+            }
+
             pictureBox.Image = StaticBitmap.Bitmap;
         }
-        
+
+        private int DrawEllipseGetY(int X, int centerX, int centerY, int radiusX, int radiusY)
+        {
+            double ch = ((X - centerX) * (X - centerX));
+            double zn = (radiusX * radiusX);
+            double p = ch / zn;
+
+            if (p > 1)
+            {
+                p = 1;
+            }
+
+            double YD = Math.Sqrt((1 - p) * radiusY * radiusY) + centerY;
+            return Convert.ToInt32(YD);
+        }
+
+
+        //private void DrawEllipse(Point first, Point second, Color color)
+        //{
+        //    int differenceY = second.Y - first.Y;
+        //    int differenceX = second.X - first.X;
+        //    int anotherDifferenceY = first.Y - second.Y;
+        //    int anotherDifferenceX = first.X - second.X;
+        //    int shortLength = 0;
+        //    int longLength = 0;
+        //    // если разница у меньше разницы х - горизонатльный
+        //    // если разница y > разницы х - вертикальный
+        //    if (differenceY < differenceX || anotherDifferenceY < anotherDifferenceX) // горизонтальный
+        //    {
+        //        if (first.X < second.X && first.Y < second.Y) // IV четверть
+        //        {
+        //            shortLength = second.Y - first.Y;
+        //            longLength = second.X - first.X;
+        //            center.X = first.X + longLength / 2;
+        //            center.Y = first.Y + shortLength / 2;
+        //        }
+        //        if (first.X > second.X && first.Y > second.Y) // II четверть
+        //        {
+        //            shortLength = first.Y - second.Y;
+        //            longLength = first.X - second.X;
+        //            center.X = first.X - longLength / 2;
+        //            center.Y = first.Y - shortLength / 2;
+        //        }
+        //        if (first.X > second.X && first.Y < second.Y) // III четверть
+        //        {
+        //            shortLength = second.Y - first.Y;
+        //            longLength = first.X - second.X;
+        //            center.X = first.X - longLength / 2;
+        //            center.Y = first.Y + shortLength / 2;
+        //        }
+        //        if (first.X < second.X && first.Y > second.Y) // I четверть
+        //        {
+        //            shortLength = first.Y - second.Y;
+        //            longLength = second.X - first.X;
+        //            center.X = first.X + longLength / 2;
+        //            center.Y = first.Y - shortLength / 2;
+        //        }
+        //    }
+        //    else if (differenceY > differenceX || anotherDifferenceY > anotherDifferenceX) // вертикальный
+        //    {
+        //        if (first.X < second.X && first.Y < second.Y) // IV четверть
+        //        {
+        //            shortLength = second.X - first.X;
+        //            longLength = second.Y - first.Y;
+        //            center.X = first.X + shortLength / 2;
+        //            center.Y = first.Y + longLength / 2;
+        //        }
+        //        if (first.X > second.X && first.Y > second.Y) // II четверть
+        //        {
+        //            shortLength = first.X - second.X;
+        //            longLength = first.Y - second.Y;
+        //            center.X = first.X - shortLength / 2;
+        //            center.Y = first.Y - longLength / 2;
+        //        }
+        //        if (first.X > second.X && first.Y < second.Y) // III четверть
+        //        {
+        //            shortLength = first.X - second.X;
+        //            longLength = second.Y - first.Y;
+        //            center.X = first.X - shortLength / 2;
+        //            center.Y = first.Y + longLength / 2;
+        //        }
+        //        if (first.X < second.X && first.Y > second.Y) // I четверть
+        //        {
+        //            shortLength = second.X - first.X;
+        //            longLength = first.Y - second.Y;
+        //            center.X = first.X + shortLength / 2;
+        //            center.Y = first.Y - longLength / 2;
+        //        }
+        //    }
+        //    //else            // если разница равна, то это окружность, а не эллипс
+        //    //{
+        //    //    DrawCircle(first, second, color);
+        //    //}
+        //    int longRadius = longLength / 2;
+        //    int shortRadius = shortLength / 2;
+        //    int _x = 0;
+        //    int _y = shortRadius;
+        //    // Параметры в первой части
+        //    float delta = (shortRadius * shortRadius) - (longRadius * longRadius * shortRadius) +
+        //                    (0.25f * longRadius * longRadius);
+        //    float dx = 2 * shortRadius * shortRadius * _x;
+        //    float dy = 2 * longRadius * longRadius * _y;
+        //    float error = 0;
+        //    while (dx < dy)
+        //    {
+
+        //        // симметричные точки
+        //        StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
+        //        StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
+        //        StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
+        //        StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
+        //        error = 2 * (delta + _y) - 1;
+        //        if (delta < 0)
+        //        {
+        //            _x++;
+        //            dx = dx + (2 * shortRadius * shortRadius);
+        //            delta = delta + dx + (shortRadius * shortRadius);
+        //        }
+        //        else
+        //        {
+        //            _x++;
+        //            _y--;
+        //            dx = dx + (2 * shortRadius * shortRadius);
+        //            dy = dy - (2 * longRadius * longRadius);
+        //            delta = delta + dx - dy + (shortRadius * shortRadius);
+        //        }
+
+        //    }
+
+        //    // Параметры второй части
+        //    float d2 = ((shortRadius * shortRadius) * ((_x + 0.5f) * (_x + 0.5f)))
+        //        + ((longRadius * longRadius) * ((_y - 1) * (_y - 1)))
+        //        - (longRadius * longRadius * shortRadius * shortRadius);
+
+        //    while (_y >= 0)
+        //    {
+
+        //        StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
+        //        StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
+        //        StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
+        //        StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
+        //        error = 2 * (delta + _y) - 1;
+        //        if (d2 > 0)
+        //        {
+        //            _y--;
+        //            dy = dy - (2 * longRadius * longRadius);
+        //            d2 = d2 + (longRadius * longRadius) - dy;
+        //        }
+        //        else
+        //        {
+        //            _y--;
+        //            _x++;
+        //            dx = dx + (2 * shortRadius * shortRadius);
+        //            dy = dy - (2 * longRadius * longRadius);
+        //            d2 = d2 + dx - dy + (longRadius * longRadius);
+        //        }
+        //    }
+
+
+        //    pictureBox.Image = StaticBitmap.Bitmap;
+        //}
+
         private void DrawRectangle(Point first, Point second, Color color)
         {
             next.X = first.X;
