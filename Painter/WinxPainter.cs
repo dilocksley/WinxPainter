@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Painter.Figures;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,8 +15,9 @@ namespace Painter
 {
     public partial class Painter : Form
     {
+        AFigures _figure;
 
-        Color CurrentColor;
+        Color _currentColor;
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
@@ -34,14 +37,13 @@ namespace Painter
         {
             InitializeComponent();
 
-            CurrentColor = Color.Black;
+            _currentColor = Color.Black;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             textBox1.Text = "0";
         }
 
         private void DrawTree(double x, double y, double a, double angle)
         {
-
             if (a > 2)
             {
                 a *= 0.7; //Меняем параметр a - это колличество веток
@@ -51,7 +53,7 @@ namespace Painter
                        ynew = Math.Round(y - a * Math.Sin(angle));
 
                 //соединяем вершинами
-                DrawLine((int)x, (int)y, (int)xnew, (int)ynew, CurrentColor);
+                DrawLine((int)x, (int)y, (int)xnew, (int)ynew, _currentColor);
 
                 //Переприсваеваем координаты
                 x = xnew;
@@ -61,9 +63,8 @@ namespace Painter
                 DrawTree(x, y, a, angle + angle1);
                 DrawTree(x, y, a, angle - angle2);
             }
-
         }
-        private void Trapezoid(Point first, Point second, Color color)
+        private void DrawTrapezoid(Point first, Point second, Color color)
         {
             if (second.X > first.X)
             {
@@ -103,15 +104,14 @@ namespace Painter
             }
         }
 
-
-        private void PointTriangle(Point FirstPoint, Point SecondPoint, Point ThirdPoint, Color color)
+        private void DrawPointTriangle(Point FirstPoint, Point SecondPoint, Point ThirdPoint, Color color)
         {
             DrawLine(FirstPoint, SecondPoint, color);
             DrawLine(SecondPoint, ThirdPoint, color);
             DrawLine(ThirdPoint, FirstPoint, color);
         }
 
-        private void PointRightTriangle(Point first, Point second, Color color)
+        private void DrawPointRightTriangle(Point first, Point second, Color color)
         {
             next.X = first.X;
             next.Y = second.Y;
@@ -120,7 +120,7 @@ namespace Painter
             DrawLine(second, first, color);
         }
 
-        private void IsoscelesTriangle(Point first, Point second, Color color)
+        private void DrawIsoscelesTriangle(Point first, Point second, Color color)
         {
             next.X = first.X - (second.X - first.X);
             next.Y = second.Y;
@@ -130,7 +130,7 @@ namespace Painter
         }
 
 
-        private void NSidedPolygon(int n)
+        private void DrawNSidedPolygon(int n)
         {
 
             p = new Point[n + 1];
@@ -139,7 +139,7 @@ namespace Painter
 
             while (i > 0)
             {
-                DrawLine(p[i], p[i - 1], CurrentColor);
+                DrawLine(p[i], p[i - 1], _currentColor);
                 i = i - 1;
             }
         }
@@ -172,84 +172,86 @@ namespace Painter
                 i++;
             }
         }
-        private void Square(Point first, Point second, Color color)
+        private void DrawSquare(Point first, Point second, Color color)
         {
-            int length = 0;
-            if (first.X < second.X && first.Y < second.Y) // IV четверть
-            {
-                length = second.Y - first.Y;
-
-                next.X = first.X + length;
-                next.Y = first.Y;
-                DrawLine(first, next, color);
-
-                middle.X = next.X;
-                middle.Y = next.Y + length;
-                DrawLine(next, middle, color);
-
-                last.X = middle.X - length;
-                last.Y = middle.Y;
-                DrawLine(middle, last, color);
-
-                DrawLine(last, first, color);
-            }
-            if (first.X > second.X && first.Y > second.Y) // II четверть
-            {
-                length = first.X - second.X;
 
 
-                next.X = first.X - length;
-                next.Y = first.Y;
-                DrawLine(first, next, color);
+            //int length = 0;
+            //if (first.X < second.X && first.Y < second.Y) // IV четверть
+            //{
+            //    length = second.Y - first.Y;
 
-                middle.X = next.X;
-                middle.Y = next.Y - length;
-                DrawLine(next, middle, color);
+            //    next.X = first.X + length;
+            //    next.Y = first.Y;
+            //    DrawLine(first, next, color);
 
-                last.X = middle.X + length;
-                last.Y = middle.Y;
-                DrawLine(middle, last, color);
+            //    middle.X = next.X;
+            //    middle.Y = next.Y + length;
+            //    DrawLine(next, middle, color);
 
-                DrawLine(last, first, color);
-            }
-            if (first.X > second.X && first.Y < second.Y) // III четверть
-            {
-                length = first.X - second.X;
+            //    last.X = middle.X - length;
+            //    last.Y = middle.Y;
+            //    DrawLine(middle, last, color);
 
-                next.X = first.X;
-                next.Y = first.Y + length;
-                DrawLine(first, next, color);
+            //    DrawLine(last, first, color);
+            //}
+            //if (first.X > second.X && first.Y > second.Y) // II четверть
+            //{
+            //    length = first.X - second.X;
 
-                middle.X = next.X - length;
-                middle.Y = next.Y;
-                DrawLine(next, middle, color);
 
-                last.X = middle.X;
-                last.Y = middle.Y - length;
-                DrawLine(middle, last, color);
+            //    next.X = first.X - length;
+            //    next.Y = first.Y;
+            //    DrawLine(first, next, color);
 
-                DrawLine(last, first, color);
-            }
-            if (first.X < second.X && first.Y > second.Y) // I четверть
-            {
-                length = second.X - first.X;
+            //    middle.X = next.X;
+            //    middle.Y = next.Y - length;
+            //    DrawLine(next, middle, color);
 
-                next.X = first.X;
-                next.Y = first.Y - length;
-                DrawLine(first, next, color);
+            //    last.X = middle.X + length;
+            //    last.Y = middle.Y;
+            //    DrawLine(middle, last, color);
 
-                middle.X = next.X + length;
-                middle.Y = next.Y;
-                DrawLine(next, middle, color);
+            //    DrawLine(last, first, color);
+            //}
+            //if (first.X > second.X && first.Y < second.Y) // III четверть
+            //{
+            //    length = first.X - second.X;
 
-                last.X = middle.X;
-                last.Y = middle.Y + length;
-                DrawLine(middle, last, color);
+            //    next.X = first.X;
+            //    next.Y = first.Y + length;
+            //    DrawLine(first, next, color);
 
-                DrawLine(last, first, color);
-            }
+            //    middle.X = next.X - length;
+            //    middle.Y = next.Y;
+            //    DrawLine(next, middle, color);
+
+            //    last.X = middle.X;
+            //    last.Y = middle.Y - length;
+            //    DrawLine(middle, last, color);
+
+            //    DrawLine(last, first, color);
+            //}
+            //if (first.X < second.X && first.Y > second.Y) // I четверть
+            //{
+            //    length = second.X - first.X;
+
+            //    next.X = first.X;
+            //    next.Y = first.Y - length;
+            //    DrawLine(first, next, color);
+
+            //    middle.X = next.X + length;
+            //    middle.Y = next.Y;
+            //    DrawLine(next, middle, color);
+
+            //    last.X = middle.X;
+            //    last.Y = middle.Y + length;
+            //    DrawLine(middle, last, color);
+
+            //    DrawLine(last, first, color);
+            //}
         }
-        private void Circle(Point first, Point second, Color color) // на основе алгоритма Брезенхема
+        private void DrawCircle(Point first, Point second, Color color) // на основе алгоритма Брезенхема
         {
             int length = 0;
             if (first.X < second.X && first.Y < second.Y) // IV четверть
@@ -300,10 +302,10 @@ namespace Painter
             int error = 0;
             while (y >= 0)
             {
-                StaticBitmap.SetPixel(center.X + x, center.Y + y, CurrentColor);
-                StaticBitmap.SetPixel(center.X + x, center.Y - y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - x, center.Y + y, CurrentColor);
-                StaticBitmap.SetPixel(center.X - x, center.Y - y, CurrentColor);
+                StaticBitmap.SetPixel(center.X + x, center.Y + y, color);
+                StaticBitmap.SetPixel(center.X + x, center.Y - y, color);
+                StaticBitmap.SetPixel(center.X - x, center.Y + y, color);
+                StaticBitmap.SetPixel(center.X - x, center.Y - y, color);
                 error = 2 * (delta + y) - 1;
                 if (delta < 0 && error <= 0)
                 {
@@ -319,7 +321,66 @@ namespace Painter
             }
             pictureBox.Image = StaticBitmap.Bitmap;
         }
-        private void Rectangle(Point first, Point second, Color color)
+        private void DrawEllipse(Point first, Point second, Color color)
+        {
+            //ищем диаметр
+            int diameterY = Math.Abs(second.Y - first.Y); 
+            int diameterX = Math.Abs(second.X - first.X);
+            //ищем радиус
+            int radiusY = diameterY / 2;
+            int radiusX = diameterX / 2;
+            //ищем центр эллипса, определяем старт рисования
+            int centerY = radiusY + first.Y;            
+            if (first.Y > second.Y)
+            {
+                centerY = radiusY + second.Y;
+            }
+
+            int centerX = radiusX + first.X;
+            int startX = first.X;
+            if (first.X > second.X)
+            {
+                centerX = radiusX + second.X;
+                startX = second.X;
+            }
+            
+            int previousX = startX;
+            int previousY = DrawEllipseGetY(previousX, centerX, centerY, radiusX, radiusY);
+            int previousYMirror = previousY;
+
+            for (int X = startX+1; X <= startX + diameterX; X++)
+            {
+                int Y = DrawEllipseGetY(X, centerX, centerY, radiusX, radiusY);
+                int YMirror = Y - (Y - centerY) * 2;
+
+                DrawLine(new Point(previousX, previousY), new Point(X, Y), color);
+                DrawLine(new Point(previousX, previousYMirror), new Point(X, YMirror), color);
+
+                previousX = X;
+                previousY = Y;
+                previousYMirror = YMirror;
+            }
+
+            pictureBox.Image = StaticBitmap.Bitmap;
+        }
+
+        private int DrawEllipseGetY(int X, int centerX, int centerY, int radiusX, int radiusY)
+        {
+            double ch = ((X - centerX) * (X - centerX));
+            double zn = (radiusX * radiusX);
+            double p = ch / zn;
+
+            if (p > 1)
+            {
+                p = 1;
+            }
+
+            double YD = Math.Sqrt((1 - p) * radiusY * radiusY) + centerY;
+            return Convert.ToInt32(YD);
+        }
+
+
+        private void DrawRectangle(Point first, Point second, Color color)
         {
             next.X = first.X;
             next.Y = second.Y;
@@ -356,7 +417,7 @@ namespace Painter
 
             for (int i = 0; i <= step; i++)
             {
-                StaticBitmap.SetPixel((int)startX, (int)startY, CurrentColor);
+                StaticBitmap.SetPixel((int)startX, (int)startY, _currentColor);
                 startX += incrementX;
                 startY += incrementY;
             }
@@ -411,7 +472,7 @@ namespace Painter
                 else if (count == 2)
                 {
 
-                    PointTriangle(FirstPoint, SecondPoint, e.Location, CurrentColor);
+                    DrawPointTriangle(FirstPoint, SecondPoint, e.Location, _currentColor);
                     count = 0;
                 }
             }
@@ -425,13 +486,12 @@ namespace Painter
                 {
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-                    Draw(FirstPoint, SecondPoint, CurrentColor);
+                    Draw(FirstPoint, SecondPoint, _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
 
                 }
-
             }
 
             label1.Text = $"X = {e.X}";
@@ -440,7 +500,6 @@ namespace Painter
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-
             mouseDown = false;
             SecondPoint = e.Location;
             if (toolBox.SelectedIndex == 0)
@@ -449,15 +508,17 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 1)
             {
-                DrawLine(FirstPoint, SecondPoint, CurrentColor);
+                DrawLine(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 2)
             {
-                Rectangle(FirstPoint, SecondPoint, CurrentColor);
+                DrawRectangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 3)
             {
-                Square(FirstPoint, SecondPoint, CurrentColor);
+                _figure = new Square(FirstPoint, SecondPoint);               // вызов фигуры квадрата
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor); // рисование квадрата
+                
             }
             else if (toolBox.SelectedIndex == 4)
             {
@@ -466,20 +527,19 @@ namespace Painter
                 {
                     MessageBox.Show("Введите количество граней");
                 }
-
-                NSidedPolygon(n);
+                DrawNSidedPolygon(n);
             }
             else if (toolBox.SelectedIndex == 5)
             {
-                Trapezoid(FirstPoint, SecondPoint, CurrentColor);
+                DrawTrapezoid(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 7)
             {
-                PointRightTriangle(FirstPoint, SecondPoint, CurrentColor);
+                DrawPointRightTriangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 8)
             {
-                IsoscelesTriangle(FirstPoint, SecondPoint, CurrentColor);
+                DrawIsoscelesTriangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 9)
             {
@@ -487,18 +547,21 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 10)
             {
-                Circle(FirstPoint, SecondPoint, CurrentColor);
+                DrawCircle(FirstPoint, SecondPoint, _currentColor);
             }
-
+            else if (toolBox.SelectedIndex == 11)
+            {
+                DrawEllipse(FirstPoint, SecondPoint, _currentColor);
+            }
+            pictureBox.Image = StaticBitmap.Bitmap;
         }
-
 
         private void ColorBox_Click(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                CurrentColor = colorDialog1.Color;
+                _currentColor = colorDialog1.Color;
             }
         }
 

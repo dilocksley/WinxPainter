@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Figures\Figures.cs" />
+    <Compile Include="Figures\Square.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>
