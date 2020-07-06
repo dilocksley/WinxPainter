@@ -10,16 +10,16 @@ namespace Painter.Figures
 {
     public class RectangleMath : AFigures
     {
-        List<Point> squareList = new List<Point>();
+        List<Point> rectangleList = new List<Point>();
         public RectangleMath(Point FirstPoint, Point SecondPoint)
         {
             this.first = FirstPoint;
             this.second = SecondPoint;
         }
         public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
-        {          
-            squareList = FindRectanglePoints(first, second);
-            return squareList;
+        {
+            rectangleList = FindRectanglePoints(first, second);
+            return rectangleList;
         }
 
         public List<Point> FindRectanglePoints(Point First,Point Second)
@@ -33,12 +33,12 @@ namespace Painter.Figures
             last.X = Second.X;
             last.Y = First.Y;
 
-            squareList.Add(First);
-            squareList.Add(next);
-            squareList.Add(Second);
-            squareList.Add(last);
+            rectangleList.Add(First);
+            rectangleList.Add(next);
+            rectangleList.Add(Second);
+            rectangleList.Add(last);
 
-            return squareList;
+            return rectangleList;
         }
     }
 }

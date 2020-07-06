@@ -9,7 +9,7 @@ namespace Painter.Figures
 {
     public class NSidedPolygon : AFigures
     {
-        List<Point> squareList = new List<Point>();
+        List<Point> polygonList = new List<Point>();
         int n = 0;
         double angle = 0;
         public NSidedPolygon(double angle, int n,Point FirstPoint, Point SecondPoint)
@@ -21,8 +21,8 @@ namespace Painter.Figures
         }
         public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
         {
-            squareList = FindLineAnglePoints(angle,n, first, second);
-            return squareList;
+            polygonList = FindLineAnglePoints(angle,n, first, second);
+            return polygonList;
         }
         private List<Point> FindLineAnglePoints(double angle, int n, Point first, Point second)
         {
@@ -49,11 +49,11 @@ namespace Painter.Figures
             {
                 tmp.X = first.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
                 tmp.Y = first.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-                squareList.Add(tmp);
+                polygonList.Add(tmp);
                 z = z + angle;
                 i++;
             }
-            return squareList;
+            return polygonList;
         }
     }
 }
