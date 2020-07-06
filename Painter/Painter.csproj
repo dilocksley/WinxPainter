@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Figures\Circle.cs" />
+    <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\Figures.cs" />
     <Compile Include="Figures\Line.cs" />
     <Compile Include="Figures\NSidedPolygon.cs" />
