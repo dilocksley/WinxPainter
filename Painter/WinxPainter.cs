@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Painter.Figures;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,8 +15,9 @@ namespace Painter
 {
     public partial class Painter : Form
     {
+        AFigures _figure;
 
-        Color CurrentColor;
+        Color _currentColor;
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
@@ -35,7 +37,7 @@ namespace Painter
         {
             InitializeComponent();
 
-            CurrentColor = Color.Black;
+            _currentColor = Color.Black;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             textBox1.Text = "0";
         }
@@ -51,7 +53,7 @@ namespace Painter
                        ynew = Math.Round(y - a * Math.Sin(angle));
 
                 //соединяем вершинами
-                DrawLine((int)x, (int)y, (int)xnew, (int)ynew, CurrentColor);
+                DrawLine((int)x, (int)y, (int)xnew, (int)ynew, _currentColor);
 
                 //Переприсваеваем координаты
                 x = xnew;
@@ -137,7 +139,7 @@ namespace Painter
 
             while (i > 0)
             {
-                DrawLine(p[i], p[i - 1], CurrentColor);
+                DrawLine(p[i], p[i - 1], _currentColor);
                 i = i - 1;
             }
         }
@@ -172,80 +174,82 @@ namespace Painter
         }
         private void DrawSquare(Point first, Point second, Color color)
         {
-            int length = 0;
-            if (first.X < second.X && first.Y < second.Y) // IV четверть
-            {
-                length = second.Y - first.Y;
-
-                next.X = first.X + length;
-                next.Y = first.Y;
-                DrawLine(first, next, color);
-
-                middle.X = next.X;
-                middle.Y = next.Y + length;
-                DrawLine(next, middle, color);
-
-                last.X = middle.X - length;
-                last.Y = middle.Y;
-                DrawLine(middle, last, color);
-
-                DrawLine(last, first, color);
-            }
-            if (first.X > second.X && first.Y > second.Y) // II четверть
-            {
-                length = first.X - second.X;
 
 
-                next.X = first.X - length;
-                next.Y = first.Y;
-                DrawLine(first, next, color);
+            //int length = 0;
+            //if (first.X < second.X && first.Y < second.Y) // IV четверть
+            //{
+            //    length = second.Y - first.Y;
 
-                middle.X = next.X;
-                middle.Y = next.Y - length;
-                DrawLine(next, middle, color);
+            //    next.X = first.X + length;
+            //    next.Y = first.Y;
+            //    DrawLine(first, next, color);
 
-                last.X = middle.X + length;
-                last.Y = middle.Y;
-                DrawLine(middle, last, color);
+            //    middle.X = next.X;
+            //    middle.Y = next.Y + length;
+            //    DrawLine(next, middle, color);
 
-                DrawLine(last, first, color);
-            }
-            if (first.X > second.X && first.Y < second.Y) // III четверть
-            {
-                length = first.X - second.X;
+            //    last.X = middle.X - length;
+            //    last.Y = middle.Y;
+            //    DrawLine(middle, last, color);
 
-                next.X = first.X;
-                next.Y = first.Y + length;
-                DrawLine(first, next, color);
+            //    DrawLine(last, first, color);
+            //}
+            //if (first.X > second.X && first.Y > second.Y) // II четверть
+            //{
+            //    length = first.X - second.X;
 
-                middle.X = next.X - length;
-                middle.Y = next.Y;
-                DrawLine(next, middle, color);
 
-                last.X = middle.X;
-                last.Y = middle.Y - length;
-                DrawLine(middle, last, color);
+            //    next.X = first.X - length;
+            //    next.Y = first.Y;
+            //    DrawLine(first, next, color);
 
-                DrawLine(last, first, color);
-            }
-            if (first.X < second.X && first.Y > second.Y) // I четверть
-            {
-                length = second.X - first.X;
+            //    middle.X = next.X;
+            //    middle.Y = next.Y - length;
+            //    DrawLine(next, middle, color);
 
-                next.X = first.X;
-                next.Y = first.Y - length;
-                DrawLine(first, next, color);
+            //    last.X = middle.X + length;
+            //    last.Y = middle.Y;
+            //    DrawLine(middle, last, color);
 
-                middle.X = next.X + length;
-                middle.Y = next.Y;
-                DrawLine(next, middle, color);
+            //    DrawLine(last, first, color);
+            //}
+            //if (first.X > second.X && first.Y < second.Y) // III четверть
+            //{
+            //    length = first.X - second.X;
 
-                last.X = middle.X;
-                last.Y = middle.Y + length;
-                DrawLine(middle, last, color);
+            //    next.X = first.X;
+            //    next.Y = first.Y + length;
+            //    DrawLine(first, next, color);
 
-                DrawLine(last, first, color);
-            }
+            //    middle.X = next.X - length;
+            //    middle.Y = next.Y;
+            //    DrawLine(next, middle, color);
+
+            //    last.X = middle.X;
+            //    last.Y = middle.Y - length;
+            //    DrawLine(middle, last, color);
+
+            //    DrawLine(last, first, color);
+            //}
+            //if (first.X < second.X && first.Y > second.Y) // I четверть
+            //{
+            //    length = second.X - first.X;
+
+            //    next.X = first.X;
+            //    next.Y = first.Y - length;
+            //    DrawLine(first, next, color);
+
+            //    middle.X = next.X + length;
+            //    middle.Y = next.Y;
+            //    DrawLine(next, middle, color);
+
+            //    last.X = middle.X;
+            //    last.Y = middle.Y + length;
+            //    DrawLine(middle, last, color);
+
+            //    DrawLine(last, first, color);
+            //}
         }
         private void DrawCircle(Point first, Point second, Color color) // на основе алгоритма Брезенхема
         {
@@ -317,7 +321,7 @@ namespace Painter
             }
             pictureBox.Image = StaticBitmap.Bitmap;
         }
-        private void DrawEllipse(Point first, Point second, Color color)
+        private void DrawEllips(Point first, Point second, Color color)
         {
             //ищем диаметр
             int diameterY = Math.Abs(second.Y - first.Y); 
@@ -376,150 +380,150 @@ namespace Painter
         }
 
 
-        //private void DrawEllipse(Point first, Point second, Color color)
-        //{
-        //    int differenceY = second.Y - first.Y;
-        //    int differenceX = second.X - first.X;
-        //    int anotherDifferenceY = first.Y - second.Y;
-        //    int anotherDifferenceX = first.X - second.X;
-        //    int shortLength = 0;
-        //    int longLength = 0;
-        //    // если разница у меньше разницы х - горизонатльный
-        //    // если разница y > разницы х - вертикальный
-        //    if (differenceY < differenceX || anotherDifferenceY < anotherDifferenceX) // горизонтальный
-        //    {
-        //        if (first.X < second.X && first.Y < second.Y) // IV четверть
-        //        {
-        //            shortLength = second.Y - first.Y;
-        //            longLength = second.X - first.X;
-        //            center.X = first.X + longLength / 2;
-        //            center.Y = first.Y + shortLength / 2;
-        //        }
-        //        if (first.X > second.X && first.Y > second.Y) // II четверть
-        //        {
-        //            shortLength = first.Y - second.Y;
-        //            longLength = first.X - second.X;
-        //            center.X = first.X - longLength / 2;
-        //            center.Y = first.Y - shortLength / 2;
-        //        }
-        //        if (first.X > second.X && first.Y < second.Y) // III четверть
-        //        {
-        //            shortLength = second.Y - first.Y;
-        //            longLength = first.X - second.X;
-        //            center.X = first.X - longLength / 2;
-        //            center.Y = first.Y + shortLength / 2;
-        //        }
-        //        if (first.X < second.X && first.Y > second.Y) // I четверть
-        //        {
-        //            shortLength = first.Y - second.Y;
-        //            longLength = second.X - first.X;
-        //            center.X = first.X + longLength / 2;
-        //            center.Y = first.Y - shortLength / 2;
-        //        }
-        //    }
-        //    else if (differenceY > differenceX || anotherDifferenceY > anotherDifferenceX) // вертикальный
-        //    {
-        //        if (first.X < second.X && first.Y < second.Y) // IV четверть
-        //        {
-        //            shortLength = second.X - first.X;
-        //            longLength = second.Y - first.Y;
-        //            center.X = first.X + shortLength / 2;
-        //            center.Y = first.Y + longLength / 2;
-        //        }
-        //        if (first.X > second.X && first.Y > second.Y) // II четверть
-        //        {
-        //            shortLength = first.X - second.X;
-        //            longLength = first.Y - second.Y;
-        //            center.X = first.X - shortLength / 2;
-        //            center.Y = first.Y - longLength / 2;
-        //        }
-        //        if (first.X > second.X && first.Y < second.Y) // III четверть
-        //        {
-        //            shortLength = first.X - second.X;
-        //            longLength = second.Y - first.Y;
-        //            center.X = first.X - shortLength / 2;
-        //            center.Y = first.Y + longLength / 2;
-        //        }
-        //        if (first.X < second.X && first.Y > second.Y) // I четверть
-        //        {
-        //            shortLength = second.X - first.X;
-        //            longLength = first.Y - second.Y;
-        //            center.X = first.X + shortLength / 2;
-        //            center.Y = first.Y - longLength / 2;
-        //        }
-        //    }
-        //    //else            // если разница равна, то это окружность, а не эллипс
-        //    //{
-        //    //    DrawCircle(first, second, color);
-        //    //}
-        //    int longRadius = longLength / 2;
-        //    int shortRadius = shortLength / 2;
-        //    int _x = 0;
-        //    int _y = shortRadius;
-        //    // Параметры в первой части
-        //    float delta = (shortRadius * shortRadius) - (longRadius * longRadius * shortRadius) +
-        //                    (0.25f * longRadius * longRadius);
-        //    float dx = 2 * shortRadius * shortRadius * _x;
-        //    float dy = 2 * longRadius * longRadius * _y;
-        //    float error = 0;
-        //    while (dx < dy)
-        //    {
+        private void DrawEllipse(Point first, Point second, Color color)
+        {
+            int differenceY = second.Y - first.Y;
+            int differenceX = second.X - first.X;
+            int anotherDifferenceY = first.Y - second.Y;
+            int anotherDifferenceX = first.X - second.X;
+            int shortLength = 0;
+            int longLength = 0;
+            // если разница у меньше разницы х - горизонатльный
+            // если разница y > разницы х - вертикальный
+            if (differenceY < differenceX || anotherDifferenceY < anotherDifferenceX) // горизонтальный
+            {
+                if (first.X < second.X && first.Y < second.Y) // IV четверть
+                {
+                    shortLength = second.Y - first.Y;
+                    longLength = second.X - first.X;
+                    center.X = first.X + longLength / 2;
+                    center.Y = first.Y + shortLength / 2;
+                }
+                if (first.X > second.X && first.Y > second.Y) // II четверть
+                {
+                    shortLength = first.Y - second.Y;
+                    longLength = first.X - second.X;
+                    center.X = first.X - longLength / 2;
+                    center.Y = first.Y - shortLength / 2;
+                }
+                if (first.X > second.X && first.Y < second.Y) // III четверть
+                {
+                    shortLength = second.Y - first.Y;
+                    longLength = first.X - second.X;
+                    center.X = first.X - longLength / 2;
+                    center.Y = first.Y + shortLength / 2;
+                }
+                if (first.X < second.X && first.Y > second.Y) // I четверть
+                {
+                    shortLength = first.Y - second.Y;
+                    longLength = second.X - first.X;
+                    center.X = first.X + longLength / 2;
+                    center.Y = first.Y - shortLength / 2;
+                }
+            }
+            else if (differenceY > differenceX || anotherDifferenceY > anotherDifferenceX) // вертикальный
+            {
+                if (first.X < second.X && first.Y < second.Y) // IV четверть
+                {
+                    shortLength = second.X - first.X;
+                    longLength = second.Y - first.Y;
+                    center.X = first.X + shortLength / 2;
+                    center.Y = first.Y + longLength / 2;
+                }
+                if (first.X > second.X && first.Y > second.Y) // II четверть
+                {
+                    shortLength = first.X - second.X;
+                    longLength = first.Y - second.Y;
+                    center.X = first.X - shortLength / 2;
+                    center.Y = first.Y - longLength / 2;
+                }
+                if (first.X > second.X && first.Y < second.Y) // III четверть
+                {
+                    shortLength = first.X - second.X;
+                    longLength = second.Y - first.Y;
+                    center.X = first.X - shortLength / 2;
+                    center.Y = first.Y + longLength / 2;
+                }
+                if (first.X < second.X && first.Y > second.Y) // I четверть
+                {
+                    shortLength = second.X - first.X;
+                    longLength = first.Y - second.Y;
+                    center.X = first.X + shortLength / 2;
+                    center.Y = first.Y - longLength / 2;
+                }
+            }
+            //else            // если разница равна, то это окружность, а не эллипс
+            //{
+            //    DrawCircle(first, second, color);
+            //}
+            int longRadius = longLength / 2;
+            int shortRadius = shortLength / 2;
+            int _x = 0;
+            int _y = shortRadius;
+            // Параметры в первой части
+            float delta = (shortRadius * shortRadius) - (longRadius * longRadius * shortRadius) +
+                            (0.25f * longRadius * longRadius);
+            float dx = 2 * shortRadius * shortRadius * _x;
+            float dy = 2 * longRadius * longRadius * _y;
+            float error = 0;
+            while (dx < dy)
+            {
 
-        //        // симметричные точки
-        //        StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
-        //        StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
-        //        StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
-        //        StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
-        //        error = 2 * (delta + _y) - 1;
-        //        if (delta < 0)
-        //        {
-        //            _x++;
-        //            dx = dx + (2 * shortRadius * shortRadius);
-        //            delta = delta + dx + (shortRadius * shortRadius);
-        //        }
-        //        else
-        //        {
-        //            _x++;
-        //            _y--;
-        //            dx = dx + (2 * shortRadius * shortRadius);
-        //            dy = dy - (2 * longRadius * longRadius);
-        //            delta = delta + dx - dy + (shortRadius * shortRadius);
-        //        }
+                // симметричные точки
+                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
+                error = 2 * (delta + _y) - 1;
+                if (delta < 0)
+                {
+                    _x++;
+                    dx = dx + (2 * shortRadius * shortRadius);
+                    delta = delta + dx + (shortRadius * shortRadius);
+                }
+                else
+                {
+                    _x++;
+                    _y--;
+                    dx = dx + (2 * shortRadius * shortRadius);
+                    dy = dy - (2 * longRadius * longRadius);
+                    delta = delta + dx - dy + (shortRadius * shortRadius);
+                }
 
-        //    }
+            }
 
-        //    // Параметры второй части
-        //    float d2 = ((shortRadius * shortRadius) * ((_x + 0.5f) * (_x + 0.5f)))
-        //        + ((longRadius * longRadius) * ((_y - 1) * (_y - 1)))
-        //        - (longRadius * longRadius * shortRadius * shortRadius);
+            // Параметры второй части
+            float d2 = ((shortRadius * shortRadius) * ((_x + 0.5f) * (_x + 0.5f)))
+                + ((longRadius * longRadius) * ((_y - 1) * (_y - 1)))
+                - (longRadius * longRadius * shortRadius * shortRadius);
 
-        //    while (_y >= 0)
-        //    {
+            while (_y >= 0)
+            {
 
-        //        StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
-        //        StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
-        //        StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
-        //        StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
-        //        error = 2 * (delta + _y) - 1;
-        //        if (d2 > 0)
-        //        {
-        //            _y--;
-        //            dy = dy - (2 * longRadius * longRadius);
-        //            d2 = d2 + (longRadius * longRadius) - dy;
-        //        }
-        //        else
-        //        {
-        //            _y--;
-        //            _x++;
-        //            dx = dx + (2 * shortRadius * shortRadius);
-        //            dy = dy - (2 * longRadius * longRadius);
-        //            d2 = d2 + dx - dy + (longRadius * longRadius);
-        //        }
-        //    }
+                StaticBitmap.SetPixel(center.X + _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X + _x, center.Y - _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y + _y, color);
+                StaticBitmap.SetPixel(center.X - _x, center.Y - _y, color);
+                error = 2 * (delta + _y) - 1;
+                if (d2 > 0)
+                {
+                    _y--;
+                    dy = dy - (2 * longRadius * longRadius);
+                    d2 = d2 + (longRadius * longRadius) - dy;
+                }
+                else
+                {
+                    _y--;
+                    _x++;
+                    dx = dx + (2 * shortRadius * shortRadius);
+                    dy = dy - (2 * longRadius * longRadius);
+                    d2 = d2 + dx - dy + (longRadius * longRadius);
+                }
+            }
 
 
-        //    pictureBox.Image = StaticBitmap.Bitmap;
-        //}
+            pictureBox.Image = StaticBitmap.Bitmap;
+        }
 
         private void DrawRectangle(Point first, Point second, Color color)
         {
@@ -558,7 +562,7 @@ namespace Painter
 
             for (int i = 0; i <= step; i++)
             {
-                StaticBitmap.SetPixel((int)startX, (int)startY, CurrentColor);
+                StaticBitmap.SetPixel((int)startX, (int)startY, _currentColor);
                 startX += incrementX;
                 startY += incrementY;
             }
@@ -613,7 +617,7 @@ namespace Painter
                 else if (count == 2)
                 {
 
-                    DrawPointTriangle(FirstPoint, SecondPoint, e.Location, CurrentColor);
+                    DrawPointTriangle(FirstPoint, SecondPoint, e.Location, _currentColor);
                     count = 0;
                 }
             }
@@ -627,7 +631,7 @@ namespace Painter
                 {
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-                    Draw(FirstPoint, SecondPoint, CurrentColor);
+                    Draw(FirstPoint, SecondPoint, _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
@@ -641,7 +645,6 @@ namespace Painter
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-
             mouseDown = false;
             SecondPoint = e.Location;
             if (toolBox.SelectedIndex == 0)
@@ -650,15 +653,18 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 1)
             {
-                DrawLine(FirstPoint, SecondPoint, CurrentColor);
+                DrawLine(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 2)
             {
-                DrawRectangle(FirstPoint, SecondPoint, CurrentColor);
+                DrawRectangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 3)
             {
-                DrawSquare(FirstPoint, SecondPoint, CurrentColor);
+                _figure = new Square(FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+
+                DrawSquare(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 4)
             {
@@ -671,15 +677,15 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 5)
             {
-                DrawTrapezoid(FirstPoint, SecondPoint, CurrentColor);
+                DrawTrapezoid(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 7)
             {
-                DrawPointRightTriangle(FirstPoint, SecondPoint, CurrentColor);
+                DrawPointRightTriangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 8)
             {
-                DrawIsoscelesTriangle(FirstPoint, SecondPoint, CurrentColor);
+                DrawIsoscelesTriangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 9)
             {
@@ -687,11 +693,11 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 10)
             {
-                DrawCircle(FirstPoint, SecondPoint, CurrentColor);
+                DrawCircle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 11)
             {
-                DrawEllipse(FirstPoint, SecondPoint, CurrentColor);
+                DrawEllipse(FirstPoint, SecondPoint, _currentColor);
             }
         }
 
@@ -700,7 +706,7 @@ namespace Painter
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                CurrentColor = colorDialog1.Color;
+                _currentColor = colorDialog1.Color;
             }
         }
 
