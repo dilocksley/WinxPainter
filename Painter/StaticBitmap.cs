@@ -57,7 +57,7 @@ namespace Painter
 
             for (int i = 0; i <= step; i++)
             {
-                StaticBitmap.SetPixel((int)startX, (int)startY, color);
+                SetPixel((int)startX, (int)startY, color);
                 startX += incrementX;
                 startY += incrementY;
             }

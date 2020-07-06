@@ -9,8 +9,8 @@ namespace Painter.Figures
 {
     public abstract class AFigures
     {
-        protected Point FirstPoint;
-        protected Point SecondPoint;
+        protected Point first;
+        protected Point second;
 
         public abstract List<Point> GetPoints();
 

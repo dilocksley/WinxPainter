@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Figures\Figures.cs" />
+    <Compile Include="Figures\Line.cs" />
+    <Compile Include="Figures\NSidedPolygon.cs" />
+    <Compile Include="Figures\Rectangle.cs" />
     <Compile Include="Figures\Square.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>

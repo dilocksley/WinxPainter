@@ -25,15 +25,13 @@ namespace Painter
         Point middle;
         Point last;
         Point center;
-        int n = 1;                  //количество сторон
-        int R;                      //расстояние от центра до стороны       
-        Point[] p;
+        int n = 1;                 //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
-        bool fill = false; //Для  заливки
+       
        
         public Painter()
         {
@@ -136,44 +134,44 @@ namespace Painter
         private void DrawNSidedPolygon(int n)
         {
 
-            p = new Point[n + 1];
-            LineAngle((double)(360.0 / (double)n));
-            int i = n;
+            //p = new Point[n + 1];
+            //LineAngle((double)(360.0 / (double)n));
+            //int i = n;
 
-            while (i > 0)
-            {
-                DrawLine(p[i], p[i - 1], _currentColor);
-                i = i - 1;
-            }
+            //while (i > 0)
+            //{
+            //    DrawLine(p[i], p[i - 1], _currentColor);
+            //    i = i - 1;
+            //}
         }
 
         private void LineAngle(double angle)
         {
 
-            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // IV четверть
-            {
-                R = SecondPoint.Y - FirstPoint.Y;
-            }
-            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // II четверть
-            {
-                R = FirstPoint.Y - SecondPoint.Y;
-            }
-            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // III четверть
-            {
-                R = FirstPoint.Y - SecondPoint.Y;
-            }
-            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // I четверть
-            {
-                R = SecondPoint.X - FirstPoint.X;
-            }
-            double z = 0; int i = 0;
-            while (i < n + 1)
-            {
-                p[i].X = FirstPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
-                p[i].Y = FirstPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-                z = z + angle;
-                i++;
-            }
+            //if (FirstPoint.X < SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // IV четверть
+            //{
+            //    R = SecondPoint.Y - FirstPoint.Y;
+            //}
+            //if (FirstPoint.X > SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // II четверть
+            //{
+            //    R = FirstPoint.Y - SecondPoint.Y;
+            //}
+            //if (FirstPoint.X > SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // III четверть
+            //{
+            //    R = FirstPoint.Y - SecondPoint.Y;
+            //}
+            //if (FirstPoint.X < SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // I четверть
+            //{
+            //    R = SecondPoint.X - FirstPoint.X;
+            //}
+            //double z = 0; int i = 0;
+            //while (i < n + 1)
+            //{
+            //    p[i].X = FirstPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
+            //    p[i].Y = FirstPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
+            //    z = z + angle;
+            //    i++;
+            //}
         }
         private void DrawSquare(Point first, Point second, Color color)
         {
@@ -385,15 +383,15 @@ namespace Painter
 
         private void DrawRectangle(Point first, Point second, Color color)
         {
-            next.X = first.X;
-            next.Y = second.Y;
-            DrawLine(first, next, color);
-            DrawLine(next, second, color);
+            //next.X = first.X;
+            //next.Y = second.Y;
+            //DrawLine(first, next, color);
+            //DrawLine(next, second, color);
 
-            next.X = second.X;
-            next.Y = first.Y;
-            DrawLine(second, next, color);
-            DrawLine(next, first, color);
+            //next.X = second.X;
+            //next.Y = first.Y;
+            //DrawLine(second, next, color);
+            //DrawLine(next, first, color);
         }
         private void Draw(Point first, Point second, Color color)
         {
@@ -555,11 +553,14 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 1)
             {
-                DrawLine(FirstPoint, SecondPoint, _currentColor);
+                _figure = new Line(FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
             }
             else if (toolBox.SelectedIndex == 2)
             {
-                DrawRectangle(FirstPoint, SecondPoint, _currentColor);
+                _figure = new RectangleMath(FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                // DrawRectangle(FirstPoint, SecondPoint, _currentColor);
             }
             else if (toolBox.SelectedIndex == 3)
             {
@@ -574,7 +575,8 @@ namespace Painter
                 {
                     MessageBox.Show("Введите количество граней");
                 }
-                DrawNSidedPolygon(n);
+                _figure = new NSidedPolygon((double)(360.0 / (double)n), n,FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
             }
             else if (toolBox.SelectedIndex == 5)
             {

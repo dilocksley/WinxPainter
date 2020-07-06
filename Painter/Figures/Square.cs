@@ -9,15 +9,15 @@ namespace Painter.Figures
 {
     public class Square: AFigures
     {
+        List<Point> squareList = new List<Point>();
         public Square (Point FirstPoint, Point SecondPoint)
         {
-            this.FirstPoint = FirstPoint;
-            this.SecondPoint = SecondPoint;
+            this.first = FirstPoint;
+            this.second = SecondPoint;
         }
         public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
-        {
-            List<Point> squareList = new List<Point>();
-            squareList = FindSquarePoints(FirstPoint, SecondPoint);
+        {           
+            squareList = FindSquarePoints(first, second);
             return squareList;
         }
         private List<Point> FindSquarePoints(Point first, Point second) // вся матемтика метода поиска точек для квадрата
@@ -25,8 +25,7 @@ namespace Painter.Figures
             int length = 0;
             Point next = first;
             Point middle = first;
-            Point last = first;
-            List<Point> squareList = new List<Point>();
+            Point last = first;          
             if (first.X < second.X && first.Y < second.Y) // IV четверть
             {
                 length = second.Y - first.Y;
