@@ -327,8 +327,11 @@ namespace Painter
                 {                    
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-                    
-                    Draw(FirstPoint, SecondPoint, _currentColor);                   
+
+                    StaticBitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    StaticBitmap.CopyInOld();
+                    pictureBox.Image = StaticBitmap.Bitmap;
+
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
