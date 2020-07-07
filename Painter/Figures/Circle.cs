@@ -8,10 +8,10 @@ using System.Drawing;
 
 namespace Painter.Figures
 {
-    public class Circle: AFigures
+    public class Circle : AFigures
     {
         List<Point> circleList = new List<Point>();
-        public Circle (Point FirstPoint, Point SecondPoint)
+        public Circle(Point FirstPoint, Point SecondPoint)
         {
             this.first = FirstPoint;
             this.second = SecondPoint;
@@ -23,10 +23,10 @@ namespace Painter.Figures
         }
         private List<Point> FindCirclePoints(Point first, Point second)
         {
-            Point next = first;
-            Point middle = first;
-            Point center = first;
-            Point tmp = first;
+            Point next = second;
+            Point middle = second;
+            Point center = second;
+            Point tmp = second;
             int length = 0;
             if (first.X < second.X && first.Y < second.Y) // IV четверть
             {
@@ -69,37 +69,47 @@ namespace Painter.Figures
                 center.Y = middle.Y;
             }
             int radius = length / 2;
-            int x = 0;
-            int y = radius;
-            int delta = 1 - 2 * radius;
-            int error = 0;
-            tmp.X = center.X;
-            tmp.Y = center.Y;
-            while (y >= 0)
+            //int x = 0;
+            //int y = radius;
+            //int delta = 1 - 2 * radius;
+            //int error = 0;
+            //tmp.X = center.X;
+            //tmp.Y = center.Y;
+            //while (y >= 0)
+            //{
+            //    tmp.X += x;
+            //    tmp.Y += y;
+            //    //circleList.Add(tmp);
+            //    tmp.Y = center.Y - y;
+            //    //circleList.Add(tmp);
+            //    tmp.X = center.X - x;
+            //    tmp.Y = center.Y + y;
+            //    //circleList.Add(tmp);
+            //    tmp.Y = center.Y - y;
+            //    //circleList.Add(tmp);
+            //    error = 2 * (delta + y) - 1;
+            //    if (delta < 0 && error <= 0)
+            //    {
+            //        delta += 2 * x++ + 1;
+            //        continue;
+            //    }
+            //    if (delta > 0 && error > 0)
+            //    {
+            //        delta -= 2 * y-- + 1;
+            //        continue;
+            //    }
+            //    delta += 2 * (x++ - y--);
+            //}
+            for (int i = 1; i <= 360; i++)
             {
-                tmp.X += x;
-                tmp.Y += y;
+                double a = Math.Cos(2 * Math.PI * i / 360) * radius + 0.5 + center.X;
+                double b = Math.Sin(2 * Math.PI * i / 360) * radius + 0.5 + center.Y;
+                tmp.X = (int)a;
+                tmp.Y = (int)b;
                 circleList.Add(tmp);
-                tmp.Y = center.Y  - y;
-                circleList.Add(tmp);
-                tmp.X = center.X - x;
-                tmp.Y = center.Y + y;
-                circleList.Add(tmp);
-                tmp.Y = center.Y - y;
-                circleList.Add(tmp);
-                error = 2 * (delta + y) - 1;
-                if (delta < 0 && error <= 0)
-                {
-                    delta += 2 * x++ + 1;
-                    continue;
-                }
-                if (delta > 0 && error > 0)
-                {
-                    delta -= 2 * y-- + 1;
-                    continue;
-                }
-                delta += 2 * (x++ - y--);
+
             }
+
             return circleList;
         }
 

@@ -591,8 +591,8 @@ namespace Painter
             }
             else if (toolBox.SelectedIndex == 10)
             {
-                _figure = new Line(FirstPoint, SecondPoint);
-                StaticBitmap.DrawRoundShapedFigure(_figure.GetPoints(), _currentColor);
+                _figure = new Circle(FirstPoint, SecondPoint);
+                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
             }
             else if (toolBox.SelectedIndex == 11)
             {

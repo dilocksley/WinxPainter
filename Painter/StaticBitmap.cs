@@ -39,10 +39,11 @@ namespace Painter
             {
                 if (tmp.X != -1)
                 {
-
+                    StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
                 }
                 tmp = point;
             }
+            //StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
         }
         private static void DrawVoluntary(Point first, Point second, Color color)
         {
