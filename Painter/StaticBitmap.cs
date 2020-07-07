@@ -96,7 +96,7 @@ namespace Painter
         {
             DrawVoluntary(first, second, color);
         }
-        private static void DrawLine(int x1, int y1, int x2, int y2, Color color)
+        public static void DrawLineXY(int x1, int y1, int x2, int y2, Color color)
         {
             Point firstPoint = new Point (-1, -1);
             Point secondPoint = new Point(-1, -1);

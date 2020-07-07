@@ -70,37 +70,6 @@ namespace Painter.Figures
                 center.Y = middle.Y;
             }
             int radius = length / 2;
-            //int x = 0;
-            //int y = radius;
-            //int delta = 1 - 2 * radius;
-            //int error = 0;
-            //tmp.X = center.X;
-            //tmp.Y = center.Y;
-            //while (y >= 0)
-            //{
-            //    tmp.X += x;
-            //    tmp.Y += y;
-            //    //circleList.Add(tmp);
-            //    tmp.Y = center.Y - y;
-            //    //circleList.Add(tmp);
-            //    tmp.X = center.X - x;
-            //    tmp.Y = center.Y + y;
-            //    //circleList.Add(tmp);
-            //    tmp.Y = center.Y - y;
-            //    //circleList.Add(tmp);
-            //    error = 2 * (delta + y) - 1;
-            //    if (delta < 0 && error <= 0)
-            //    {
-            //        delta += 2 * x++ + 1;
-            //        continue;
-            //    }
-            //    if (delta > 0 && error > 0)
-            //    {
-            //        delta -= 2 * y-- + 1;
-            //        continue;
-            //    }
-            //    delta += 2 * (x++ - y--);
-            //}
             for (int i = 1; i <= 360; i++)
             {
                 double a = Math.Cos(2 * Math.PI * i / 360) * radius + 0.5 + center.X;
