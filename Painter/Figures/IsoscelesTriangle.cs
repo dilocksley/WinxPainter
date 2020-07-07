@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Painter.Figures
 {
     public class IsoscelesTriangle : AFigures
     {
         List<Point> triangleList = new List<Point>();
+
         public IsoscelesTriangle(Point FirstPoint, Point SecondPoint)
         {
             this.first = FirstPoint;
@@ -23,16 +21,13 @@ namespace Painter.Figures
 
         public List<Point> FindIsoscelesTrianglePoints(Point First, Point Second)
         {
-
-            Point first = First;
-            Point second = Second;
             Point next = Second;
-            next.X = first.X - (second.X - first.X);
-            next.Y = second.Y;
+            next.X = First.X - (Second.X - First.X);
+            next.Y = Second.Y;
 
-            triangleList.Add(first);
+            triangleList.Add(First);
             triangleList.Add(next);
-            triangleList.Add(second);
+            triangleList.Add(Second);
 
             return triangleList;
         }

@@ -245,7 +245,7 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-                  mouseDown = true;
+            mouseDown = true;
                 
             if (toolBox.SelectedIndex == -1)
                 {
@@ -287,8 +287,10 @@ namespace Painter
             {
                 FirstPoint = e.Location;
             }        
-
-
+            else if (toolBox.SelectedIndex == 11)
+            {
+                FirstPoint = e.Location;
+            }
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -307,9 +309,9 @@ namespace Painter
                     count++;
                 }
                 else if (count == 2)
-                {
-                    
-                    DrawPointTriangle(FirstPoint, SecondPoint, e.Location, _currentColor);
+                {                                       
+                    _figure = new Triangle(FirstPoint, SecondPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                     count = 0;
                 }
             }
@@ -325,8 +327,11 @@ namespace Painter
                 {                    
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-                    
-                    Draw(FirstPoint, SecondPoint, _currentColor);                   
+
+                    StaticBitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    StaticBitmap.CopyInOld();
+                    pictureBox.Image = StaticBitmap.Bitmap;
+
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
@@ -381,7 +386,8 @@ namespace Painter
                 }
                 else if (toolBox.SelectedIndex == 11)
                 {
-                    _figure = new Line(FirstPoint, e.Location);
+                    _figure = new Ellipse(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }               
             }
             label1.Text = $"X = {e.X}";
