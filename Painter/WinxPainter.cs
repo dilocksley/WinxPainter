@@ -286,7 +286,11 @@ namespace Painter
             else if (toolBox.SelectedIndex == 9)
             {
                 FirstPoint = e.Location;
-            }        
+            }
+            else if (toolBox.SelectedIndex == 10)
+            {
+                FirstPoint = e.Location;
+            }
             else if (toolBox.SelectedIndex == 11)
             {
                 FirstPoint = e.Location;
