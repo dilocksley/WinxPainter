@@ -46,8 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Figures\Circle.cs" />
+    <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\Figures.cs" />
+    <Compile Include="Figures\IsoscelesTriangle.cs" />
+    <Compile Include="Figures\Line.cs" />
+    <Compile Include="Figures\NSidedPolygon.cs" />
+    <Compile Include="Figures\Rectangle.cs" />
+    <Compile Include="Figures\RightTriangle.cs" />
     <Compile Include="Figures\Square.cs" />
+    <Compile Include="Figures\Triangle.cs" />
+    <Compile Include="Figures\Trapezoid.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>

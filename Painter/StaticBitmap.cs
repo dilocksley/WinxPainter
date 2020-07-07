@@ -10,15 +10,30 @@ namespace Painter
     public static class StaticBitmap
     {
         public static Bitmap Bitmap { get; set; }
-
+        public static Bitmap tmpBitmap { get; set; }
         public static void SetPixel(int x, int y, Color color)
         {
-            if (x >= 0 && x < Bitmap.Width && y >= 0 && y < Bitmap.Height)
+            if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height)
             {
-                Bitmap.SetPixel(x, y, color);
+                tmpBitmap.SetPixel(x, y, color);
             }
         }
 
+        public static void CopyInNew()
+        {
+            if(Bitmap!=null)
+            {
+                tmpBitmap = (Bitmap)Bitmap.Clone();
+            }
+        }
+
+        public static void CopyInOld()
+        {
+            if (Bitmap != null)
+            {
+               Bitmap = (Bitmap)tmpBitmap.Clone();
+            }
+        }
         public static void DrawFigure(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
         {
             Point tmp = new Point(-1, -1);
@@ -31,6 +46,19 @@ namespace Painter
                 tmp = point;
             }
             DrawLine(tmp, list[0], color);       // соедиение последней точки с первой
+        }
+        public static void DrawRoundShapedFigure(List<Point> list, Color color)
+        {
+            Point tmp = new Point(-1, -1);
+            foreach (Point point in list)
+            {
+                if (tmp.X != -1)
+                {
+                    SetPixel(tmp.X, tmp.Y, color);
+                }
+                tmp = point;
+            }
+            //StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
         }
         private static void DrawVoluntary(Point first, Point second, Color color)
         {
@@ -57,14 +85,14 @@ namespace Painter
 
             for (int i = 0; i <= step; i++)
             {
-                StaticBitmap.SetPixel((int)startX, (int)startY, color);
+                SetPixel((int)startX, (int)startY, color);
                 startX += incrementX;
                 startY += incrementY;
             }
            //  pictureBox.Image = StaticBitmap.Bitmap; // в самой форме
         } // рисование карандашом (произвольное)
 
-        private static void DrawLine(Point first, Point second, Color color)
+       public static void DrawLine(Point first, Point second, Color color)
         {
             DrawVoluntary(first, second, color);
         }

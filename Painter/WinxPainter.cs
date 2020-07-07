@@ -1,14 +1,6 @@
 ﻿using Painter.Figures;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Painter
@@ -25,23 +17,24 @@ namespace Painter
         Point middle;
         Point last;
         Point center;
-        int n = 1;                  //количество сторон
-        int R;                      //расстояние от центра до стороны       
-        Point[] p;
+        int n = 1;                 //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
-        bool fill = false; //Для  заливки
        
+
+
         public Painter()
         {
             InitializeComponent();
 
             _currentColor = Color.Black;
             StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+            StaticBitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             textBox1.Text = "0";
+           // pictureBox.Image = StaticBitmap.Bitmap;
         }
 
         private void DrawTree(double x, double y, double a, double angle)
@@ -66,45 +59,6 @@ namespace Painter
                 DrawTree(x, y, a, angle - ang2);
             }
         }
-        private void DrawTrapezoid(Point first, Point second, Color color)
-        {
-            if (second.X > first.X)
-            {
-                next.X = first.X + Math.Abs(second.X - first.X) / 4;
-                next.Y = second.Y;
-
-                last.X = next.X + ((second.X - first.X) / 2);
-                last.Y = next.Y;
-
-                second.Y = first.Y;
-
-                DrawLine(first, next, color);
-
-                DrawLine(next, last, color);
-
-                DrawLine(last, second, color);
-
-                DrawLine(second, first, color);
-            }
-            else
-            {
-                next.X = first.X - Math.Abs(second.X - first.X) / 4;
-                next.Y = second.Y;
-
-                last.X = next.X + ((second.X - first.X) / 2);
-                last.Y = next.Y;
-
-                second.Y = first.Y;
-
-                DrawLine(first, next, color);
-
-                DrawLine(next, last, color);
-
-                DrawLine(last, second, color);
-
-                DrawLine(second, first, color);
-            }
-        }
 
         private void DrawPointTriangle(Point FirstPoint, Point SecondPoint, Point ThirdPoint, Color color)
         {
@@ -114,146 +68,6 @@ namespace Painter
 
         }
 
-        private void DrawPointRightTriangle(Point first, Point second, Color color)
-        {
-            next.X = first.X;
-            next.Y = second.Y;
-            DrawLine(first, next, color);
-            DrawLine(next, second, color);
-            DrawLine(second, first, color);
-        }
-
-        private void DrawIsoscelesTriangle(Point first, Point second, Color color)
-        {
-            next.X = first.X - (second.X - first.X);
-            next.Y = second.Y;
-            DrawLine(first, second, color);
-            DrawLine(second, next, color);
-            DrawLine(next, first, color);
-        }
-
-
-        private void DrawNSidedPolygon(int n)
-        {
-
-            p = new Point[n + 1];
-            LineAngle((double)(360.0 / (double)n));
-            int i = n;
-
-            while (i > 0)
-            {
-                DrawLine(p[i], p[i - 1], _currentColor);
-                i = i - 1;
-            }
-        }
-
-        private void LineAngle(double angle)
-        {
-
-            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // IV четверть
-            {
-                R = SecondPoint.Y - FirstPoint.Y;
-            }
-            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // II четверть
-            {
-                R = FirstPoint.Y - SecondPoint.Y;
-            }
-            if (FirstPoint.X > SecondPoint.X && FirstPoint.Y < SecondPoint.Y) // III четверть
-            {
-                R = FirstPoint.Y - SecondPoint.Y;
-            }
-            if (FirstPoint.X < SecondPoint.X && FirstPoint.Y > SecondPoint.Y) // I четверть
-            {
-                R = SecondPoint.X - FirstPoint.X;
-            }
-            double z = 0; int i = 0;
-            while (i < n + 1)
-            {
-                p[i].X = FirstPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
-                p[i].Y = FirstPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-                z = z + angle;
-                i++;
-            }
-        }
-        private void DrawSquare(Point first, Point second, Color color)
-        {
-
-
-            //int length = 0;
-            //if (first.X < second.X && first.Y < second.Y) // IV четверть
-            //{
-            //    length = second.Y - first.Y;
-
-            //    next.X = first.X + length;
-            //    next.Y = first.Y;
-            //    DrawLine(first, next, color);
-
-            //    middle.X = next.X;
-            //    middle.Y = next.Y + length;
-            //    DrawLine(next, middle, color);
-
-            //    last.X = middle.X - length;
-            //    last.Y = middle.Y;
-            //    DrawLine(middle, last, color);
-
-            //    DrawLine(last, first, color);
-            //}
-            //if (first.X > second.X && first.Y > second.Y) // II четверть
-            //{
-            //    length = first.X - second.X;
-
-
-            //    next.X = first.X - length;
-            //    next.Y = first.Y;
-            //    DrawLine(first, next, color);
-
-            //    middle.X = next.X;
-            //    middle.Y = next.Y - length;
-            //    DrawLine(next, middle, color);
-
-            //    last.X = middle.X + length;
-            //    last.Y = middle.Y;
-            //    DrawLine(middle, last, color);
-
-            //    DrawLine(last, first, color);
-            //}
-            //if (first.X > second.X && first.Y < second.Y) // III четверть
-            //{
-            //    length = first.X - second.X;
-
-            //    next.X = first.X;
-            //    next.Y = first.Y + length;
-            //    DrawLine(first, next, color);
-
-            //    middle.X = next.X - length;
-            //    middle.Y = next.Y;
-            //    DrawLine(next, middle, color);
-
-            //    last.X = middle.X;
-            //    last.Y = middle.Y - length;
-            //    DrawLine(middle, last, color);
-
-            //    DrawLine(last, first, color);
-            //}
-            //if (first.X < second.X && first.Y > second.Y) // I четверть
-            //{
-            //    length = second.X - first.X;
-
-            //    next.X = first.X;
-            //    next.Y = first.Y - length;
-            //    DrawLine(first, next, color);
-
-            //    middle.X = next.X + length;
-            //    middle.Y = next.Y;
-            //    DrawLine(next, middle, color);
-
-            //    last.X = middle.X;
-            //    last.Y = middle.Y + length;
-            //    DrawLine(middle, last, color);
-
-            //    DrawLine(last, first, color);
-            //}
-        }
         private void DrawCircle(Point first, Point second, Color color) // на основе алгоритма Брезенхема
         {
             int length = 0;
@@ -382,19 +196,6 @@ namespace Painter
             return Convert.ToInt32(YD);
         }
 
-
-        private void DrawRectangle(Point first, Point second, Color color)
-        {
-            next.X = first.X;
-            next.Y = second.Y;
-            DrawLine(first, next, color);
-            DrawLine(next, second, color);
-
-            next.X = second.X;
-            next.Y = first.Y;
-            DrawLine(second, next, color);
-            DrawLine(next, first, color);
-        }
         private void Draw(Point first, Point second, Color color)
         {
             Point Delta = new Point(0, 0);
@@ -417,12 +218,13 @@ namespace Painter
 
             double startX = first.X;
             double startY = first.Y;
-
             for (int i = 0; i <= step; i++)
             {
-                StaticBitmap.SetPixel((int)startX, (int)startY, _currentColor);
-                startX += incrementX;
-                startY += incrementY;
+                                               
+                  StaticBitmap.SetPixel((int)startX, (int)startY, color);
+                  startX += incrementX;
+                  startY += incrementY;
+               
             }
             pictureBox.Image = StaticBitmap.Bitmap;
         }
@@ -443,10 +245,9 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-                  mouseDown = true;
-          
+            mouseDown = true;
                 
-                if (toolBox.SelectedIndex == -1)
+            if (toolBox.SelectedIndex == -1)
                 {
                     MessageBox.Show("Вы не выбрали инструмент для рисования");
                 }
@@ -473,30 +274,23 @@ namespace Painter
             else if (toolBox.SelectedIndex == 5) 
             { 
                 FirstPoint = e.Location; 
-
             } 
             else if (toolBox.SelectedIndex == 7)
             {
                 FirstPoint = e.Location;
-
             }
             else if (toolBox.SelectedIndex == 8)
             {
                 FirstPoint = e.Location;
-
             }
             else if (toolBox.SelectedIndex == 9)
             {
                 FirstPoint = e.Location;
-
+            }        
+            else if (toolBox.SelectedIndex == 11)
+            {
+                FirstPoint = e.Location;
             }
-          
-
-
-            //else if (toolBox.SelectedIndex == 5)
-            //{
-            //    FillArea(e.X, e.Y, CurrentColor);
-            //}
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -515,9 +309,9 @@ namespace Painter
                     count++;
                 }
                 else if (count == 2)
-                {
-                    
-                    DrawPointTriangle(FirstPoint, SecondPoint, e.Location, _currentColor);
+                {                                       
+                    _figure = new Triangle(FirstPoint, SecondPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                     count = 0;
                 }
             }
@@ -525,75 +319,89 @@ namespace Painter
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
+            StaticBitmap.CopyInNew();
+
             if (mouseDown)
             {
                 if (toolBox.SelectedIndex == 0)
-                {
+                {                    
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-                    Draw(FirstPoint, SecondPoint, _currentColor);
+
+                    StaticBitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    StaticBitmap.CopyInOld();
+                    pictureBox.Image = StaticBitmap.Bitmap;
+
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
-                    
-            
-                    
-                }
-            }
+                    _figure = new Line(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
 
+                }
+                else if (toolBox.SelectedIndex == 2)
+                {
+                    _figure = new RectangleMath(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }
+                else if (toolBox.SelectedIndex == 3)
+                {
+                    _figure = new Square(FirstPoint, e.Location);               // вызов фигуры квадрата
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor); // рисование квадрата
+
+                }
+                else if (toolBox.SelectedIndex == 4)
+                {
+                    n = Convert.ToInt32(textBox1.Text);
+                    if (n <= 0)
+                    {
+                        MessageBox.Show("Введите количество граней");
+                    }
+                    _figure = new NSidedPolygon((double)(360.0 / (double)n), n, FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }
+                else if (toolBox.SelectedIndex == 5)
+                {
+                    _figure = new Trapezoid( FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }
+                else if (toolBox.SelectedIndex == 7)
+                {
+                    _figure = new RightTriangle(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }
+                else if (toolBox.SelectedIndex == 8)
+                {
+                    _figure = new IsoscelesTriangle(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }
+                else if (toolBox.SelectedIndex == 9)
+                {
+                    DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
+                }
+                else if (toolBox.SelectedIndex == 10)
+                {
+                    _figure = new Circle(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }
+                else if (toolBox.SelectedIndex == 11)
+                {
+                    _figure = new Ellipse(FirstPoint, e.Location);
+                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                }               
+            }
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
-
+            GC.Collect();
+            pictureBox.Image = StaticBitmap.tmpBitmap;
         }
+
+       
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDown = false;
-            SecondPoint = e.Location;
-            if (toolBox.SelectedIndex == 0)
-            {
-
-            }
-            else if (toolBox.SelectedIndex == 1)
-            {
-                DrawLine(FirstPoint, SecondPoint, _currentColor);
-            }
-            else if (toolBox.SelectedIndex == 2)
-            {
-                DrawRectangle(FirstPoint, SecondPoint, _currentColor);
-            }
-            else if (toolBox.SelectedIndex == 3)
-            {
-                _figure = new Square(FirstPoint, SecondPoint);               // вызов фигуры квадрата
-                StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor); // рисование квадрата
-                
-            }
-            else if (toolBox.SelectedIndex == 4)
-            {
-                n = Convert.ToInt32(textBox1.Text);
-                if (n <= 0)
-                {
-                    MessageBox.Show("Введите количество граней");
-                }
-                DrawNSidedPolygon(n);
-            }
-            else if (toolBox.SelectedIndex == 5)
-            {
-                DrawTrapezoid(FirstPoint, SecondPoint, _currentColor);
-            }
-            else if (toolBox.SelectedIndex == 7)
-            {
-                DrawPointRightTriangle(FirstPoint, SecondPoint, _currentColor);
-            }
-            else if (toolBox.SelectedIndex == 8)
-            {
-                DrawIsoscelesTriangle(FirstPoint, SecondPoint, _currentColor);
-            }
-            else if (toolBox.SelectedIndex == 9)
-            {
-                DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
-            }
-
-
+            mouseDown = false;           
+            
+            StaticBitmap.CopyInOld();
             pictureBox.Image = StaticBitmap.Bitmap;
 
         }
@@ -702,19 +510,6 @@ namespace Painter
             _currentColor = copyColor;
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Painter_Load(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }
