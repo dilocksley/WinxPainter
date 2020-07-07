@@ -10,15 +10,30 @@ namespace Painter
     public static class StaticBitmap
     {
         public static Bitmap Bitmap { get; set; }
-
+        public static Bitmap tmpBitmap { get; set; }
         public static void SetPixel(int x, int y, Color color)
         {
-            if (x >= 0 && x < Bitmap.Width && y >= 0 && y < Bitmap.Height)
+            if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height)
             {
-                Bitmap.SetPixel(x, y, color);
+                tmpBitmap.SetPixel(x, y, color);
             }
         }
 
+        public static void CopyInNew()
+        {
+            if(Bitmap!=null)
+            {
+                tmpBitmap = (Bitmap)Bitmap.Clone();
+            }
+        }
+
+        public static void CopyInOld()
+        {
+            if (Bitmap != null)
+            {
+               Bitmap = (Bitmap)tmpBitmap.Clone();
+            }
+        }
         public static void DrawFigure(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
         {
             Point tmp = new Point(-1, -1);
@@ -39,7 +54,7 @@ namespace Painter
             {
                 if (tmp.X != -1)
                 {
-                    StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
+                    SetPixel(tmp.X, tmp.Y, color);
                 }
                 tmp = point;
             }
@@ -77,7 +92,7 @@ namespace Painter
            //  pictureBox.Image = StaticBitmap.Bitmap; // в самой форме
         } // рисование карандашом (произвольное)
 
-        private static void DrawLine(Point first, Point second, Color color)
+       public static void DrawLine(Point first, Point second, Color color)
         {
             DrawVoluntary(first, second, color);
         }

@@ -55,6 +55,7 @@
     <Compile Include="Figures\Rectangle.cs" />
     <Compile Include="Figures\RightTriangle.cs" />
     <Compile Include="Figures\Square.cs" />
+    <Compile Include="Figures\Trapezoid.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -28,6 +28,7 @@ namespace Painter.Figures
             Point center = second;
             Point tmp = second;
             int length = 0;
+
             if (first.X < second.X && first.Y < second.Y) // IV четверть
             {
                 length = second.Y - first.Y;
