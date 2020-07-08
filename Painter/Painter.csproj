@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Draw\Draw.cs" />
+    <Compile Include="Draw\IDraw.cs" />
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Ellipse.cs" />
-    <Compile Include="Figures\Figures.cs" />
+    <Compile Include="Figures\IFigures.cs" />
     <Compile Include="Figures\IsoscelesTriangle.cs" />
     <Compile Include="Figures\Line.cs" />
     <Compile Include="Figures\NSidedPolygon.cs" />
@@ -57,6 +59,8 @@
     <Compile Include="Figures\Square.cs" />
     <Compile Include="Figures\Triangle.cs" />
     <Compile Include="Figures\Trapezoid.cs" />
+    <Compile Include="MathFigures\IMathFigures.cs" />
+    <Compile Include="MathFigures\Square.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,5 +90,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -73,7 +73,7 @@ namespace Painter
             }
             //StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
         }
-        private  void DrawVoluntary(Point first, Point second, Color color)
+        public  void DrawVoluntary(Point first, Point second, Color color)
         {
             Point Delta = new Point(0, 0);
 

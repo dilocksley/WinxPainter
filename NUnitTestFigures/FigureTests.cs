@@ -13,6 +13,7 @@ namespace NUnitTestFigures
         {
         }
         [TestCase(1, 157, 113, 292, 314)]
+        [TestCase(1, 157,  292, 314)]
         public void CircleGetPointsTest(int i, int x1, int y1, int x2, int y2)
         {
             Point FirstPoint = new Point(x1, y1);
@@ -27,9 +28,7 @@ namespace NUnitTestFigures
             foreach(Point p in Exp)
             {
                 Assert.IsTrue(Act.Contains(p));
-            }
-
-            
+            }            
         }
         [TestCase(1, 1, 2, 5, 7)]
         public void EllipseGetPointsTest(int i, int x1, int y1, int x2, int y2)
