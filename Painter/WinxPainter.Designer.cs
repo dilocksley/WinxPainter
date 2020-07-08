@@ -149,7 +149,7 @@
             this.Fill.TabIndex = 9;
             this.Fill.Text = "Заливка";
             this.Fill.UseVisualStyleBackColor = true;
-            this.Fill.Click += new System.EventHandler(this.Fill_Click);
+         
             // 
             // textBox1
             // 

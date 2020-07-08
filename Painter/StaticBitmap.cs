@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.PerformanceData;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
-    public static class StaticBitmap
+    public class StaticBitmap
     {
-        public static Bitmap Bitmap { get; set; }
-        public static Bitmap tmpBitmap { get; set; }
-        public static void SetPixel(int x, int y, Color color)
+        private StaticBitmap()
+        {
+
+        }
+        public static StaticBitmap instance;
+        public  Bitmap Bitmap { get; set; }
+        public  Bitmap tmpBitmap { get; set; }
+        public  void SetPixel(int x, int y, Color color)
         {
             if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height)
             {
@@ -19,22 +25,29 @@ namespace Painter
             }
         }
 
-        public static void CopyInNew()
+        public static StaticBitmap GetInstance()
+        {
+            if(instance == null)
+            {
+                instance = new StaticBitmap();
+            }
+            return instance;
+        }
+        public  void CopyInNew()
         {
             if(Bitmap!=null)
             {
                 tmpBitmap = (Bitmap)Bitmap.Clone();
             }
         }
-
-        public static void CopyInOld()
+        public  void CopyInOld()
         {
             if (Bitmap != null)
             {
                Bitmap = (Bitmap)tmpBitmap.Clone();
             }
         }
-        public static void DrawFigure(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
+        public  void DrawFigure(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
         {
             Point tmp = new Point(-1, -1);
             foreach (Point point in list)
@@ -47,7 +60,7 @@ namespace Painter
             }
             DrawLine(tmp, list[0], color);       // соедиение последней точки с первой
         }
-        public static void DrawRoundShapedFigure(List<Point> list, Color color)
+        public  void DrawRoundShapedFigure(List<Point> list, Color color)
         {
             Point tmp = new Point(-1, -1);
             foreach (Point point in list)
@@ -60,7 +73,7 @@ namespace Painter
             }
             //StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
         }
-        private static void DrawVoluntary(Point first, Point second, Color color)
+        private  void DrawVoluntary(Point first, Point second, Color color)
         {
             Point Delta = new Point(0, 0);
 
@@ -92,11 +105,11 @@ namespace Painter
            //  pictureBox.Image = StaticBitmap.Bitmap; // в самой форме
         } // рисование карандашом (произвольное)
 
-       public static void DrawLine(Point first, Point second, Color color)
+       public  void DrawLine(Point first, Point second, Color color)
         {
             DrawVoluntary(first, second, color);
         }
-        private static void DrawLine(int x1, int y1, int x2, int y2, Color color)
+        public  void DrawLineXY(int x1, int y1, int x2, int y2, Color color)
         {
             Point firstPoint = new Point (-1, -1);
             Point secondPoint = new Point(-1, -1);
