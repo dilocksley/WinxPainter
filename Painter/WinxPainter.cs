@@ -8,33 +8,28 @@ namespace Painter
     public partial class Painter : Form
     {
         AFigures _figure;
+        StaticBitmap bitmap;
 
         Color _currentColor;
         bool mouseDown;
         Point FirstPoint;
-        Point SecondPoint;
-        Point next;
-        Point middle;
-        Point last;
-        Point center;
+        Point SecondPoint;     
         int n = 1;                 //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
-       
 
 
         public Painter()
         {
             InitializeComponent();
-
+            bitmap = StaticBitmap.GetInstance();
             _currentColor = Color.Black;
-            StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-            StaticBitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-            textBox1.Text = "0";
-           // pictureBox.Image = StaticBitmap.Bitmap;
+            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+            bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+            textBox1.Text = "0";           
         }
 
         private void DrawTree(double x, double y, double a, double angle)
@@ -48,7 +43,7 @@ namespace Painter
                        ynew = Math.Round(y - a * Math.Sin(angle));
 
                 //соединяем вершинами
-                StaticBitmap.DrawLineXY((int)x, (int)y, (int)xnew, (int)ynew, _currentColor);
+                bitmap.DrawLineXY((int)x, (int)y, (int)xnew, (int)ynew, _currentColor);
 
                 //Переприсваеваем координаты
                 x = xnew;
@@ -64,55 +59,16 @@ namespace Painter
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-                
+
+           
             if (toolBox.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Вы не выбрали инструмент для рисования");
+                   MessageBox.Show("Вы не выбрали инструмент для рисования");
                 }
-            else if (toolBox.SelectedIndex == 0)
+            else if (toolBox.SelectedIndex <6 || toolBox.SelectedIndex > 6)
             {
                 FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 1)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 2)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 3)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 4)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 5) 
-            { 
-                FirstPoint = e.Location; 
-            } 
-            else if (toolBox.SelectedIndex == 7)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 8)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 9)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 10)
-            {
-                FirstPoint = e.Location;
-            }
-            else if (toolBox.SelectedIndex == 11)
-            {
-                FirstPoint = e.Location;
-            }
+            }            
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -133,7 +89,7 @@ namespace Painter
                 else if (count == 2)
                 {                                       
                     _figure = new Triangle(FirstPoint, SecondPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                     count = 0;
                 }
             }
@@ -141,7 +97,8 @@ namespace Painter
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            StaticBitmap.CopyInNew();
+           
+            bitmap.CopyInNew();
 
             if (mouseDown)
             {
@@ -150,52 +107,52 @@ namespace Painter
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
 
-                    StaticBitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
-                    StaticBitmap.CopyInOld();
-                    pictureBox.Image = StaticBitmap.Bitmap;
+                    bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    bitmap.CopyInOld();
+                    pictureBox.Image = bitmap.Bitmap;
 
                 }
                 else if (toolBox.SelectedIndex == 1)
                 {
                     _figure = new Line(FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
 
                 }
                 else if (toolBox.SelectedIndex == 2)
                 {
                     _figure = new RectangleMath(FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 3)
                 {
                     _figure = new Square(FirstPoint, e.Location);               // вызов фигуры квадрата
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor); // рисование квадрата
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor); // рисование квадрата
 
                 }
                 else if (toolBox.SelectedIndex == 4)
                 {
                     n = Convert.ToInt32(textBox1.Text);
-                    if (n <= 0)
+                    if (n <= 1)
                     {
                         MessageBox.Show("Введите количество граней");
                     }
                     _figure = new NSidedPolygon((double)(360.0 / (double)n), n, FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 5)
                 {
                     _figure = new Trapezoid( FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 7)
                 {
                     _figure = new RightTriangle(FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 8)
                 {
                     _figure = new IsoscelesTriangle(FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 9)
                 {
@@ -204,27 +161,27 @@ namespace Painter
                 else if (toolBox.SelectedIndex == 10)
                 {
                     _figure = new Circle(FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }
                 else if (toolBox.SelectedIndex == 11)
                 {
                     _figure = new Ellipse(FirstPoint, e.Location);
-                    StaticBitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }               
             }
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
             GC.Collect();
-            pictureBox.Image = StaticBitmap.tmpBitmap;
+            pictureBox.Image = bitmap.tmpBitmap;
         }
 
        
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDown = false;           
-            
-            StaticBitmap.CopyInOld();
-            pictureBox.Image = StaticBitmap.Bitmap;
+            mouseDown = false;
+
+            bitmap.CopyInOld();
+            pictureBox.Image = bitmap.Bitmap;
 
         }
 
@@ -240,86 +197,9 @@ namespace Painter
         private void DeletAll_Click(object sender, EventArgs e)
         {
             pictureBox.Image = null;
-            StaticBitmap.Bitmap = null;
-            StaticBitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-        }
-
-        //private void FillArea()
-        //{
-
-        //    int q = 0;
-        //    int w = 0;
-        //    int i = 0;
-        //    while(true)
-        //    {
-        //        StaticBitmap.Bitmap = (Bitmap)pictureBox.Image;
-        //        if (StaticBitmap.Bitmap.GetPixel(FirstPoint.X,FirstPoint.Y)== _currentColor)
-        //        {
-        //            last.X = FirstPoint.X;
-        //            last.Y = FirstPoint.Y + i-1;
-        //            break;
-        //        }
-        //        FirstPoint.Y = FirstPoint.Y + 1;
-                
-        //    }
-        //    i = 0;
-        //    while (true)
-        //    {
-        //        if (true)
-        //        {
-        //            last.Y = last.Y + i;
-        //            while (true)
-        //            {
-        //                if (StaticBitmap.Bitmap.GetPixel(last.X - q, last.Y) != _currentColor)
-        //                {
-        //                    DrawLine(last.X, last.Y, last.X - q, last.Y, Color.Red);
-        //                }
-        //                else
-        //                {
-        //                    break;
-        //                }
-        //                q++;
-        //            }
-
-        //            while (true)
-        //            {
-        //                if (StaticBitmap.Bitmap.GetPixel(last.X + w, last.Y) != _currentColor)
-        //                {
-        //                    DrawLine(last.X, last.Y, last.X + w, last.Y, Color.Red);
-        //                }
-        //                else
-        //                {
-        //                    break;
-        //                }
-        //                w++;
-        //            }
-        //        }
-        //        i++;
-        //    }
-        //    //DrawLine(x, y, x, y, color);
-
-        //    //if (StaticBitmap.Bitmap.GetPixel(x, y+1) == Color.White )
-        //    //{
-        //    //    FillArea(x, y + 1, color);
-        //    //}
-        //    //if (StaticBitmap.Bitmap.GetPixel(x, y - 1) == Color.White)
-        //    //{
-        //    //    FillArea(x, y - 1, color);
-        //    //}
-        //    //if (StaticBitmap.Bitmap.GetPixel(x+1, y) == Color.White)
-        //    //{
-        //    //    FillArea(x + 1, y, color);
-        //    //}
-        //    //if (StaticBitmap.Bitmap.GetPixel(x-1, y) == Color.White)
-        //    //{
-        //    //    FillArea(x - 1, y, color);
-        //    //}
-
-        //}
-        private void Fill_Click(object sender, EventArgs e)
-        {
-            // fill = true;
-        }
+            bitmap.Bitmap = null;
+            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+        }      
 
         private void Rubber_Click(object sender, EventArgs e)
         {            
