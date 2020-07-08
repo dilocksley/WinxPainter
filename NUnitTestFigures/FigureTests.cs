@@ -24,8 +24,12 @@ namespace NUnitTestFigures
 
             List<Point> Exp = circleMocks.Get(i);
             List<Point> Act = circle.GetPoints();
+            foreach(Point p in Exp)
+            {
+                Assert.IsTrue(Act.Contains(p));
+            }
 
-            CollectionAssert.Contains(Exp, Act);
+            
         }
         [TestCase(1, 1, 2, 5, 7)]
         public void EllipseGetPointsTest(int i, int x1, int y1, int x2, int y2)
