@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Ellipse.cs" />
-    <Compile Include="Figures\Figures.cs" />
+    <Compile Include="Figures\AFigures.cs" />
     <Compile Include="Figures\IsoscelesTriangle.cs" />
     <Compile Include="Figures\Line.cs" />
     <Compile Include="Figures\NSidedPolygon.cs" />

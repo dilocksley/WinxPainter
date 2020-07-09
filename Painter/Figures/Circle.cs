@@ -55,7 +55,7 @@ namespace Painter.Figures
                 next.X = first.X;
                 next.Y = first.Y + length;
                 middle.X = next.X;
-                middle.Y = next.Y + length / 2;
+                middle.Y = next.Y - length / 2;
                 center.X = middle.X - length / 2;
                 center.Y = middle.Y;
             }
