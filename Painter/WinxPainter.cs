@@ -16,6 +16,7 @@ namespace Painter
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
+        Point ThirdPoint;
         int n = 1;                  //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
@@ -94,12 +95,14 @@ namespace Painter
                     SecondPoint = e.Location;
                     count++;
                 }
-                //else if (count == 2)
-                //{
-                //    _figure = new Triangle(FirstPoint, SecondPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //    count = 0;
-                //}
+                else if (count == 2)
+                {
+
+                    //ThirdPoint = e.Location;
+                    ////_figure = new Triangle(FirstPoint, SecondPoint, ThirdPoint);
+                    //factoryFigure = new TriangleFactory();
+                    //count = 0;
+                }
             }
         }
 
@@ -193,6 +196,15 @@ namespace Painter
                     break;
                 case 5:
                     factoryFigure = new TrapezoidFactory();
+                    break;
+                //case 6:
+                //    factoryFigure = new TriangleFactory();
+                //    break;
+                case 7:
+                    factoryFigure = new RightTriangleFactory();
+                    break;
+                case 8:
+                    factoryFigure = new IsoscelesTriangleFactory();
                     break;
                 case 10:
                     factoryFigure = new CircleFactory();

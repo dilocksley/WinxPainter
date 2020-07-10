@@ -48,11 +48,14 @@
   <ItemGroup>
     <Compile Include="FabricFigure\CircleFactory.cs" />
     <Compile Include="FabricFigure\EllipseFactory.cs" />
+    <Compile Include="FabricFigure\IsoscelesTriangleFactory.cs" />
     <Compile Include="FabricFigure\NSidedPolygonFactory.cs" />
     <Compile Include="FabricFigure\RectangleFactory.cs" />
+    <Compile Include="FabricFigure\RightTriangleFactory.cs" />
     <Compile Include="FabricFigure\SquareFactory.cs" />
     <Compile Include="FabricFigure\IFigureFactory.cs" />
     <Compile Include="FabricFigure\TrapezoidFactory.cs" />
+    <Compile Include="FabricFigure\TriangleFactory.cs" />
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\IFigure.cs" />
@@ -67,10 +70,13 @@
     <Compile Include="MathFigures\IMathFigure.cs" />
     <Compile Include="MathFigures\MathCircle.cs" />
     <Compile Include="MathFigures\MathEllipse.cs" />
+    <Compile Include="MathFigures\MathIsoscelesTriangle.cs" />
     <Compile Include="MathFigures\MathNSidedPolygon.cs" />
     <Compile Include="MathFigures\MathRectangle.cs" />
+    <Compile Include="MathFigures\MathRightTriangle.cs" />
     <Compile Include="MathFigures\MathSquare.cs" />
     <Compile Include="MathFigures\MathTrapezoid.cs" />
+    <Compile Include="MathFigures\MathTriangle.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>
