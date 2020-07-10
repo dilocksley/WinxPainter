@@ -27,11 +27,10 @@ namespace Painter
             }
         }
 
-        public void DrawFig(AFigure aFigure)
+        public void DrawFigure(AFigure aFigure)
         {
             List<Point> points = aFigure.Math();
-            DrawFigure(points, aFigure.retColor());
-
+            ConnectPoints(points, aFigure.retColor());
         }
         public static StaticBitmap GetInstance()
         {
@@ -55,7 +54,7 @@ namespace Painter
                Bitmap = (Bitmap)tmpBitmap.Clone();
             }
         }
-        public  void DrawFigure(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
+        public void ConnectPoints(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
         {
             Point tmp = new Point(-1, -1);
             foreach (Point point in list)
@@ -67,19 +66,6 @@ namespace Painter
                 tmp = point;
             }
             DrawLine(tmp, list[0], color);       // соедиение последней точки с первой
-        }
-        public  void DrawRoundShapedFigure(List<Point> list, Color color)
-        {
-            Point tmp = new Point(-1, -1);
-            foreach (Point point in list)
-            {
-                if (tmp.X != -1)
-                {
-                    SetPixel(tmp.X, tmp.Y, color);
-                }
-                tmp = point;
-            }
-            //StaticBitmap.SetPixel(tmp.X, tmp.Y, color);
         }
         public  void DrawVoluntary(Point first, Point second, Color color)
         {

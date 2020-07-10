@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Painter.MathFigures
 {
-    public class MathSquare : IMathFigures
+    public class MathSquare : IMathFigure
     {
               
         public List<Point> MathFigure(Point first, Point second) 

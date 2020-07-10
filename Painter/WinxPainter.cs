@@ -9,9 +9,9 @@ namespace Painter
 {
     public partial class Painter : Form
     {
-        AFigure CurrentFigures;
+        AFigure CurrentFigure;
         StaticBitmap bitmap;
-       IFabricFigure fabricFigure;
+        IFigureFactory factoryFigure;
         Square square;
         Color _currentColor;
         bool mouseDown;
@@ -70,7 +70,7 @@ namespace Painter
             else if (toolBox.SelectedIndex == 3)
             {
                 FirstPoint = e.Location;
-                CurrentFigures = null;
+                CurrentFigure = null;
     
             }
             else if(toolBox.SelectedIndex == 6)
@@ -133,13 +133,13 @@ namespace Painter
                 //}
                 else if (toolBox.SelectedIndex == 3)
                 {
-                    if(CurrentFigures == null)
+                    if(CurrentFigure == null)
                     {
-                        CurrentFigures = fabricFigure.Create(FirstPoint,n, _currentColor);
+                        CurrentFigure = factoryFigure.Create(FirstPoint,n, _currentColor);
                     }
 
-                    CurrentFigures.Update(e.Location);
-                    bitmap.DrawFig(CurrentFigures); // рисование квадрата
+                    CurrentFigure.Update(e.Location);
+                    bitmap.DrawFigure(CurrentFigure); // рисование квадрата
                 }
                 //else if (toolBox.SelectedIndex == 4)
                 //{
@@ -235,7 +235,7 @@ namespace Painter
         {
             if (toolBox.SelectedIndex == 3)
             {
-                fabricFigure = new FactoringSquare();
+                factoryFigure = new SquareFactory();
             }
         }
     }

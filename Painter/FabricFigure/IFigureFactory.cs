@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Painter.FabricFigure
 {
-    class FactoringSquare : IFabricFigure
+    public interface IFigureFactory 
     {
-        public AFigure Create( Point first, int n, Color color)
-        {
-            Square square = new Square(first, color);
-            return square;
-        }
+        AFigure Create(Point first, int n, Color color);      
     }
 }

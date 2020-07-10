@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Painter.MathFigures
 {
-    public interface IMathFigures 
+    public interface IMathFigure 
     {
         List<Point> MathFigure(Point first, Point second);
         

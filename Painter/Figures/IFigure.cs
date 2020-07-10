@@ -12,7 +12,7 @@ namespace Painter.Figures
     public abstract class AFigure
     {
         
-        protected IMathFigures math;
+        protected IMathFigure math;
 
        
        
