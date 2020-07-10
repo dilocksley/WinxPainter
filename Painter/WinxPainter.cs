@@ -70,6 +70,7 @@ namespace Painter
             {
                 FirstPoint = e.Location;
                 CurrentFigure = null;
+                n = Convert.ToInt32(textBox1.Text);
     
             }
             //else if(toolBox.SelectedIndex == 6)
@@ -118,19 +119,8 @@ namespace Painter
                     bitmap.CopyInOld();
                     pictureBox.Image = bitmap.Bitmap;
 
-                }
-                //else if (toolBox.SelectedIndex == 1)
-                //{
-                //    _figure = new Line(FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-
-                //}
-                //else if (toolBox.SelectedIndex == 2)
-                //{
-                //    _figure = new RectangleMath(FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}
-                else /*if (toolBox.SelectedIndex == 3)*/
+                }               
+                else 
                 {
                     if(CurrentFigure == null)
                     {
@@ -140,45 +130,7 @@ namespace Painter
                     CurrentFigure.Update(e.Location);
                     bitmap.DrawFigure(CurrentFigure); // рисование квадрата
                 }
-                //else if (toolBox.SelectedIndex == 4)
-                //{
-                //    n = Convert.ToInt32(textBox1.Text);
-                //    if (n <= 1)
-                //    {
-                //        MessageBox.Show("Введите количество граней");
-                //    }
-                //    _figure = new NSidedPolygon((double)(360.0 / (double)n), n, FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}
-                //else if (toolBox.SelectedIndex == 5)
-                //{
-                //    _figure = new Trapezoid( FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}
-                //else if (toolBox.SelectedIndex == 7)
-                //{
-                //    _figure = new RightTriangle(FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}
-                //else if (toolBox.SelectedIndex == 8)
-                //{
-                //    _figure = new IsoscelesTriangle(FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}
-                //else if (toolBox.SelectedIndex == 9)
-                //{
-                //    DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
-                //}
-                //else if (toolBox.SelectedIndex == 10)
-                //{
-                //    _figure = new Circle(FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}
-                //else if (toolBox.SelectedIndex == 11)
-                //{
-                //    _figure = new Ellipse(FirstPoint, e.Location);
-                //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                //}               
+               
             }
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
@@ -235,6 +187,12 @@ namespace Painter
                     break;
                 case 3:
                     factoryFigure = new SquareFactory();
+                    break;
+                case 4:
+                    factoryFigure = new NSidedPolygonFactory();
+                    break;
+                case 5:
+                    factoryFigure = new TrapezoidFactory();
                     break;
                 case 10:
                     factoryFigure = new CircleFactory();

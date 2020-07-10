@@ -5,58 +5,29 @@ using System.Drawing;
 
 namespace Painter.Figures
 {
-    //public class Trapezoid : AFigure
-    //{
-    //    List<Point> trapezoidList = new List<Point>();
-    //    public Trapezoid(Point FirstPoint, Point SecondPoint)
-    //    {
-    //        first = FirstPoint;
-    //        second = SecondPoint;
-    //    }
-    //    public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
-    //    {
-    //        trapezoidList = FindTrapezoidPoints(first, second);
-    //        return trapezoidList;
-    //    }
+    public class Trapezoid : AFigure
+    {
+        Point first;
+        Point second;
+        public Color color;
 
-    //    private List<Point> FindTrapezoidPoints(Point first, Point second)
-    //    {
-    //            Point next = new Point(-1,-1);
-    //            Point last = new Point(-1, -1);
-
-    //        if (second.X > first.X)
-    //        {
-    //            next.X = first.X + Math.Abs(second.X - first.X) / 4;
-    //            next.Y = second.Y;
-
-    //            last.X = next.X + ((second.X - first.X) / 2);
-    //            last.Y = next.Y;
-
-    //            second.Y = first.Y;
-
-    //            trapezoidList.Add(first);
-    //            trapezoidList.Add(next);
-    //            trapezoidList.Add(last);
-    //            trapezoidList.Add(second);
-               
-    //        }
-    //        else
-    //        {
-    //            next.X = first.X - Math.Abs(second.X - first.X) / 4;
-    //            next.Y = second.Y;
-
-    //            last.X = next.X + ((second.X - first.X) / 2);
-    //            last.Y = next.Y;
-
-    //            second.Y = first.Y;
-
-    //            trapezoidList.Add(first);
-    //            trapezoidList.Add(next);
-    //            trapezoidList.Add(last);
-    //            trapezoidList.Add(second);
-    //        }
-
-    //        return trapezoidList;
-    //    }
-    //}
+        public Trapezoid(Point first, Color color)
+        {
+            this.first = first;
+            this.second = first;
+            this.color = color;
+        }
+        public override List<Point> Math()
+        {
+            return new MathTrapezoid().MathFigure(first, second);
+        }
+        public override Color SetColor()
+        {
+            return color;
+        }
+        public override void Update(Point e)
+        {
+            second = e;
+        }
+    }
 }
