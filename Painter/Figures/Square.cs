@@ -27,7 +27,7 @@ namespace Painter.Figures
             return new MathSquare().MathFigure(first,second);
        }
 
-        public override Color retColor ()
+        public override Color SetColor ()
         {
             return color;
         }
@@ -36,7 +36,7 @@ namespace Painter.Figures
             second = e;
         }
 
-
+        #region SquareMathCode
         //public Square (Point FirstPoint, Point SecondPoint)
         //{
         //    this.first = FirstPoint;
@@ -62,7 +62,7 @@ namespace Painter.Figures
 
         //        middle.X = next.X;
         //        middle.Y = next.Y + length;
-                
+
         //        last.X = middle.X - length;
         //        last.Y = middle.Y;
         //    }
@@ -110,5 +110,6 @@ namespace Painter.Figures
         //    squareList.Add(last);
         //    return squareList;
         //}
+        #endregion
     }
 }

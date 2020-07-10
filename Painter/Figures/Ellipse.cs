@@ -5,7 +5,7 @@ using System;
 
 namespace Painter.Figures
 {
-    //public class Ellipse : IFigures
+    //public class Ellipse : AFigures
     //{
     //    List<Point> ellipseList = new List<Point>();
 

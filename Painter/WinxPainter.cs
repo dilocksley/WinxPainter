@@ -67,16 +67,16 @@ namespace Painter
             {
                 MessageBox.Show("Вы не выбрали инструмент для рисования");
             }
-            else if (toolBox.SelectedIndex == 3)
+            else /*if (toolBox.SelectedIndex == 3)*/
             {
                 FirstPoint = e.Location;
                 CurrentFigure = null;
     
             }
-            else if(toolBox.SelectedIndex == 6)
-            {
-                FirstPoint = e.Location;
-            }
+            //else if(toolBox.SelectedIndex == 6)
+            //{
+            //    FirstPoint = e.Location;
+            //}
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -131,7 +131,7 @@ namespace Painter
                 //    _figure = new RectangleMath(FirstPoint, e.Location);
                 //    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 //}
-                else if (toolBox.SelectedIndex == 3)
+                else /*if (toolBox.SelectedIndex == 3)*/
                 {
                     if(CurrentFigure == null)
                     {
@@ -233,10 +233,16 @@ namespace Painter
 
         private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (toolBox.SelectedIndex == 3)
+            switch (toolBox.SelectedIndex)
             {
-                factoryFigure = new SquareFactory();
+                case 3:
+                    factoryFigure = new SquareFactory();
+                    break;
+                case 10:
+                    factoryFigure = new CircleFactory();
+                    break;
             }
+                
         }
     }
 }

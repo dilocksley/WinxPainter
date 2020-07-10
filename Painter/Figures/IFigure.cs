@@ -14,14 +14,10 @@ namespace Painter.Figures
         
         protected IMathFigure math;
 
-       
-       
         public abstract List<Point> Math();
        
-
-        public virtual Color retColor()
+        public virtual Color SetColor()
         {
-           
             return Color.White; 
         }
 

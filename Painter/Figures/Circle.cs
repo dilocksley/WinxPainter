@@ -4,18 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Painter.MathFigures;
 
 
 namespace Painter.Figures
 {
-   // public class Circle : IFigures
-    //{
-        //List<Point> circleList = new List<Point>();
-        //public Circle(Point FirstPoint, Point SecondPoint)
-        //{
-        //    this.first = FirstPoint;
-        //    this.second = SecondPoint;
-        //}
+    public class Circle : AFigure
+    {
+        Point first;
+        Point second;
+        public Color color;
+
+        public Circle(Point first, Color color)
+        {
+            this.first = first;
+            this.color = color;
+            this.second = first;
+        }
+
+        public override List<Point> Math()
+        {
+            return new MathCircle().MathFigure(first, second);
+        }
+
+        public override Color SetColor()
+        {
+            return color;
+        }
+        public override void Update(Point e)
+        {
+            second = e;
+        }
+
+
+        #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
         //{
         //    circleList = FindCirclePoints(first, second);
@@ -57,7 +79,7 @@ namespace Painter.Figures
         //        middle.X = next.X;
         //        middle.Y = next.Y - length / 2;
         //        center.X = middle.X - length / 2;
-        //        center.Y = middle.Y; 
+        //        center.Y = middle.Y;
         //    }
         //    if (first.X < second.X && first.Y > second.Y) // I четверть
         //    {
@@ -82,6 +104,6 @@ namespace Painter.Figures
 
         //    return circleList;
         //}
-
-    //}
+        #endregion
+    }
 }

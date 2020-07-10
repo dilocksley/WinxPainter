@@ -30,7 +30,7 @@ namespace Painter
         public void DrawFigure(AFigure aFigure)
         {
             List<Point> points = aFigure.Math();
-            ConnectPoints(points, aFigure.retColor());
+            ConnectPoints(points, aFigure.SetColor());
         }
         public static StaticBitmap GetInstance()
         {
