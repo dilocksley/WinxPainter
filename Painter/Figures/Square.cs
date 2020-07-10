@@ -15,7 +15,7 @@ namespace Painter.Figures
         Point second;
         public Color color;
        
-       public Square( Point first,  Color color)
+       public Square(Point first, Color color)
        {
             this.first = first;
             this.color = color;

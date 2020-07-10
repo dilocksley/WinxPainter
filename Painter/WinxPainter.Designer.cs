@@ -39,7 +39,6 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.Fill = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonSquare = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -157,22 +156,11 @@
             this.textBox1.Size = new System.Drawing.Size(110, 20);
             this.textBox1.TabIndex = 10;
             // 
-            // buttonSquare
-            // 
-            this.buttonSquare.Location = new System.Drawing.Point(834, 12);
-            this.buttonSquare.Name = "buttonSquare";
-            this.buttonSquare.Size = new System.Drawing.Size(75, 23);
-            this.buttonSquare.TabIndex = 11;
-            this.buttonSquare.Text = "Квадрат";
-            this.buttonSquare.UseVisualStyleBackColor = true;
-            this.buttonSquare.Click += new System.EventHandler(this.buttonSquare_Click);
-            // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1210, 644);
-            this.Controls.Add(this.buttonSquare);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Fill);
             this.Controls.Add(this.numericUpDown1);
@@ -205,7 +193,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button Fill;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonSquare;
     }
 }
 

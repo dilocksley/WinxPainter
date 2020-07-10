@@ -12,12 +12,11 @@ namespace Painter
         AFigure CurrentFigure;
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
-        Square square;
         Color _currentColor;
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
-        int n = 1;                 //количество сторон
+        int n = 1;                  //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
@@ -226,10 +225,6 @@ namespace Painter
             _currentColor = copyColor;
         }
 
-        private void buttonSquare_Click(object sender, EventArgs e)
-        {
-           // AFigures = new Square(FirstPoint, _currentColor);
-        }
 
         private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -240,6 +235,9 @@ namespace Painter
                     break;
                 case 10:
                     factoryFigure = new CircleFactory();
+                    break;
+                case 11:
+                    factoryFigure = new EllipseFactory();
                     break;
             }
                 
