@@ -10,9 +10,9 @@ namespace Painter.FabricFigure
 {
     class FactoringSquare : IFabricFigure
     {
-        public AFigure Create( Point first,Point second,  Color color)
+        public AFigure Create( Point first, int n, Color color)
         {
-            Square square = new Square(first,second, color);
+            Square square = new Square(first, color);
             return square;
         }
     }

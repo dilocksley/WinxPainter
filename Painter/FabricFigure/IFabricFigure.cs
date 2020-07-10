@@ -10,6 +10,6 @@ namespace Painter.FabricFigure
 {
     public interface IFabricFigure 
     {
-        AFigure Create(Point first, Point second, Color color);      
+        AFigure Create(Point first, int n, Color color);      
     }
 }

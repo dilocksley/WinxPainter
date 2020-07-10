@@ -9,7 +9,7 @@ namespace Painter
 {
     public partial class Painter : Form
     {
-
+        AFigure CurrentFigures;
         StaticBitmap bitmap;
        IFabricFigure fabricFigure;
         Square square;
@@ -70,8 +70,8 @@ namespace Painter
             else if (toolBox.SelectedIndex == 3)
             {
                 FirstPoint = e.Location;
-             
-               
+                CurrentFigures = null;
+    
             }
             else if(toolBox.SelectedIndex == 6)
             {
@@ -133,10 +133,13 @@ namespace Painter
                 //}
                 else if (toolBox.SelectedIndex == 3)
                 {
-                    fabricFigure = new FactoringSquare();
-                    AFigure aFigures = fabricFigure.Create(FirstPoint,e.Location, _currentColor);
-                    aFigures.Update(e.Location);
-                    bitmap.DrawFig(aFigures); // рисование квадрата
+                    if(CurrentFigures == null)
+                    {
+                        CurrentFigures = fabricFigure.Create(FirstPoint,n, _currentColor);
+                    }
+
+                    CurrentFigures.Update(e.Location);
+                    bitmap.DrawFig(CurrentFigures); // рисование квадрата
                 }
                 //else if (toolBox.SelectedIndex == 4)
                 //{
@@ -226,6 +229,14 @@ namespace Painter
         private void buttonSquare_Click(object sender, EventArgs e)
         {
            // AFigures = new Square(FirstPoint, _currentColor);
+        }
+
+        private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (toolBox.SelectedIndex == 3)
+            {
+                fabricFigure = new FactoringSquare();
+            }
         }
     }
 }

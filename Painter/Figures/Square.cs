@@ -11,14 +11,15 @@ namespace Painter.Figures
 {
     public class Square : AFigure
     {
-
+        Point first;
+        Point second;
         public Color color;
        
-       public Square( Point first, Point second, Color color)
+       public Square( Point first,  Color color)
        {
             this.first = first;
             this.color = color;
-            this.second = second;
+            this.second = first;
        }
 
        public override List<Point> Math()

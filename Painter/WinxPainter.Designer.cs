@@ -84,6 +84,7 @@
             this.toolBox.Size = new System.Drawing.Size(110, 21);
             this.toolBox.TabIndex = 1;
             this.toolBox.Text = "Инструмент";
+            this.toolBox.SelectedIndexChanged += new System.EventHandler(this.toolBox_SelectedIndexChanged);
             // 
             // ColorBox
             // 

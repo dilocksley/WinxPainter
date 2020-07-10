@@ -13,14 +13,11 @@ namespace Painter.Figures
     {
         
         protected IMathFigures math;
-        protected Point first;
-        protected Point second;
 
-        public virtual List<Point> Math()
-        {
-          return math.MathFigure(first, second);          
-           
-        }
+       
+       
+        public abstract List<Point> Math();
+       
 
         public virtual Color retColor()
         {
