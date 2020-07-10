@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Painter.MathFigures
 {
-    public class Square : IMathFigures
+    public class MathSquare : IMathFigures
     {
-        List<Point> squareList;
-        public List<Point> MathFigure(Point first, Point second)
+              
+        public List<Point> MathFigure(Point first, Point second) 
         {
+            List<Point> squareList = new List<Point>();
             int length = 0;
             Point next = first;
             Point middle = first;
@@ -73,5 +74,6 @@ namespace Painter.MathFigures
             squareList.Add(last);
             return squareList;
         }
+      
     }
 }

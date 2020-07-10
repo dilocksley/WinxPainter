@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Painter.MathFigures
+namespace Painter.FabricFigure
 {
-    public interface IMathFigures 
+    public interface IFabricFigure 
     {
-        List<Point> MathFigure(Point first, Point second);
-        
+        AFigure Create(Point first, Point second, Color color);      
     }
 }

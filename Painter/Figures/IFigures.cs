@@ -1,4 +1,4 @@
-﻿using Painter.Draw;
+﻿
 using Painter.MathFigures;
 using System;
 using System.Collections.Generic;
@@ -9,22 +9,26 @@ using System.Threading.Tasks;
 
 namespace Painter.Figures
 {
-    public abstract class IFigures
+    public abstract class AFigure
     {
-        List<Point> fig;
-
-        IMathFigures math;
-        IDraw draw;
         
-        public List<Point> Math(Point first, Point second)
+        protected IMathFigures math;
+        protected Point first;
+        protected Point second;
+
+        public virtual List<Point> Math()
         {
           return math.MathFigure(first, second);          
            
         }
 
-        public  void Draw(List<Point> listPoint, Color color)
+        public virtual Color retColor()
         {
-            draw.DrawFigures(listPoint, color);
+           
+            return Color.White; 
         }
+
+        public virtual void Update(Point e) { }
+       
     }
 }

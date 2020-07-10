@@ -1,4 +1,6 @@
-﻿using Painter.Figures;
+﻿using Painter.FabricFigure;
+using Painter.Figures;
+using Painter.MathFigures;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,7 +11,7 @@ namespace Painter
     {
 
         StaticBitmap bitmap;
-
+       IFabricFigure fabricFigure;
         Square square;
         Color _currentColor;
         bool mouseDown;
@@ -60,11 +62,18 @@ namespace Painter
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
+            //switch
             if (toolBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Вы не выбрали инструмент для рисования");
             }
-            else if (toolBox.SelectedIndex < 6 || toolBox.SelectedIndex > 6)
+            else if (toolBox.SelectedIndex == 3)
+            {
+                FirstPoint = e.Location;
+             
+               
+            }
+            else if(toolBox.SelectedIndex == 6)
             {
                 FirstPoint = e.Location;
             }
@@ -93,6 +102,7 @@ namespace Painter
                 //}
             }
         }
+
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
@@ -123,8 +133,10 @@ namespace Painter
                 //}
                 else if (toolBox.SelectedIndex == 3)
                 {
-                    square = new Square(FirstPoint, e.Location, _currentColor); // рисование квадрата
-
+                    fabricFigure = new FactoringSquare();
+                    AFigure aFigures = fabricFigure.Create(FirstPoint,e.Location, _currentColor);
+                    aFigures.Update(e.Location);
+                    bitmap.DrawFig(aFigures); // рисование квадрата
                 }
                 //else if (toolBox.SelectedIndex == 4)
                 //{
@@ -211,6 +223,9 @@ namespace Painter
             _currentColor = copyColor;
         }
 
-
+        private void buttonSquare_Click(object sender, EventArgs e)
+        {
+           // AFigures = new Square(FirstPoint, _currentColor);
+        }
     }
 }

@@ -8,9 +8,9 @@ using System.Drawing;
 
 namespace Painter.Figures
 {
-    public class Circle : IFigures
-    {
-        List<Point> circleList = new List<Point>();
+   // public class Circle : IFigures
+    //{
+        //List<Point> circleList = new List<Point>();
         //public Circle(Point FirstPoint, Point SecondPoint)
         //{
         //    this.first = FirstPoint;
@@ -83,5 +83,5 @@ namespace Painter.Figures
         //    return circleList;
         //}
 
-    }
+    //}
 }

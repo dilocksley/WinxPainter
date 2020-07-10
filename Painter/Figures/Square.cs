@@ -5,29 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using Painter.MathFigures;
+using System.Deployment.Application;
 
 namespace Painter.Figures
 {
-    public class Square : IFigures
+    public class Square : AFigure
     {
-        List<Point> squareList = new List<Point>();
+
+        public Color color;
        
+       public Square( Point first, Point second, Color color)
+       {
+            this.first = first;
+            this.color = color;
+            this.second = second;
+       }
 
-        public Square(Point first, Point second, Color color)
+       public override List<Point> Math()
+       {
+            return new MathSquare().MathFigure(first,second);
+       }
+
+        public override Color retColor ()
         {
-            
-            squareList = Math(first, second);
-            Draw(squareList, color);
+            return color;
         }
-
-
-
-
-
-
-
-
-
+        public override void Update(Point e)
+        {
+            second = e;
+        }
 
 
         //public Square (Point FirstPoint, Point SecondPoint)

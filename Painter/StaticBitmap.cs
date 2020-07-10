@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Painter.Figures;
+using Painter.MathFigures;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.PerformanceData;
 using System.Drawing;
@@ -25,6 +27,12 @@ namespace Painter
             }
         }
 
+        public void DrawFig(AFigure aFigure)
+        {
+            List<Point> points = aFigure.Math();
+            DrawFigure(points, aFigure.retColor());
+
+        }
         public static StaticBitmap GetInstance()
         {
             if(instance == null)

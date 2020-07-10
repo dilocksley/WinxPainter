@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Draw\Draw.cs" />
-    <Compile Include="Draw\IDraw.cs" />
+    <Compile Include="FabricFigure\FactoringSquare.cs" />
+    <Compile Include="FabricFigure\IFabricFigure.cs" />
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\IFigures.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Figures\Triangle.cs" />
     <Compile Include="Figures\Trapezoid.cs" />
     <Compile Include="MathFigures\IMathFigures.cs" />
-    <Compile Include="MathFigures\Square.cs" />
+    <Compile Include="MathFigures\MathSquare.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>
