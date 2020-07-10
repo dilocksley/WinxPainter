@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="FabricFigure\CircleFactory.cs" />
     <Compile Include="FabricFigure\EllipseFactory.cs" />
+    <Compile Include="FabricFigure\RectangleFactory.cs" />
     <Compile Include="FabricFigure\SquareFactory.cs" />
     <Compile Include="FabricFigure\IFigureFactory.cs" />
     <Compile Include="Figures\Circle.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="MathFigures\IMathFigure.cs" />
     <Compile Include="MathFigures\MathCircle.cs" />
     <Compile Include="MathFigures\MathEllipse.cs" />
+    <Compile Include="MathFigures\MathRectangle.cs" />
     <Compile Include="MathFigures\MathSquare.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>

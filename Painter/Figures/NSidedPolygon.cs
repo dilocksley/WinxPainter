@@ -4,10 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Painter.MathFigures;
 
 namespace Painter.Figures
 {
-    //public class NSidedPolygon : AFigures
+    //public class NSidedPolygon : AFigure
     //{
     //    List<Point> polygonList = new List<Point>();
     //    int n = 0;

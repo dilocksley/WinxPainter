@@ -230,6 +230,9 @@ namespace Painter
         {
             switch (toolBox.SelectedIndex)
             {
+                case 2:
+                    factoryFigure = new RectangleFactory();
+                    break;
                 case 3:
                     factoryFigure = new SquareFactory();
                     break;

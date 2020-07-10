@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Painter.Figures
 {
-    //public class IsoscelesTriangle : AFigures
+    //public class IsoscelesTriangle : AFigure
     //{
     //    //List<Point> triangleList = new List<Point>();
 

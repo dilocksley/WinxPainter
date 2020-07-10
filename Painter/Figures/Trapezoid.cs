@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Painter.MathFigures;
 using System.Drawing;
 
 namespace Painter.Figures
 {
-    //public class Trapezoid : AFigures
+    //public class Trapezoid : AFigure
     //{
     //    List<Point> trapezoidList = new List<Point>();
     //    public Trapezoid(Point FirstPoint, Point SecondPoint)

@@ -4,10 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Painter.MathFigures;
 
 namespace Painter.Figures
 {
-    //public class Line : AFigures
+    //public class Line : AFigure
     //{
     //    List<Point> lineList = new List<Point>();
         

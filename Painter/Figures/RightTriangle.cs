@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using Painter.MathFigures;
 
 
 namespace Painter.Figures
 {
-    //public class RightTriangle : AFigures
+    //public class RightTriangle : AFigure
     //{
     //    List<Point> triangleList = new List<Point>();
     //    public RightTriangle(Point FirstPoint, Point SecondPoint)
