@@ -2,6 +2,7 @@
 using Painter.Figures;
 using Painter.MathFigures;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -16,14 +17,13 @@ namespace Painter
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
-        Point ThirdPoint;
         int n = 1;                  //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
-
+        List<Point> list = new List<Point>();
 
         public Painter()
         {
@@ -87,21 +87,25 @@ namespace Painter
             {
                 if (count == 0)
                 {
-                    FirstPoint = e.Location;
+                    list.Add(e.Location);
                     count++;
                 }
                 else if (count == 1)
                 {
-                    SecondPoint = e.Location;
+                    list.Add(e.Location);
                     count++;
                 }
                 else if (count == 2)
                 {
+                    list.Add(e.Location);
+                    factoryFigure = new TriangleFactory(list);
 
-                    //ThirdPoint = e.Location;
-                    ////_figure = new Triangle(FirstPoint, SecondPoint, ThirdPoint);
-                    //factoryFigure = new TriangleFactory();
-                    //count = 0;
+                    count = 0;
+                    list = new List<Point>();
+
+                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
+                    bitmap.DrawFigure(CurrentFigure);
+                    pictureBox.Image = bitmap.tmpBitmap;
                 }
             }
         }
@@ -123,18 +127,21 @@ namespace Painter
                     pictureBox.Image = bitmap.Bitmap;
 
                 }               
-                else 
+                else if (toolBox.SelectedIndex != 6)
                 {
-                    if(CurrentFigure == null)
+                    if(CurrentFigure == null && factoryFigure!= null)
                     {
                         CurrentFigure = factoryFigure.Create(FirstPoint,n, _currentColor);
                     }
 
-                    CurrentFigure.Update(e.Location);
-                    bitmap.DrawFigure(CurrentFigure); 
+                    if (CurrentFigure != null)
+                    {
+                        CurrentFigure.Update(e.Location);
+                        bitmap.DrawFigure(CurrentFigure);
+                    }
                 }
-               
             }
+            
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
             GC.Collect();
@@ -147,10 +154,9 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-
+            
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
-
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
@@ -200,9 +206,9 @@ namespace Painter
                 case 5:
                     factoryFigure = new TrapezoidFactory();
                     break;
-                //case 6:
-                //    factoryFigure = new TriangleFactory();
-                //    break;
+                case 6:
+                    factoryFigure = null;
+                    break;
                 case 7:
                     factoryFigure = new RightTriangleFactory();
                     break;
