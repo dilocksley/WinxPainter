@@ -131,7 +131,7 @@ namespace Painter
                     }
 
                     CurrentFigure.Update(e.Location);
-                    bitmap.DrawFigure(CurrentFigure); // рисование квадрата
+                    bitmap.DrawFigure(CurrentFigure); 
                 }
                
             }
@@ -185,6 +185,9 @@ namespace Painter
         {
             switch (toolBox.SelectedIndex)
             {
+                case 1:
+                    factoryFigure = new LineFactory();
+                    break;
                 case 2:
                     factoryFigure = new RectangleFactory();
                     break;

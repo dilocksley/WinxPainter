@@ -8,29 +8,29 @@ using Painter.MathFigures;
 
 namespace Painter.Figures
 {
-    //public class Line : AFigure
-    //{
-    //    List<Point> lineList = new List<Point>();
-        
-       
-    //    public Line(Point FirstPoint, Point SecondPoint)
-    //    {
-    //        this.first = FirstPoint;
-    //        this.second = SecondPoint;
-            
-    //    }
-    //    public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
-    //    {
-    //        lineList = FindLinePoints(first, second);
-    //        return lineList;
-    //    }
+    public class Line : AFigure
+    {
+        Point first;
+        Point second;
+        public Color color;
 
-    //    public List<Point> FindLinePoints(Point first,Point second)
-    //    {
-    //        lineList.Add(first);
-    //        lineList.Add(second);
-
-    //        return lineList;
-    //    }
-    //}
+        public Line(Point first, Color color)
+        {
+            this.first = first;
+            this.second = first;
+            this.color = color;
+        }
+        public override List<Point> Math()
+        {
+            return new MathLine().MathFigure(first, second);
+        }
+        public override Color SetColor()
+        {
+            return color;
+        }
+        public override void Update(Point e)
+        {
+            second = e;
+        }
+    }
 }
