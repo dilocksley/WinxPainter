@@ -122,10 +122,19 @@ namespace Painter
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
 
-                    bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
-                    bitmap.CopyInOld();
-                    pictureBox.Image = bitmap.Bitmap;
+                    //bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    //bitmap.CopyInOld();
+                    //pictureBox.Image = bitmap.Bitmap;
+                    if (CurrentFigure == null && factoryFigure != null)
+                    {
+                        CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
+                    }
 
+                    if (CurrentFigure != null)
+                    {
+                        CurrentFigure.Update(e.Location);
+                        bitmap.DrawFigure(CurrentFigure);
+                    }
                 }               
                 else if (toolBox.SelectedIndex != 6)
                 {
@@ -191,6 +200,9 @@ namespace Painter
         {
             switch (toolBox.SelectedIndex)
             {
+                case 0:
+                    factoryFigure = new PenFigureFactory();
+                    break;
                 case 1:
                     factoryFigure = new LineFactory();
                     break;

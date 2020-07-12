@@ -51,6 +51,7 @@
     <Compile Include="FactoryOfFigures\IsoscelesTriangleFactory.cs" />
     <Compile Include="FactoryOfFigures\LineFactory.cs" />
     <Compile Include="FactoryOfFigures\NSidedPolygonFactory.cs" />
+    <Compile Include="FactoryOfFigures\PenFigureFactory.cs" />
     <Compile Include="FactoryOfFigures\RectangleFactory.cs" />
     <Compile Include="FactoryOfFigures\RightTriangleFactory.cs" />
     <Compile Include="FactoryOfFigures\SquareFactory.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Figures\IsoscelesTriangle.cs" />
     <Compile Include="Figures\Line.cs" />
     <Compile Include="Figures\NSidedPolygon.cs" />
+    <Compile Include="Figures\PenFigure.cs" />
     <Compile Include="Figures\Rectangle.cs" />
     <Compile Include="Figures\RightTriangle.cs" />
     <Compile Include="Figures\Square.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="MathFigures\MathSquare.cs" />
     <Compile Include="MathFigures\MathTrapezoid.cs" />
     <Compile Include="MathFigures\MathTriangle.cs" />
+    <Compile Include="MathFigures\PencilMath.cs" />
     <Compile Include="StorageFigures.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
