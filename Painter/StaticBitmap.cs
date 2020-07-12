@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
-    public class StaticBitmap
+    public class StaticBitmap : StorageFigures
     {
+        List<AFigure> tmpFigure = new List<AFigure>();
         private StaticBitmap()
         {
 
@@ -114,8 +115,51 @@ namespace Painter
 
             DrawVoluntary(firstPoint, secondPoint, color);
         }
+
+        public override void AddFigure(AFigure figure)
+        {
+            aFigures.Add(figure);
+        }
+        public void ShowOnTheScreen()
+        {
+            foreach(AFigure figure in aFigures)
+            {
+                DrawFigure(figure);
+            }           
+        }
+
+
+        public void  Undo()
+        {
+            if (aFigures.Count < 1)
+            {
+                return;
+            }
+            tmpFigure.Add(aFigures[aFigures.Count - 1]);
+            DrawFigureN(tmpFigure[tmpFigure.Count - 1]);
+            aFigures.RemoveAt(aFigures.Count - 1);
+            ShowOnTheScreen();
+        }
+
+        public void Redo()
+        {
+            if (tmpFigure.Count < 1)
+            {
+                return;
+            }
+            aFigures.Add(tmpFigure[tmpFigure.Count - 1]);
+
+            tmpFigure.RemoveAt(tmpFigure.Count - 1);
+            ShowOnTheScreen();
+        }
+
+        public void DrawFigureN(AFigure aFigure)
+        {
+            List<Point> points = aFigure.Math();
+            ConnectPoints(points, Color.White);
+        }
     }
 
 
-
+   
 }

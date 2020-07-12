@@ -79,6 +79,7 @@
     <Compile Include="MathFigures\MathSquare.cs" />
     <Compile Include="MathFigures\MathTrapezoid.cs" />
     <Compile Include="MathFigures\MathTriangle.cs" />
+    <Compile Include="StorageFigures.cs" />
     <Compile Include="WinxPainter.cs">
       <SubType>Form</SubType>
     </Compile>

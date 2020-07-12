@@ -154,7 +154,7 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-            
+            bitmap.AddFigure(CurrentFigure);
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
         }
@@ -223,6 +223,27 @@ namespace Painter
                     break;
             }
                 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bitmap.ShowOnTheScreen();
+            bitmap.CopyInOld();
+            pictureBox.Image = bitmap.Bitmap;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            bitmap.Undo();
+            bitmap.CopyInOld();
+            pictureBox.Image = bitmap.Bitmap;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            bitmap.Redo();
+            bitmap.CopyInOld();
+            pictureBox.Image = bitmap.Bitmap;
         }
     }
 }
