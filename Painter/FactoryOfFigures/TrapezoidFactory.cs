@@ -2,7 +2,7 @@
 using System.Drawing;
 
 
-namespace Painter.FabricFigure
+namespace Painter.FactoryOfFigures
 {
     class TrapezoidFactory : IFigureFactory
     {

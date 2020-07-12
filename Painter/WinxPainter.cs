@@ -1,4 +1,4 @@
-﻿using Painter.FabricFigure;
+﻿using Painter.FactoryOfFigures;
 using Painter.Figures;
 using Painter.MathFigures;
 using System;
@@ -225,21 +225,21 @@ namespace Painter
                 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void showAll_Click(object sender, EventArgs e)
         {
             bitmap.ShowOnTheScreen();
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void undo_Click(object sender, EventArgs e)
         {
             bitmap.Undo();
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void redo_Click(object sender, EventArgs e)
         {
             bitmap.Redo();
             bitmap.CopyInOld();

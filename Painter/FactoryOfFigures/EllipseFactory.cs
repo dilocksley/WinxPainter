@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Painter.Figures;
 using System.Drawing;
 
-namespace Painter.FabricFigure
+namespace Painter.FactoryOfFigures
 {
-    class RectangleFactory : IFigureFactory
+    class EllipseFactory : IFigureFactory
     {
         public AFigure Create(Point first, int n, Color color)
         {
-            Figures.Rectangle rectangle = new Figures.Rectangle(first, color);
-            return rectangle;
+            Ellipse ellipse = new Ellipse(first, color);
+            return ellipse;
         }
     }
 }
