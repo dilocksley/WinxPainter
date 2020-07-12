@@ -1,175 +1,129 @@
+
 using NUnit.Framework;
 using Painter.Figures;
 using System.Collections.Generic;
 using System.Drawing;
 using NUnitTestFigures.FiguresMocks;
+using System.Runtime.ExceptionServices;
 
 namespace NUnitTestFigures
 {
-    //public class FigureTests
-    //{
-    //    [SetUp]
-    //    public void Setup()
-    //    {
-    //    }
-    //    [TestCase(1, 157, 113, 292, 314)]
-    //    [TestCase(1, 157,  292, 314)]
-    //    public void CircleGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        Circle circle = new Circle(FirstPoint, SecondPoint);
+    public class FigureTests
+    {
+        [SetUp]
+        public void Setup()
+        {
+        }
+        [TestCase(1, 157, 113, 292, 314)]
+        [TestCase(2, 0, 0, 0, 0)]
+        public void CircleGetPointsTest(int i, int x1, int y1, int x2, int y2)
+        {
+            Point first = new Point(x1, y1);
+            Point second = new Point(x2, y2);
+
+            Circle circle = new Circle(first, Color.Black);
+            circle.Update(second);
+
+            CircleMocks circleMocks = new CircleMocks();
+
+            List<Point> Exp = circleMocks.Get(i);
+            List<Point> Act = circle.Math();
+            foreach (Point p in Exp)
+            {
+                Assert.IsTrue(Act.Contains(p));
+            }
+        }
+        [TestCase(1, 1, 2, 5, 7)]
+        [TestCase(2, 0, 0, 0, 0)]
+        [TestCase(3, -1, -500, 0, 0)]
+       
+        public void EllipseGetPointsTest(int i, int x1, int y1, int x2, int y2)
+        {
+            Point first = new Point(x1, y1);
+            Point second = new Point(x2, y2);
+            Ellipse ellipse = new Ellipse(first, Color.Black);
+            ellipse.Update(second);
 
 
-    //        CircleMocks circleMocks = new CircleMocks();
+            EllipseMocks ellipseMocks = new EllipseMocks();
 
-    //        List<Point> Exp = circleMocks.Get(i);
-    //        List<Point> Act = circle.GetPoints();
-    //        foreach(Point p in Exp)
-    //        {
-    //            Assert.IsTrue(Act.Contains(p));
-    //        }            
-    //    }
-    //    [TestCase(1, 1, 2, 5, 7)]
-    //    public void EllipseGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        Ellipse ellipse = new Ellipse(FirstPoint, SecondPoint);
+            List<Point> Exp = ellipseMocks.Get(i);
+            List<Point> Act = ellipse.Math();
 
+            CollectionAssert.AreEqual(Exp, Act);
+        }
 
-    //        EllipseMocks ellipseMocks = new EllipseMocks();
+        [TestCase(1, 1, 4, 3, 6)]
+        [TestCase(2, 0, 0, 0, 0)]
+        [TestCase(3, -3, 1, 3, 1)]
+        public void IsoscelesTriangleGetPointsTest(int i, int x1, int y1, int x2, int y2)
+        {
+            Point first = new Point(x1, y1);
+            Point second = new Point(x2, y2);
 
-    //        List<Point> Exp = ellipseMocks.Get(i);
-    //        List<Point> Act = ellipse.GetPoints();
+            IsoscelesTriangle triangle = new IsoscelesTriangle(first, Color.Black);
+            triangle.Update(second);
 
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
+            IsoscelesTriangleMocks isoscelesTriangleMocks = new IsoscelesTriangleMocks();
 
-    //    [TestCase(1, 1, 4, 3, 6)]
-    //    public void IsoscelesTriangleGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        IsoscelesTriangle triangle = new IsoscelesTriangle(FirstPoint, SecondPoint);
+            List<Point> Exp = isoscelesTriangleMocks.Get(i);
+            List<Point> Act = triangle.Math();
 
+            CollectionAssert.AreEqual(Exp, Act);
+        }
 
-    //        IsoscelesTriangleMocks isoscelesTriangleMocks = new IsoscelesTriangleMocks();
-
-    //        List<Point> Exp = isoscelesTriangleMocks.Get(i);
-    //        List<Point> Act = triangle.GetPoints();
-
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-
-    //    [TestCase(1, 1, 4, 3, 6)]
-    //    public void LineGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        Line line = new Line(FirstPoint, SecondPoint);
+        [TestCase(1, 1, 4, 3, 6)]
+        [TestCase(2, 0, 0, 0, 0)]
+        [TestCase(3, -6, -9, 10, 15)]
+        public void LineGetPointsTest(int i, int x1, int y1, int x2, int y2)
+        {
+            Point first = new Point(x1, y1);
+            Point second = new Point(x2, y2);
+            Line line = new Line(first, Color.Black);
+            line.Update(second);
 
 
-    //        LineMocks lineMocks = new LineMocks();
+            LineMocks lineMocks = new LineMocks();
 
-    //        List<Point> Exp = lineMocks.Get(i);
-    //        List<Point> Act = line.GetPoints();
+            List<Point> Exp = lineMocks.Get(i);
+            List<Point> Act = line.Math();
 
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-    //    [TestCase(1, 90, 4, 1, 4, 3, 6)]
-    //    public void NSidedPolygonMocksGetPointsTest(int i, double angle, int n, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        NSidedPolygon nSided = new NSidedPolygon(angle, n, FirstPoint, SecondPoint);
-
-
-    //        NSidedPolygonMocks nSidedMocks = new NSidedPolygonMocks();
-
-    //        List<Point> Exp = nSidedMocks.Get(i);
-    //        List<Point> Act = nSided.GetPoints();
-
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-
-    //    [TestCase(1, 1, 4, 3, 6)]
-    //    public void RectangleGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        RectangleMath rectangle = new RectangleMath(FirstPoint, SecondPoint);
+            CollectionAssert.AreEqual(Exp, Act);
+        }
+        [TestCase(1, 90, 4, 1, 4, 3, 6)]
+        [TestCase(2, 45, 8, 1, 4, 3, 6)]
+        [TestCase(3, 60, 3, 1, 4, 3, 6)]
+        public void NSidedPolygonGetPointsTest(int i, double angle, int n, int x1, int y1, int x2, int y2)
+        {
+            Point first = new Point(x1, y1);
+            Point second = new Point(x2, y2);
+            NSidedPolygon nSided = new NSidedPolygon(first, n, Color.Black);
+            nSided.Update(second);
 
 
-    //        RectangleMocks rectangleMocks = new RectangleMocks();
+            NSidedPolygonMocks nSidedMocks = new NSidedPolygonMocks();
 
-    //        List<Point> Exp = rectangleMocks.Get(i);
-    //        List<Point> Act = rectangle.GetPoints();
+            List<Point> Exp = nSidedMocks.Get(i);
+            List<Point> Act = nSided.Math();
 
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
+            CollectionAssert.AreEqual(Exp, Act);
+        }
 
-    //    [TestCase(1, 1, 4, 3, 6)]
-    //    public void RightTriangleGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        RightTriangle rightTriangle = new RightTriangle(FirstPoint, SecondPoint);
-
-
-    //        RightTriangleMocks rightTriangleMocks = new RightTriangleMocks();
-
-    //        List<Point> Exp = rightTriangleMocks.Get(i);
-    //        List<Point> Act = rightTriangle.GetPoints();
-
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-
-    //    [TestCase(1, 1, 4, 3, 6)]
-    //    public void SquareGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        Square square = new Square(FirstPoint, SecondPoint);
+        [TestCase(1, 1, 4, 3, 6)]
+        public void RectangleGetPointsTest(int i, int x1, int y1, int x2, int y2)
+        {
+            Point first = new Point(x1, y1);
+            Point second = new Point(x2, y2);
+            Painter.Figures.Rectangle rectangle = new Painter.Figures.Rectangle(first, Color.Black);
+            rectangle.Update(second);
 
 
-    //        SquareMocks squareMocks = new SquareMocks(); 
+            RectangleMocks rectangleMocks = new RectangleMocks();
 
-    //        List<Point> Exp = squareMocks.Get(i);
-    //        List<Point> Act = square.GetPoints();
+            List<Point> Exp = rectangleMocks.Get(i);
+            List<Point> Act = rectangle.Math();
 
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-    //    [TestCase(1, 1, 4, 3, 6)]
-    //    [TestCase(2, 10, 40, 300, 600)]
-    //    public void TrapezoidGetPointsTest(int i, int x1, int y1, int x2, int y2)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        Trapezoid trapezoid = new Trapezoid(FirstPoint, SecondPoint);
-
-
-    //        TrapezoidMocks trapezoidMocks = new TrapezoidMocks();
-
-    //        List<Point> Exp = trapezoidMocks.Get(i);
-    //        List<Point> Act = trapezoid.GetPoints();
-
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-    //    [TestCase(1, 1, 4, 3, 4, 3, 6)]
-    //    public void TriangleGetPointsTest(int i, int x1, int y1, int x2, int y2, int x3, int y3)
-    //    {
-    //        Point FirstPoint = new Point(x1, y1);
-    //        Point SecondPoint = new Point(x2, y2);
-    //        Point ThirdPoint = new Point(x3, y3);
-    //        Triangle triangle = new Triangle(FirstPoint, SecondPoint, ThirdPoint);
-
-    //        TriangleMocks triangleMocks = new TriangleMocks();
-
-    //        List<Point> Exp = triangleMocks.Get(i);
-    //        List<Point> Act = triangle.GetPoints();
-
-    //        CollectionAssert.AreEqual(Exp, Act);
-    //    }
-    //}
+            CollectionAssert.AreEqual(Exp, Act);
+        }
+    }
 }

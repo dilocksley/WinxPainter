@@ -15,6 +15,11 @@ namespace NUnitTestFigures.FiguresMocks
                         new Point(358,215),
                         new Point(358,216),
                     };
+                case 2:
+                    return new List<Point>()
+                    {
+                        new Point(0, 0),
+                    };
                 default:
                     return new List<Point>();
             }
