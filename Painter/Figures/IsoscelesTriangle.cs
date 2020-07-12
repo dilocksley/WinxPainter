@@ -1,35 +1,63 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Painter.MathFigures;
 using System.Drawing;
 
 
 namespace Painter.Figures
 {
-    public class IsoscelesTriangle : AFigures
+    public class IsoscelesTriangle : AFigure
     {
-        List<Point> triangleList = new List<Point>();
+        Point first;
+        Point second;
+        public Color color;
 
-        public IsoscelesTriangle(Point FirstPoint, Point SecondPoint)
+        public IsoscelesTriangle(Point first, Color color)
         {
-            this.first = FirstPoint;
-            this.second = SecondPoint;
+            this.first = first;
+            this.second = first;
+            this.color = color;
         }
-        public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
+        public override List<Point> Math()                      // реализация метода абстр класса для получения точек фигуры
         {
-            triangleList = FindIsoscelesTrianglePoints(first, second);
-            return triangleList;
+            return new MathIsoscelesTriangle().MathFigure(first, second);
         }
-
-        public List<Point> FindIsoscelesTrianglePoints(Point First, Point Second)
+        public override Color SetColor()
         {
-            Point next = Second;
-            next.X = First.X - (Second.X - First.X);
-            next.Y = Second.Y;
-
-            triangleList.Add(First);
-            triangleList.Add(next);
-            triangleList.Add(Second);
-
-            return triangleList;
+            return color;
         }
+        public override void Update(Point e)
+        {
+            second = e;
+        }
+
+        //public class IsoscelesTriangle : AFigure
+        //{
+        //    //List<Point> triangleList = new List<Point>();
+
+        //    //public IsoscelesTriangle(Point FirstPoint, Point SecondPoint)
+        //    //{
+        //    //    this.first = FirstPoint;
+        //    //    this.second = SecondPoint;
+        //    //}
+        //    //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
+        //    //{
+        //    //    triangleList = FindIsoscelesTrianglePoints(first, second);
+        //    //    return triangleList;
+        //    //}
+
+        //    //public List<Point> FindIsoscelesTrianglePoints(Point First, Point Second)
+        //    //{
+        //    //    Point next = Second;
+        //    //    next.X = First.X - (Second.X - First.X);
+        //    //    next.Y = Second.Y;
+
+        //    //    triangleList.Add(First);
+        //    //    triangleList.Add(next);
+        //    //    triangleList.Add(Second);
+
+        //    //    return triangleList;
+        //    //}
+        //}
     }
 }

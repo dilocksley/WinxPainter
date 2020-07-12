@@ -1,64 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using Painter.MathFigures;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Painter.Figures
 {
-    public class Trapezoid : AFigures
+    public class Trapezoid : AFigure
     {
-        List<Point> trapezoidList = new List<Point>();
-        public Trapezoid(Point FirstPoint, Point SecondPoint)
+        Point first;
+        Point second;
+        public Color color;
+
+        public Trapezoid(Point first, Color color)
         {
-            first = FirstPoint;
-            second = SecondPoint;
+            this.first = first;
+            this.second = first;
+            this.color = color;
         }
-        public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
+        public override List<Point> Math()
         {
-            trapezoidList = FindTrapezoidPoints(first, second);
-            return trapezoidList;
+            return new MathTrapezoid().MathFigure(first, second);
         }
-
-        private List<Point> FindTrapezoidPoints(Point first, Point second)
+        public override Color SetColor()
         {
-                Point next = new Point(-1,-1);
-                Point last = new Point(-1, -1);
-
-            if (second.X > first.X)
-            {
-                next.X = first.X + Math.Abs(second.X - first.X) / 4;
-                next.Y = second.Y;
-
-                last.X = next.X + ((second.X - first.X) / 2);
-                last.Y = next.Y;
-
-                second.Y = first.Y;
-
-                trapezoidList.Add(first);
-                trapezoidList.Add(next);
-                trapezoidList.Add(last);
-                trapezoidList.Add(second);
-               
-            }
-            else
-            {
-                next.X = first.X - Math.Abs(second.X - first.X) / 4;
-                next.Y = second.Y;
-
-                last.X = next.X + ((second.X - first.X) / 2);
-                last.Y = next.Y;
-
-                second.Y = first.Y;
-
-                trapezoidList.Add(first);
-                trapezoidList.Add(next);
-                trapezoidList.Add(last);
-                trapezoidList.Add(second);
-            }
-
-            return trapezoidList;
+            return color;
+        }
+        public override void Update(Point e)
+        {
+            second = e;
         }
     }
 }

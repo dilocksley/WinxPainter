@@ -1,37 +1,51 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using Painter.MathFigures;
 
 
 namespace Painter.Figures
+
 {
-    public class RightTriangle : AFigures
+
+    public class RightTriangle : AFigure
     {
-        List<Point> triangleList = new List<Point>();
-        public RightTriangle(Point FirstPoint, Point SecondPoint)
+        Point first;
+        Point second;
+        public Color color;
+
+        public RightTriangle(Point first, Color color)
         {
-            this.first = FirstPoint;
-            this.second = SecondPoint;
+            this.first = first;
+            this.second = first;
+            this.color = color;
         }
-        public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
+        public override List<Point> Math()                      // реализация метода абстр класса для получения точек фигуры
         {
-            triangleList = FindRightTrianglePoints(first, second);
-            return triangleList;
+            return new MathRightTriangle().MathFigure(first, second);
         }
-
-        public List<Point> FindRightTrianglePoints(Point First, Point Second)
+        public override Color SetColor()
         {
-
-            Point first = First;
-            Point second = Second;
-            Point next = Second;
-            next.X = first.X;
-            next.Y = second.Y;
-
-            triangleList.Add(first);
-            triangleList.Add(next);
-            triangleList.Add(second);
-
-            return triangleList;
+            return color;
         }
+        public override void Update(Point e)
+        {
+            second = e;
+        }
+
+        //public List<Point> FindRightTrianglePoints(Point First, Point Second)
+        //{
+
+        //    Point first = First;
+        //    Point second = Second;
+        //    Point next = Second;
+        //    next.X = first.X;
+        //    next.Y = second.Y;
+
+        //    triangleList.Add(first);
+        //    triangleList.Add(next);
+        //    triangleList.Add(second);
+
+        //    return triangleList;
+        //}
     }
 }

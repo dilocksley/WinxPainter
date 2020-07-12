@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Painter", "Painter\Painter.csproj", "{DDA4F192-8560-419F-B071-4BD7373BBA0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestFigures", "NUnitTestFigures\NUnitTestFigures.csproj", "{8E742E16-CC35-483B-BCD2-9DC68CCB4B8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTestFigures", "NUnitTestFigures\NUnitTestFigures.csproj", "{8E742E16-CC35-483B-BCD2-9DC68CCB4B8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

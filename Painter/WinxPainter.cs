@@ -1,5 +1,8 @@
-﻿using Painter.Figures;
+﻿using Painter.FabricFigure;
+using Painter.Figures;
+using Painter.MathFigures;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,20 +10,20 @@ namespace Painter
 {
     public partial class Painter : Form
     {
-        AFigures _figure;
+        AFigure CurrentFigure;
         StaticBitmap bitmap;
-
+        IFigureFactory factoryFigure;
         Color _currentColor;
         bool mouseDown;
         Point FirstPoint;
-        Point SecondPoint;     
-        int n = 1;                 //количество сторон
+        Point SecondPoint;
+        int n = 1;                  //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
-
+        List<Point> list = new List<Point>();
 
         public Painter()
         {
@@ -29,7 +32,7 @@ namespace Painter
             _currentColor = Color.Black;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-            textBox1.Text = "0";           
+            textBox1.Text = "0";
         }
 
         private void DrawTree(double x, double y, double a, double angle)
@@ -38,7 +41,7 @@ namespace Painter
             {
                 a *= 0.7;                                                                //Меняем параметр a - это колличество веток
 
-                                                                                          //Считаем координаты для ветки
+                //Считаем координаты для ветки
                 double xnew = Math.Round(x + a * Math.Cos(angle)),
                        ynew = Math.Round(y - a * Math.Sin(angle));
 
@@ -59,51 +62,63 @@ namespace Painter
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-
-           
+            //switch
             if (toolBox.SelectedIndex == -1)
-                {
-                   MessageBox.Show("Вы не выбрали инструмент для рисования");
-                }
-            else if (toolBox.SelectedIndex <6 || toolBox.SelectedIndex > 6)
+            {
+                MessageBox.Show("Вы не выбрали инструмент для рисования");
+            }
+            else /*if (toolBox.SelectedIndex == 3)*/
             {
                 FirstPoint = e.Location;
-            }            
+                CurrentFigure = null;
+                n = Convert.ToInt32(textBox1.Text);
+    
+            }
+            //else if(toolBox.SelectedIndex == 6)
+            //{
+            //    FirstPoint = e.Location;
+            //}
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
                 {
-                   FirstPoint = e.Location;
+                    list.Add(e.Location);
                     count++;
                 }
                 else if (count == 1)
                 {
-                    SecondPoint = e.Location;
+                    list.Add(e.Location);
                     count++;
                 }
                 else if (count == 2)
-                {                                       
-                    _figure = new Triangle(FirstPoint, SecondPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
+                {
+                    list.Add(e.Location);
+                    factoryFigure = new TriangleFactory(list);
+
                     count = 0;
+                    list = new List<Point>();
+
+                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
+                    bitmap.DrawFigure(CurrentFigure);
+                    pictureBox.Image = bitmap.tmpBitmap;
                 }
             }
         }
 
+
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-           
             bitmap.CopyInNew();
 
             if (mouseDown)
             {
                 if (toolBox.SelectedIndex == 0)
-                {                    
+                {
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
 
@@ -111,78 +126,37 @@ namespace Painter
                     bitmap.CopyInOld();
                     pictureBox.Image = bitmap.Bitmap;
 
-                }
-                else if (toolBox.SelectedIndex == 1)
-                {
-                    _figure = new Line(FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-
-                }
-                else if (toolBox.SelectedIndex == 2)
-                {
-                    _figure = new RectangleMath(FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                }
-                else if (toolBox.SelectedIndex == 3)
-                {
-                    _figure = new Square(FirstPoint, e.Location);               // вызов фигуры квадрата
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor); // рисование квадрата
-
-                }
-                else if (toolBox.SelectedIndex == 4)
-                {
-                    n = Convert.ToInt32(textBox1.Text);
-                    if (n <= 1)
-                    {
-                        MessageBox.Show("Введите количество граней");
-                    }
-                    _figure = new NSidedPolygon((double)(360.0 / (double)n), n, FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                }
-                else if (toolBox.SelectedIndex == 5)
-                {
-                    _figure = new Trapezoid( FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                }
-                else if (toolBox.SelectedIndex == 7)
-                {
-                    _figure = new RightTriangle(FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                }
-                else if (toolBox.SelectedIndex == 8)
-                {
-                    _figure = new IsoscelesTriangle(FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                }
-                else if (toolBox.SelectedIndex == 9)
-                {
-                    DrawTree(FirstPoint.X, FirstPoint.Y, 250, angle);
-                }
-                else if (toolBox.SelectedIndex == 10)
-                {
-                    _figure = new Circle(FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
-                }
-                else if (toolBox.SelectedIndex == 11)
-                {
-                    _figure = new Ellipse(FirstPoint, e.Location);
-                    bitmap.DrawFigure(_figure.GetPoints(), _currentColor);
                 }               
+                else if (toolBox.SelectedIndex != 6)
+                {
+                    if(CurrentFigure == null && factoryFigure!= null)
+                    {
+                        CurrentFigure = factoryFigure.Create(FirstPoint,n, _currentColor);
+                    }
+
+                    if (CurrentFigure != null)
+                    {
+                        CurrentFigure.Update(e.Location);
+                        bitmap.DrawFigure(CurrentFigure);
+                    }
+                }
             }
+            
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
             GC.Collect();
             pictureBox.Image = bitmap.tmpBitmap;
         }
 
-       
+    
+        
+
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-
+            
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
-
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
@@ -199,10 +173,10 @@ namespace Painter
             pictureBox.Image = null;
             bitmap.Bitmap = null;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-        }      
+        }
 
         private void Rubber_Click(object sender, EventArgs e)
-        {            
+        {
             if (_currentColor != Color.White)
             {
                 copyColor = _currentColor;
@@ -212,6 +186,43 @@ namespace Painter
             _currentColor = copyColor;
         }
 
-       
+
+        private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (toolBox.SelectedIndex)
+            {
+                case 1:
+                    factoryFigure = new LineFactory();
+                    break;
+                case 2:
+                    factoryFigure = new RectangleFactory();
+                    break;
+                case 3:
+                    factoryFigure = new SquareFactory();
+                    break;
+                case 4:
+                    factoryFigure = new NSidedPolygonFactory();
+                    break;
+                case 5:
+                    factoryFigure = new TrapezoidFactory();
+                    break;
+                case 6:
+                    factoryFigure = null;
+                    break;
+                case 7:
+                    factoryFigure = new RightTriangleFactory();
+                    break;
+                case 8:
+                    factoryFigure = new IsoscelesTriangleFactory();
+                    break;
+                case 10:
+                    factoryFigure = new CircleFactory();
+                    break;
+                case 11:
+                    factoryFigure = new EllipseFactory();
+                    break;
+            }
+                
+        }
     }
 }

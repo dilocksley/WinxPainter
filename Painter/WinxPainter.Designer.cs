@@ -58,7 +58,6 @@
             this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
             this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-       
             // 
             // toolBox
             // 
@@ -84,6 +83,7 @@
             this.toolBox.Size = new System.Drawing.Size(110, 21);
             this.toolBox.TabIndex = 1;
             this.toolBox.Text = "Инструмент";
+            this.toolBox.SelectedIndexChanged += new System.EventHandler(this.toolBox_SelectedIndexChanged);
             // 
             // ColorBox
             // 
@@ -139,7 +139,6 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 8;
-         
             // 
             // Fill
             // 
@@ -149,7 +148,6 @@
             this.Fill.TabIndex = 9;
             this.Fill.Text = "Заливка";
             this.Fill.UseVisualStyleBackColor = true;
-         
             // 
             // textBox1
             // 
@@ -175,7 +173,6 @@
             this.Controls.Add(this.pictureBox);
             this.Name = "Painter";
             this.Text = "Painter";
-         
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);

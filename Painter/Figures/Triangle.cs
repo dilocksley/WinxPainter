@@ -1,23 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using Painter.MathFigures;
 
 
 namespace Painter.Figures
 {
-    public class Triangle : AFigures
+
+    public class Triangle : AFigure
     {
-        List<Point> triangleList = new List<Point>();
-        public Triangle(Point First, Point Second, Point Third)
-        {
-            this.triangleList.Add(First);
-            this.triangleList.Add(Second);
-            this.triangleList.Add(Third);
-        }
-        public override List<Point> GetPoints()                      // реализавала так, потому что у Триугольника нет математики
-        {
-            return triangleList;
-        }
+        Point first;
+        Point second;
+        Point third;
+        public Color color;
+        List<Point> list;
 
+        public Triangle(Color color, List<Point> list)
+        {
 
+            this.color = color;
+            this.list = list;
+
+        }
+        public override List<Point> Math()
+        {
+
+            return new MathTriangle(list).MathFigure(first, second);
+        }
+        public override Color SetColor()
+        {
+            return color;
+        }
+        public override void Update(Point e)
+        {
+            second = e;
+        }
     }
+
 }
