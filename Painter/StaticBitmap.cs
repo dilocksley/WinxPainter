@@ -124,7 +124,10 @@ namespace Painter
         {
             foreach(AFigure figure in aFigures)
             {
-                DrawFigure(figure);
+                if (figure != null)
+                {
+                    DrawFigure(figure);
+                }
             }           
         }
 
@@ -136,7 +139,10 @@ namespace Painter
                 return;
             }
             tmpFigure.Add(aFigures[aFigures.Count - 1]);
-            DrawFigureN(tmpFigure[tmpFigure.Count - 1]);
+            if (tmpFigure != null)
+            {
+                DrawFigureN(tmpFigure[tmpFigure.Count - 1]);
+            }
             aFigures.RemoveAt(aFigures.Count - 1);
             ShowOnTheScreen();
         }
@@ -155,8 +161,12 @@ namespace Painter
 
         public void DrawFigureN(AFigure aFigure)
         {
-            List<Point> points = aFigure.Math();
-            ConnectPoints(points, Color.White);
+            if (aFigure != null)
+            {
+                List<Point> points = aFigure.Math();
+                ConnectPoints(points, Color.White);
+            }
+           
         }
     }
 
