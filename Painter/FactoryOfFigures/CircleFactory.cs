@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Painter.Figures;
 using System.Drawing;
 
-namespace Painter.FabricFigure
+namespace Painter.FactoryOfFigures
 {
     class CircleFactory : IFigureFactory
     {

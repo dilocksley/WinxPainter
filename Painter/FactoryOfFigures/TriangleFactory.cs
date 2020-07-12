@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Collections.Generic;
 
-namespace Painter.FabricFigure
+namespace Painter.FactoryOfFigures
 {
     class TriangleFactory : IFigureFactory
     {

@@ -1,7 +1,7 @@
 ﻿using Painter.Figures;
 using System.Drawing;
 
-namespace Painter.FabricFigure
+namespace Painter.FactoryOfFigures
 {
     class IsoscelesTriangleFactory : IFigureFactory
     {

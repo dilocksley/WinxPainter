@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Painter));
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.toolBox = new System.Windows.Forms.ComboBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -39,9 +40,9 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.Fill = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.showAll = new System.Windows.Forms.Button();
+            this.undo = new System.Windows.Forms.Button();
+            this.redo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +50,7 @@
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.Color.White;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
@@ -90,7 +92,7 @@
             // 
             // ColorBox
             // 
-            this.ColorBox.Location = new System.Drawing.Point(678, 12);
+            this.ColorBox.Location = new System.Drawing.Point(372, 9);
             this.ColorBox.Name = "ColorBox";
             this.ColorBox.Size = new System.Drawing.Size(127, 23);
             this.ColorBox.TabIndex = 2;
@@ -118,17 +120,17 @@
             // 
             // DeletAll
             // 
-            this.DeletAll.Location = new System.Drawing.Point(491, 12);
+            this.DeletAll.Location = new System.Drawing.Point(586, 9);
             this.DeletAll.Name = "DeletAll";
             this.DeletAll.Size = new System.Drawing.Size(100, 23);
             this.DeletAll.TabIndex = 5;
-            this.DeletAll.Text = "Удалить все!";
+            this.DeletAll.Text = "Удалить всё!";
             this.DeletAll.UseVisualStyleBackColor = true;
             this.DeletAll.Click += new System.EventHandler(this.DeletAll_Click);
             // 
             // Rubber
             // 
-            this.Rubber.Location = new System.Drawing.Point(597, 12);
+            this.Rubber.Location = new System.Drawing.Point(794, 9);
             this.Rubber.Name = "Rubber";
             this.Rubber.Size = new System.Drawing.Size(75, 23);
             this.Rubber.TabIndex = 6;
@@ -145,7 +147,7 @@
             // 
             // Fill
             // 
-            this.Fill.Location = new System.Drawing.Point(410, 12);
+            this.Fill.Location = new System.Drawing.Point(505, 9);
             this.Fill.Name = "Fill";
             this.Fill.Size = new System.Drawing.Size(75, 23);
             this.Fill.TabIndex = 9;
@@ -159,44 +161,46 @@
             this.textBox1.Size = new System.Drawing.Size(110, 20);
             this.textBox1.TabIndex = 10;
             // 
-            // button1
+            // showAll
             // 
-            this.button1.Location = new System.Drawing.Point(24, 78);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Высести на экран";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.showAll.Location = new System.Drawing.Point(692, 9);
+            this.showAll.Name = "showAll";
+            this.showAll.Size = new System.Drawing.Size(96, 23);
+            this.showAll.TabIndex = 11;
+            this.showAll.Text = "Показать всё";
+            this.showAll.UseVisualStyleBackColor = true;
+            this.showAll.Click += new System.EventHandler(this.showAll_Click);
             // 
-            // button2
+            // undo
             // 
-            this.button2.Location = new System.Drawing.Point(24, 107);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Назад";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.undo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("undo.BackgroundImage")));
+            this.undo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.undo.Location = new System.Drawing.Point(15, 73);
+            this.undo.Name = "undo";
+            this.undo.Size = new System.Drawing.Size(29, 29);
+            this.undo.TabIndex = 12;
+            this.undo.UseVisualStyleBackColor = true;
+            this.undo.Click += new System.EventHandler(this.undo_Click);
             // 
-            // button3
+            // redo
             // 
-            this.button3.Location = new System.Drawing.Point(24, 136);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "Вперет";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.redo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("redo.BackgroundImage")));
+            this.redo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.redo.Location = new System.Drawing.Point(14, 108);
+            this.redo.Name = "redo";
+            this.redo.Size = new System.Drawing.Size(29, 29);
+            this.redo.TabIndex = 13;
+            this.redo.UseVisualStyleBackColor = true;
+            this.redo.Click += new System.EventHandler(this.redo_Click);
             // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1210, 644);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.redo);
+            this.Controls.Add(this.undo);
+            this.Controls.Add(this.showAll);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Fill);
             this.Controls.Add(this.numericUpDown1);
@@ -229,9 +233,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button Fill;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button showAll;
+        private System.Windows.Forms.Button undo;
+        private System.Windows.Forms.Button redo;
     }
 }
 
