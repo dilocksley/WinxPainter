@@ -34,6 +34,16 @@ namespace Painter.Figures
         {
             second = e;
         }
+
+        public override bool IsPointInFigure(Point mousePoint)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Move(Point point)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }

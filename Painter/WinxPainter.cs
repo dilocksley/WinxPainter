@@ -24,6 +24,7 @@ namespace Painter
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
         List<Point> list = new List<Point>();
+        bool changeFigure;
 
         public Painter()
         {
@@ -65,7 +66,7 @@ namespace Painter
             //switch
             if (toolBox.SelectedIndex == -1)
             {
-                MessageBox.Show("Вы не выбрали инструмент для рисования");
+                return;
             }
             else /*if (toolBox.SelectedIndex == 3)*/
             {
@@ -74,10 +75,18 @@ namespace Painter
                 n = Convert.ToInt32(textBox1.Text);
     
             }
-            //else if(toolBox.SelectedIndex == 6)
-            //{
-            //    FirstPoint = e.Location;
-            //}
+            if (changeFigure)
+            {
+                FirstPoint = e.Location;
+                CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
+                if(CurrentFigure != null)
+                {
+                    bitmap.ShowWithOutFigure(CurrentFigure);
+                    pictureBox.Image = bitmap.Bitmap;
+                }
+            }
+            
+
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -108,6 +117,11 @@ namespace Painter
                     pictureBox.Image = bitmap.tmpBitmap;
                 }
             }
+            if (changeFigure)
+            {
+                CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
+            }
+
         }
 
 
@@ -140,7 +154,18 @@ namespace Painter
                         bitmap.DrawFigure(CurrentFigure);
                     }
                 }
+                if (changeFigure)
+                {
+                    Point delta = new Point();
+
+                    delta.X = e.X - FirstPoint.X;
+                    delta.Y = e.Y - FirstPoint.Y;
+                    FirstPoint = e.Location;
+                    CurrentFigure.Move(delta);
+                    bitmap.ShowOnTheScreen();
+                }
             }
+
             
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
@@ -154,6 +179,7 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
+            changeFigure = false;
             bitmap.AddFigure(CurrentFigure);
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
@@ -244,6 +270,12 @@ namespace Painter
             bitmap.Redo();
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
+        }
+
+        private void Change_figure_Click(object sender, EventArgs e)
+        {
+            changeFigure = true;
+            toolBox.SelectedIndex = -1;
         }
     }
 }

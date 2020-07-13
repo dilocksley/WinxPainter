@@ -36,6 +36,26 @@ namespace Painter.Figures
             second = e;
         }
 
+        public override bool IsPointInFigure(Point mousePoint)
+        {
+            if (first.X <= mousePoint.X && first.Y <= mousePoint.Y && second.X >= mousePoint.X && second.Y >= mousePoint.Y) 
+                return true;
+            else return false;
+        }
+
+        public override void Move(Point point)
+        {
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y;
+
+        }
+
+
+
+
+
         #region SquareMathCode
         //public Square (Point FirstPoint, Point SecondPoint)
         //{

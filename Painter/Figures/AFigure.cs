@@ -21,6 +21,14 @@ namespace Painter.Figures
         public abstract Color SetColor();
       
         public abstract void Update(Point e);
-       
+
+
+        public abstract bool IsPointInFigure(Point mousePoint);
+
+        public abstract void Move(Point point);
+
+
     }
+
+    
 }

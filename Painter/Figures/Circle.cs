@@ -36,6 +36,17 @@ namespace Painter.Figures
             second = e;
         }
 
+        public override bool IsPointInFigure(Point mousePoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Move(Point point)
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры

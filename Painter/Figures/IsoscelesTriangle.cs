@@ -31,6 +31,16 @@ namespace Painter.Figures
             second = e;
         }
 
+        public override bool IsPointInFigure(Point mousePoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Move(Point point)
+        {
+            throw new NotImplementedException();
+        }
+
         //public class IsoscelesTriangle : AFigure
         //{
         //    //List<Point> triangleList = new List<Point>();

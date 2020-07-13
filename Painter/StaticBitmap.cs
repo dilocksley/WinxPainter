@@ -168,8 +168,29 @@ namespace Painter
             }
            
         }
+
+        public void ShowWithOutFigure(AFigure afigure)
+        {
+            int q = 0;
+            for (int i = 0; i < aFigures.Count; i++)
+            {
+                if(aFigures[i] == afigure)
+                {
+                    q = i;
+                    break;
+                }
+
+            }
+            DrawFigureN(aFigures[q]);
+            aFigures.RemoveAt(q);
+
+
+        }
+
+        
+
     }
 
 
-   
+
 }
