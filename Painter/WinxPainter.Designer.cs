@@ -82,7 +82,8 @@
             "Равнобедренный треугольник ",
             "Дерево",
             "Круг",
-            "Эллипс"});
+            "Эллипс",
+            "Ломаная линия"});
             this.toolBox.Location = new System.Drawing.Point(130, 10);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);
@@ -191,8 +192,8 @@
             this.redo.Size = new System.Drawing.Size(29, 29);
             this.redo.TabIndex = 13;
             this.redo.UseVisualStyleBackColor = true;
-            this.redo.Click += new System.EventHandler(this.redo_Click);            
-            //
+            this.redo.Click += new System.EventHandler(this.redo_Click);
+            // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

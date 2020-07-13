@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 using Painter.Figures;
 using System.Drawing;
 
-
 namespace Painter.FactoryOfFigures
 {
-    class PenFigureFactory : IFigureFactory
+    class OpenPolygonFactory : IFigureFactory
     {
         List<Point> list;
-        public PenFigureFactory(List<Point> list)
+        public OpenPolygonFactory(List<Point> list)
         {
             this.list = list;
         }
         public AFigure Create(Point first, int n, Color color)
         {
-            PenFigure pencil = new PenFigure(first, color);
+            OpenPolygon pencil = new OpenPolygon(first, color);
             return pencil;
         }
     }

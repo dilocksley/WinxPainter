@@ -17,6 +17,7 @@ namespace Painter
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
+        Point firstPointInVoluntaryFigure;
         int n = 1;                  //количество сторон
         int count = 0;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
@@ -72,7 +73,11 @@ namespace Painter
                 FirstPoint = e.Location;
                 CurrentFigure = null;
                 n = Convert.ToInt32(textBox1.Text);
-    
+
+            }
+            if (toolBox.SelectedIndex == 12)
+            {
+                firstPointInVoluntaryFigure = e.Location;
             }
             //else if(toolBox.SelectedIndex == 6)
             //{
@@ -82,7 +87,15 @@ namespace Painter
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-
+            if (toolBox.SelectedIndex == 12)
+            {
+                if(SecondPoint.X <= firstPointInVoluntaryFigure.X + 50 || SecondPoint.X <= firstPointInVoluntaryFigure.X - 50
+                    || SecondPoint.Y <= firstPointInVoluntaryFigure.Y + 50 || SecondPoint.Y <= firstPointInVoluntaryFigure.Y - 50)
+                {
+                    FirstPoint = e.Location;
+                    factoryFigure = new OpenPolygonFactory(list);
+                }
+            }
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
@@ -117,10 +130,11 @@ namespace Painter
 
             if (mouseDown)
             {
-                if (toolBox.SelectedIndex == 0)
+                if (toolBox.SelectedIndex == 12)
                 {
-                    SecondPoint = FirstPoint;
-                    FirstPoint = e.Location;
+                    FirstPoint = SecondPoint;
+                    SecondPoint = e.Location;
+
 
                     //bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
                     //bitmap.CopyInOld();
@@ -135,12 +149,12 @@ namespace Painter
                         CurrentFigure.Update(e.Location);
                         bitmap.DrawFigure(CurrentFigure);
                     }
-                }               
+                }
                 else if (toolBox.SelectedIndex != 6)
                 {
-                    if(CurrentFigure == null && factoryFigure!= null)
+                    if (CurrentFigure == null && factoryFigure != null)
                     {
-                        CurrentFigure = factoryFigure.Create(FirstPoint,n, _currentColor);
+                        CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
                     }
 
                     if (CurrentFigure != null)
@@ -150,15 +164,15 @@ namespace Painter
                     }
                 }
             }
-            
+
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
             GC.Collect();
             pictureBox.Image = bitmap.tmpBitmap;
         }
 
-    
-        
+
+
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -200,8 +214,8 @@ namespace Painter
         {
             switch (toolBox.SelectedIndex)
             {
-                case 0:
-                    factoryFigure = new PenFigureFactory();
+                case 12:
+                    factoryFigure = new OpenPolygonFactory(list);
                     break;
                 case 1:
                     factoryFigure = new LineFactory();
@@ -234,7 +248,7 @@ namespace Painter
                     factoryFigure = new EllipseFactory();
                     break;
             }
-                
+
         }
 
         private void showAll_Click(object sender, EventArgs e)
