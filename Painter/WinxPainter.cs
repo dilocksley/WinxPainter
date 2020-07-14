@@ -134,23 +134,21 @@ namespace Painter
                 {
                     FirstPoint = SecondPoint;
                     SecondPoint = e.Location;
-
+                }
+                else if (toolBox.SelectedIndex == 0)
+                {
+                    SecondPoint = FirstPoint;
+                    FirstPoint = e.Location;
+                    //FirstPoint = SecondPoint;
+                    //SecondPoint = e.Location;
 
                     //bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
                     //bitmap.CopyInOld();
-                    //pictureBox.Image = bitmap.Bitmap;
-                    if (CurrentFigure == null && factoryFigure != null)
-                    {
-                        CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
-                    }
+                    pictureBox.Image = bitmap.Bitmap;
 
-                    if (CurrentFigure != null)
-                    {
-                        CurrentFigure.Update(e.Location);
-                        bitmap.DrawFigure(CurrentFigure);
-                    }
                 }
-                else if (toolBox.SelectedIndex != 6)
+
+                if (toolBox.SelectedIndex != 6 )
                 {
                     if (CurrentFigure == null && factoryFigure != null)
                     {
@@ -214,6 +212,9 @@ namespace Painter
         {
             switch (toolBox.SelectedIndex)
             {
+                case 0:
+                    factoryFigure = new PenFigureFactory();
+                    break;
                 case 12:
                     factoryFigure = new OpenPolygonFactory(list);
                     break;

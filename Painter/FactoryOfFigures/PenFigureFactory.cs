@@ -11,11 +11,11 @@ namespace Painter.FactoryOfFigures
 {
     class PenFigureFactory : IFigureFactory
     {
-        List<Point> list;
-        public PenFigureFactory(List<Point> list)
-        {
-            this.list = list;
-        }
+        //List<Point> list;
+        //public PenFigureFactory(List<Point> list)
+        //{
+        //    this.list = list;
+        //}
         public AFigure Create(Point first, int n, Color color)
         {
             PenFigure pencil = new PenFigure(first, color);
