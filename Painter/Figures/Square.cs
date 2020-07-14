@@ -14,7 +14,7 @@ namespace Painter.Figures
         Point first;
         Point second;
         public Color color;
-       
+        List<Point> a;
        public Square(Point first, Color color)
        {
             this.first = first;
@@ -24,7 +24,8 @@ namespace Painter.Figures
 
        public override List<Point> Math()
        {
-            return new MathSquare().MathFigure(first,second);
+            a= new MathSquare().MathFigure(first, second);
+            return a;
        }
 
         public override Color SetColor ()

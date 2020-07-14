@@ -58,7 +58,7 @@
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1613, 793);
+            this.pictureBox.Size = new System.Drawing.Size(1210, 644);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -89,7 +89,7 @@
             this.toolBox.Location = new System.Drawing.Point(173, 12);
             this.toolBox.Margin = new System.Windows.Forms.Padding(4);
             this.toolBox.Name = "toolBox";
-            this.toolBox.Size = new System.Drawing.Size(145, 25);
+            this.toolBox.Size = new System.Drawing.Size(110, 21);
             this.toolBox.TabIndex = 1;
             this.toolBox.Text = "Инструмент";
             this.toolBox.SelectedIndexChanged += new System.EventHandler(this.toolBox_SelectedIndexChanged);
@@ -99,7 +99,7 @@
             this.ColorBox.Location = new System.Drawing.Point(496, 11);
             this.ColorBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorBox.Name = "ColorBox";
-            this.ColorBox.Size = new System.Drawing.Size(169, 28);
+            this.ColorBox.Size = new System.Drawing.Size(127, 23);
             this.ColorBox.TabIndex = 2;
             this.ColorBox.Text = "Выбор цвета";
             this.ColorBox.UseVisualStyleBackColor = true;
@@ -108,20 +108,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 55);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 17);
+            this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "X";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(95, 55);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(71, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 17);
+            this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Y";
             // 
@@ -130,7 +128,7 @@
             this.DeletAll.Location = new System.Drawing.Point(781, 11);
             this.DeletAll.Margin = new System.Windows.Forms.Padding(4);
             this.DeletAll.Name = "DeletAll";
-            this.DeletAll.Size = new System.Drawing.Size(133, 28);
+            this.DeletAll.Size = new System.Drawing.Size(100, 23);
             this.DeletAll.TabIndex = 5;
             this.DeletAll.Text = "Удалить всё!";
             this.DeletAll.UseVisualStyleBackColor = true;
@@ -141,7 +139,7 @@
             this.Rubber.Location = new System.Drawing.Point(1059, 11);
             this.Rubber.Margin = new System.Windows.Forms.Padding(4);
             this.Rubber.Name = "Rubber";
-            this.Rubber.Size = new System.Drawing.Size(100, 28);
+            this.Rubber.Size = new System.Drawing.Size(75, 23);
             this.Rubber.TabIndex = 6;
             this.Rubber.Text = "Стерка";
             this.Rubber.UseVisualStyleBackColor = true;
@@ -152,7 +150,7 @@
             this.numericUpDown1.Location = new System.Drawing.Point(328, 12);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(160, 22);
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 8;
             // 
             // Fill
@@ -160,7 +158,7 @@
             this.Fill.Location = new System.Drawing.Point(673, 11);
             this.Fill.Margin = new System.Windows.Forms.Padding(4);
             this.Fill.Name = "Fill";
-            this.Fill.Size = new System.Drawing.Size(100, 28);
+            this.Fill.Size = new System.Drawing.Size(75, 23);
             this.Fill.TabIndex = 9;
             this.Fill.Text = "Заливка";
             this.Fill.UseVisualStyleBackColor = true;
@@ -170,7 +168,7 @@
             this.textBox1.Location = new System.Drawing.Point(19, 14);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(145, 22);
+            this.textBox1.Size = new System.Drawing.Size(110, 20);
             this.textBox1.TabIndex = 10;
             // 
             // showAll
@@ -178,7 +176,7 @@
             this.showAll.Location = new System.Drawing.Point(923, 11);
             this.showAll.Margin = new System.Windows.Forms.Padding(4);
             this.showAll.Name = "showAll";
-            this.showAll.Size = new System.Drawing.Size(128, 28);
+            this.showAll.Size = new System.Drawing.Size(96, 23);
             this.showAll.TabIndex = 11;
             this.showAll.Text = "Показать всё";
             this.showAll.UseVisualStyleBackColor = true;
@@ -191,7 +189,7 @@
             this.undo.Location = new System.Drawing.Point(20, 90);
             this.undo.Margin = new System.Windows.Forms.Padding(4);
             this.undo.Name = "undo";
-            this.undo.Size = new System.Drawing.Size(39, 36);
+            this.undo.Size = new System.Drawing.Size(29, 29);
             this.undo.TabIndex = 12;
             this.undo.UseVisualStyleBackColor = true;
             this.undo.Click += new System.EventHandler(this.undo_Click);
@@ -203,16 +201,17 @@
             this.redo.Location = new System.Drawing.Point(19, 133);
             this.redo.Margin = new System.Windows.Forms.Padding(4);
             this.redo.Name = "redo";
-            this.redo.Size = new System.Drawing.Size(39, 36);
+            this.redo.Size = new System.Drawing.Size(29, 29);
             this.redo.TabIndex = 13;
             this.redo.UseVisualStyleBackColor = true;
             this.redo.Click += new System.EventHandler(this.redo_Click);
             // 
             // Change_figure
             // 
-            this.Change_figure.Location = new System.Drawing.Point(1170, 11);
+            this.Change_figure.Location = new System.Drawing.Point(878, 9);
+            this.Change_figure.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Change_figure.Name = "Change_figure";
-            this.Change_figure.Size = new System.Drawing.Size(111, 27);
+            this.Change_figure.Size = new System.Drawing.Size(83, 22);
             this.Change_figure.TabIndex = 14;
             this.Change_figure.Text = "Переместить";
             this.Change_figure.UseVisualStyleBackColor = true;
@@ -229,7 +228,7 @@
             // 
             // Painter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1613, 793);
             this.Controls.Add(this.button1);

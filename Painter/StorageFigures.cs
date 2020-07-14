@@ -17,21 +17,13 @@ namespace Painter
         {
             foreach(AFigure a in aFigures)
             {
-                //if (a == null)
-                //{
-                //    continue;
-                //}
-                //if (a.IsPointInFigure(mousePoint))
-                //{
-                //    return a;
-                //}
                 if (a != null)
                 {
                     if (a.IsPointInFigure(mousePoint))
                     {
                         return a;
                     }
-
+                    
                 }
                 
             }

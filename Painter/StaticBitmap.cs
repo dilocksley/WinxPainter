@@ -19,7 +19,9 @@ namespace Painter
         }
         public static StaticBitmap instance;
         public  Bitmap Bitmap { get; set; }
+        
         public  Bitmap tmpBitmap { get; set; }
+        
         public  void SetPixel(int x, int y, Color color)
         {
             if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height)
@@ -183,11 +185,78 @@ namespace Painter
             }           
             DrawFigureN(aFigures[q]);          
             aFigures.RemoveAt(q);
-
+            ShowOnTheScreen();
 
         }
 
-        
+        public void Fill(Point e, Color colorFill )
+        {
+            Color startColor = Bitmap.GetPixel(e.X,e.Y);
+            Point left = new Point(e.X,e.X);
+            Point right = new Point(e.X, e.X);
+            if (Bitmap.Width >= e.X && Bitmap.Height >= e.Y && e.X > 0 && e.Y > 0)
+            {
+
+
+                while (Bitmap.GetPixel(left.X - 1, left.Y) != startColor)
+                {
+                    left.X--;
+                }
+
+                while (Bitmap.GetPixel(right.X + 1, right.Y) != startColor)
+                {
+                    right.X++;
+                }
+
+
+                DrawLine(left, right, colorFill);
+
+                for (int i = left.X; i <= right.X; i++)
+                {
+                    if (Bitmap.GetPixel(i, e.Y + 1) == startColor)
+                    {
+                        Point w = new Point(i, e.Y + 1);
+                        Fill(w, colorFill);
+                    }
+                    if (Bitmap.GetPixel(i, e.Y - 1) == startColor)
+                    {
+                        Point w = new Point(i, e.Y - 1);
+                        Fill(w, colorFill);
+                    }
+                }
+            }
+                //for (int i = 0;; i++)
+                //{
+                //    left.X = left.X + i;
+                //    for (int j = 0;; j++)
+                //    {
+                //        if(Bitmap.GetPixel(left.X , left.Y-j) != colorFill && Bitmap.GetPixel(left.X , left.Y-j) != Color.White)
+                //        {
+                //            Point up = new Point();
+                //            up.X = left.X;
+                //            up.Y = left.Y - j;
+                //            DrawLine(left,up, colorFill);
+                //            break;
+                //        }
+                //    }
+
+                //    for (int j = 0; ; j++)
+                //    {
+                //        if (Bitmap.GetPixel(left.X, left.Y + j) != colorFill && Bitmap.GetPixel(left.X, left.Y + j) != Color.White)
+                //        {
+                //            Point down = new Point();
+                //            down.X = left.X;
+                //            down.Y = left.Y + j;
+                //            DrawLine(left, down, colorFill);
+                //            break;
+                //        }
+                //    }
+                //}
+
+               
+
+            
+        }
 
     }
 

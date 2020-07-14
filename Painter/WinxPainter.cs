@@ -26,8 +26,8 @@ namespace Painter
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
         List<Point> list = new List<Point>();
-        bool changeFigure = false;
-
+        bool changeFigure;
+        bool fill;
         public Painter()
         {
             InitializeComponent();
@@ -66,7 +66,8 @@ namespace Painter
         {
             mouseDown = true;
             //switch
-            if (toolBox.SelectedIndex == -1)
+            
+            if(toolBox.SelectedIndex >=0)
             {
                 return;
             }
@@ -81,11 +82,16 @@ namespace Painter
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            //if (changeFigure && CurrentFigure == null)
-            //{
-            //    //FirstPoint = e.Location;
-                
-            //}
+
+            if(fill)
+            {
+              
+                bitmap.Fill(e.Location, _currentColor);
+               
+               
+            }
+
+
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
@@ -309,6 +315,12 @@ namespace Painter
         {
             changeFigure = true;
             CurrentFigure = null;
+            toolBox.SelectedIndex = -1;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            fill = true;
             toolBox.SelectedIndex = -1;
         }
     }
