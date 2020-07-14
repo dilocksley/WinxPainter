@@ -36,12 +36,29 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new NotImplementedException();
+            int maxX = second.X;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                maxX = first.X;
+                minX = second.X;
+            }
+            int maxY = second.Y;
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                maxY = first.Y;
+                minY = second.Y;
+            }
+            return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
         }
 
         public override void Move(Point point)
         {
-            throw new NotImplementedException();
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y; 
         }
 
 
