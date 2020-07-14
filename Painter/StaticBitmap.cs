@@ -180,8 +180,8 @@ namespace Painter
                     break;
                 }
 
-            }
-            DrawFigureN(aFigures[q]);
+            }           
+            DrawFigureN(aFigures[q]);          
             aFigures.RemoveAt(q);
 
 

@@ -4,6 +4,7 @@ using Painter.MathFigures;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.ExceptionServices;
 using System.Windows.Forms;
 
 namespace Painter
@@ -11,6 +12,7 @@ namespace Painter
     public partial class Painter : Form
     {
         AFigure CurrentFigure;
+        AFigure ActiveFigure;
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
         Color _currentColor;
@@ -24,7 +26,7 @@ namespace Painter
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
         List<Point> list = new List<Point>();
-        bool changeFigure;
+        bool changeFigure = false;
 
         public Painter()
         {
@@ -68,30 +70,22 @@ namespace Painter
             {
                 return;
             }
-            else /*if (toolBox.SelectedIndex == 3)*/
+            else if (!changeFigure) //если выбрана фигура
             {
-                FirstPoint = e.Location;
                 CurrentFigure = null;
                 n = Convert.ToInt32(textBox1.Text);
-    
+                
             }
-            if (changeFigure)
-            {
-                FirstPoint = e.Location;
-                CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                if(CurrentFigure != null)
-                {
-                    bitmap.ShowWithOutFigure(CurrentFigure);
-                    pictureBox.Image = bitmap.Bitmap;
-                }
-            }
-            
-
+            FirstPoint = e.Location;
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-
+            //if (changeFigure && CurrentFigure == null)
+            //{
+            //    //FirstPoint = e.Location;
+                
+            //}
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
@@ -117,21 +111,48 @@ namespace Painter
                     pictureBox.Image = bitmap.tmpBitmap;
                 }
             }
-            if (changeFigure)
-            {
-                CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-            }
-
         }
 
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             bitmap.CopyInNew();
+            
 
             if (mouseDown)
             {
-                if (toolBox.SelectedIndex == 0)
+                if (changeFigure)
+                {
+                    Point delta = new Point();
+
+                    delta.X = e.X - FirstPoint.X;
+                    delta.Y = e.Y - FirstPoint.Y;
+                    FirstPoint = e.Location;
+
+                    if (CurrentFigure == null)
+                    {
+                        CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
+                        if (CurrentFigure != null)
+                        {
+
+                            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                            
+                            bitmap.ShowWithOutFigure(CurrentFigure);
+                            
+                            // bitmap.ShowOnTheScreen();
+                            // pictureBox.Image = bitmap.tmpBitmap;
+                        }
+                    }
+                    if (CurrentFigure != null)
+                    {
+                        //bitmap.ShowWithOutFigure(CurrentFigure); 
+                        bitmap.ShowOnTheScreen();
+                        CurrentFigure.Move(delta);
+                        bitmap.DrawFigure(CurrentFigure);
+
+                    }
+                }
+                else if (toolBox.SelectedIndex == 0)
                 {
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
@@ -154,16 +175,16 @@ namespace Painter
                         bitmap.DrawFigure(CurrentFigure);
                     }
                 }
-                if (changeFigure)
-                {
-                    Point delta = new Point();
+                //if (changeFigure)
+                //{
+                //    Point delta = new Point();
 
-                    delta.X = e.X - FirstPoint.X;
-                    delta.Y = e.Y - FirstPoint.Y;
-                    FirstPoint = e.Location;
-                    CurrentFigure.Move(delta);
-                    bitmap.ShowOnTheScreen();
-                }
+                //    delta.X = e.X - FirstPoint.X;
+                //    delta.Y = e.Y - FirstPoint.Y;
+
+                //    CurrentFigure.Move(delta);
+                //    bitmap.ShowOnTheScreen();
+                //}
             }
 
             
@@ -179,10 +200,23 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-            changeFigure = false;
-            bitmap.AddFigure(CurrentFigure);
+            if (CurrentFigure != null)
+            {
+                bitmap.AddFigure(CurrentFigure);
+            }
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
+
+            if (changeFigure)
+            {
+                CurrentFigure = null;
+                changeFigure = false;
+                toolBox.SelectedIndex = 3;
+
+                //FirstPoint = e.Location;
+               
+
+            }
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
@@ -248,7 +282,6 @@ namespace Painter
                     factoryFigure = new EllipseFactory();
                     break;
             }
-                
         }
 
         private void showAll_Click(object sender, EventArgs e)
@@ -275,6 +308,7 @@ namespace Painter
         private void Change_figure_Click(object sender, EventArgs e)
         {
             changeFigure = true;
+            CurrentFigure = null;
             toolBox.SelectedIndex = -1;
         }
     }

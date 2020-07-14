@@ -68,6 +68,8 @@
     <Compile Include="Figures\Square.cs" />
     <Compile Include="Figures\Triangle.cs" />
     <Compile Include="Figures\Trapezoid.cs" />
+    <Compile Include="Instruments\LineWidth.cs" />
+    <Compile Include="Instruments\MathChangeLineWidth.cs" />
     <Compile Include="MathFigures\IMathFigure.cs" />
     <Compile Include="MathFigures\MathCircle.cs" />
     <Compile Include="MathFigures\MathEllipse.cs" />

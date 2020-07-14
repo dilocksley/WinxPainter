@@ -36,15 +36,58 @@ namespace Painter.Figures
             second = e;
         }
 
-        public override bool IsPointInFigure(Point mousePoint)
+        public override bool IsPointInFigure(Point mousePoint) //ищем пренадлежит ли точка квадрату
         {
-            if (first.X <= mousePoint.X && first.Y <= mousePoint.Y && second.X >= mousePoint.X && second.Y >= mousePoint.Y) 
-                return true;
-            else return false;
+            int maxX = second.X;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                maxX = first.X;
+                minX = second.X;
+            }
+            int maxY = second.Y;
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                maxY = first.Y;
+                minY = second.Y;
+            }
+            return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
+
+            //    if (first.X <= mousePoint.X && first.Y <= mousePoint.Y && second.X >= mousePoint.X && second.Y >= mousePoint.Y)
+            //    return true;
+            //else return false;
+
         }
 
         public override void Move(Point point)
         {
+
+            //Point delta = new Point();
+            //delta.X = (first.X - second.X) / 2;
+            //first.X = point.X + delta.X;
+            //second.X = point.X - delta.X;
+            //if (second.X > first.X)
+            //{
+            //    delta.X = (second.X - first.X)/2;
+            //    first.X = point.X - delta.X;
+            //    second.X = point.X + delta.X;
+            //}
+            //delta.Y = (first.Y - second.Y) / 2;
+            //first.Y = point.Y - delta.Y;
+            //second.Y = point.Y + delta.Y;
+
+            //if (second.Y < first.Y)
+            //{
+            //    delta.Y = (first.Y - second.Y) / 2;
+            //    first.Y = point.Y + delta.Y;
+            //    second.Y = point.Y - delta.Y;
+            //}
+
+
+            //delta.X = point.X - FirstPoint.X;
+            //delta.Y = point.Y - FirstPoint.Y;
+
             first.X += point.X;
             first.Y += point.Y;
             second.X += point.X;
