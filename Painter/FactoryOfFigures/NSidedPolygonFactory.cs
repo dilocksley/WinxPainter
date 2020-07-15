@@ -10,6 +10,7 @@ namespace Painter.FactoryOfFigures
 {
     class NSidedPolygonFactory : IFigureFactory
     {
+        public AFigure Create(Point first, int n, Color color, Color fillColor)
         public AFigure Create(Point first, int n, Color color, int thickness)
         {
             NSidedPolygon nSided = new NSidedPolygon(first,n, color, thickness);

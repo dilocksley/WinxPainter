@@ -10,14 +10,13 @@ using System.Threading.Tasks;
 namespace Painter.Figures
 {
     public abstract class AFigure
-    {
+    {       
 
-        List<Point> fig;
+        protected IMathFigure math;
+        public IFillFigure fillFigure;
 
-        IMathFigure math;
-
-       // protected int thickness;
-
+        public abstract Point FindPoint();
+        public abstract void FillFigure();
         public abstract List<Point> DoFigureMath();
        
         public abstract Color SetColor();
@@ -31,6 +30,7 @@ namespace Painter.Figures
         //}
 
         public abstract void Update(Point e);
+        public abstract Color FillSetColor();
 
         public abstract bool IsPointInFigure(Point mousePoint);
 

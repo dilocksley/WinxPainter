@@ -45,7 +45,6 @@
             this.redo = new System.Windows.Forms.Button();
             this.Change_figure = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).BeginInit();
             this.SuspendLayout();
@@ -292,7 +291,6 @@
         private System.Windows.Forms.Button redo;
         private System.Windows.Forms.Button Change_figure;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.FontDialog fontDialog1;
     }
 }
 

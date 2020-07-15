@@ -49,6 +49,26 @@ namespace Painter.Figures
             throw new System.NotImplementedException();
         }
 
+        public override Color FillSetColor()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Point FindPoint()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void FillFigure()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //public override void FillFigure()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
+
         //public List<Point> FindRightTrianglePoints(Point First, Point Second)
         //{
 

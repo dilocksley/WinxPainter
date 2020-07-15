@@ -7,6 +7,7 @@ using System.Drawing;
 using Painter.MathFigures;
 using Painter.Instruments;
 using System.Deployment.Application;
+using Painter.Instruments;
 
 namespace Painter.Figures
 {
@@ -18,11 +19,15 @@ namespace Painter.Figures
         public int thickness;
         List<Point> a;
        public Square(Point first, Color color, int thickness)
+        Color fillColor = Color.Transparent;
+        Point e;
+       public Square(Point first, Color color, Color fillColor)
        {
             this.first = first;
             this.color = color;
             this.second = first;
             this.thickness = thickness;
+            this.fillColor = fillColor;
        }
 
        public override List<Point> DoFigureMath()
@@ -62,9 +67,7 @@ namespace Painter.Figures
             }
             return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
 
-            //if (first.X <= mousePoint.X && first.Y <= mousePoint.Y && second.X >= mousePoint.X && second.Y >= mousePoint.Y)
-            //    return true;
-            //else return false;
+            
 
         }
 
@@ -76,6 +79,22 @@ namespace Painter.Figures
             second.Y += point.Y;
         }
 
+        public override Color FillSetColor()
+        {
+            return fillColor;
+        }
+
+        public override Point FindPoint()
+        {
+            e = new Fill().FindPointFigure(first, second);
+            return e;
+        }
         
+        public override void FillFigure()
+        {
+            new Fill().FillFigure(e, fillColor);
+        }
+
+      
     }
 }

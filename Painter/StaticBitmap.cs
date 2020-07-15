@@ -209,6 +209,7 @@ namespace Painter
             {
                 DrawUponFigureWithWhite(tmpFigure[tmpFigure.Count - 1]);
             }
+
             aFigures.RemoveAt(aFigures.Count - 1);
             ShowOnTheScreen();
         }
@@ -258,9 +259,8 @@ namespace Painter
             Color startColor = tmpBitmap.GetPixel(e.X, e.Y);
             Point left = new Point(e.X, e.Y);
             Point right = new Point(e.X, e.Y);
-            //if (Bitmap.Width >= e.X && Bitmap.Height >= e.Y && e.X > 0 && e.Y > 0)
-            //{
-            while (tmpBitmap.GetPixel(left.X - 1, left.Y) == startColor)
+
+            while (left.X - 1 > 0 && tmpBitmap.GetPixel(left.X - 1, left.Y) == startColor)
             {
                 if (Bitmap.Width >= left.X && Bitmap.Height >= left.Y && left.X > 0 && left.Y > 0)
                 {
@@ -268,7 +268,7 @@ namespace Painter
                 }
             }
 
-            while (tmpBitmap.GetPixel(right.X + 1, right.Y) == startColor)
+            while (right.X + 1 <= tmpBitmap.Width - 1 && tmpBitmap.GetPixel(right.X + 1, right.Y) == startColor)
             {
                 if (Bitmap.Width >= right.X && Bitmap.Height >= right.Y && right.X > 0 && right.Y > 0)
                 {
@@ -281,7 +281,7 @@ namespace Painter
 
             for (int i = left.X; i <= right.X; i++)
             {
-                if (tmpBitmap.GetPixel(i, e.Y + 1) == startColor)
+                if (tmpBitmap.Height - 1 >= e.Y + 1 && tmpBitmap.GetPixel(i, e.Y + 1) == startColor)
                 {
                     Point up = new Point(i, e.Y + 1);
                     if (Bitmap.Width >= up.X && Bitmap.Height >= up.Y && up.X > 0 && up.Y > 0)
@@ -289,7 +289,7 @@ namespace Painter
                         Fill(up, colorFill);
                     }
                 }
-                if (tmpBitmap.GetPixel(i, e.Y - 1) == startColor)
+                if (e.Y - 1 >= 0 && tmpBitmap.GetPixel(i, e.Y - 1) == startColor)
                 {
 
                     Point down = new Point(i, e.Y - 1);
@@ -299,7 +299,8 @@ namespace Painter
                     }
                 }
             }
-            //}           
+
+
         }
     }
 }

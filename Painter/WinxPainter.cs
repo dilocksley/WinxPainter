@@ -12,9 +12,10 @@ namespace Painter
     public partial class Painter : Form
     {
         AFigure CurrentFigure;
-        AFigure ActiveFigure;
+     
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
+        Color _fillColor;
         Color _currentColor;
         int _currentThickness;      // текущая толщина
         bool mouseDown;
@@ -31,12 +32,15 @@ namespace Painter
         bool fill;
         public Painter()
         {
+
             InitializeComponent();
             bitmap = StaticBitmap.GetInstance();
             _currentColor = Color.Black;
             _currentThickness = 1;
+            _fillColor = Color.White;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+           
             textBox1.Text = "0";
         }
 
@@ -67,14 +71,12 @@ namespace Painter
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-            if (!fill)
+
+            if (toolBox.SelectedIndex != 6)
             {
-                if (toolBox.SelectedIndex != 6)
-                {
-                    CurrentFigure = null;
-                    n = Convert.ToInt32(textBox1.Text);
-                    FirstPoint = e.Location;
-                }
+                CurrentFigure = null;
+                n = Convert.ToInt32(textBox1.Text);
+                FirstPoint = e.Location;
             }
 
         }
@@ -82,13 +84,13 @@ namespace Painter
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
 
-            if (fill)
-            {
+            //if (fill)
+            //{
 
-                bitmap.Fill(e.Location, _currentColor);
-                bitmap.CopyInOld();
-                pictureBox.Image = bitmap.Bitmap;
-            }
+            //    bitmap.Fill(e.Location, _fillColor);
+            //    bitmap.CopyInOld();
+            //    pictureBox.Image = bitmap.Bitmap;
+            //}
 
 
             if (toolBox.SelectedIndex == 6)
@@ -111,6 +113,7 @@ namespace Painter
                     count = 0;
                     list = new List<Point>();
 
+                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor);
                     CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _currentThickness);
                     bitmap.DrawFigure(CurrentFigure);
                     pictureBox.Image = bitmap.tmpBitmap;
@@ -123,60 +126,62 @@ namespace Painter
         {
             bitmap.CopyInNew();
 
-            if (!fill)
+
+            if (mouseDown)
             {
-                if (mouseDown)
+                if (changeFigure)
                 {
-                    if (changeFigure)
+                    Point delta = new Point();
+
+                    delta.X = e.X - FirstPoint.X;
+                    delta.Y = e.Y - FirstPoint.Y;
+                    FirstPoint = e.Location;
+
+                    if (CurrentFigure == null)
                     {
-                        Point delta = new Point();
-
-                        delta.X = e.X - FirstPoint.X;
-                        delta.Y = e.Y - FirstPoint.Y;
-                        FirstPoint = e.Location;
-
-                        if (CurrentFigure == null)
-                        {
-                            CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                            if (CurrentFigure != null)
-                            {
-
-                                bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-                                bitmap.ShowWithOutFigure(CurrentFigure);
-                            }
-                        }
+                        CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
                         if (CurrentFigure != null)
                         {
-                            bitmap.ShowOnTheScreen();
-                            CurrentFigure.Move(delta);
-                            bitmap.DrawFigure(CurrentFigure);
+
+                            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                            bitmap.ShowWithOutFigure(CurrentFigure);
                         }
                     }
-                    else if (toolBox.SelectedIndex == 0)
+                    if (CurrentFigure != null)
                     {
-                        SecondPoint = FirstPoint;
-                        FirstPoint = e.Location;
-
-                        bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
-                        bitmap.CopyInOld();
-                        pictureBox.Image = bitmap.Bitmap;
-
+                        bitmap.ShowOnTheScreen();
+                        CurrentFigure.Move(delta);
+                        bitmap.DrawFigure(CurrentFigure);                        
                     }
-                    else if (toolBox.SelectedIndex != 6)
-                    {
-                        if (CurrentFigure == null && factoryFigure != null)
-                        {
-                            CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _currentThickness);
-                        }
+                }
+                else if (toolBox.SelectedIndex == 0)
+                {
+                    SecondPoint = FirstPoint;
+                    FirstPoint = e.Location;
 
-                        if (CurrentFigure != null)
-                        {
-                            CurrentFigure.Update(e.Location);
-                            bitmap.DrawFigure(CurrentFigure);
-                        }
+                    bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    bitmap.CopyInOld();
+                    pictureBox.Image = bitmap.Bitmap;
+                    
+                }
+                else if (toolBox.SelectedIndex != 6)
+                {
+                    if (CurrentFigure == null && factoryFigure != null)
+                    {
+
+                        CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor);
+                    }
+
+                    if (CurrentFigure != null)
+                    {
+
+                        CurrentFigure.Update(e.Location);
+                        bitmap.DrawFigure(CurrentFigure);                      
+
                     }
                 }
             }
+
             if (toolBox.SelectedIndex != -1)
             {
                 changeFigure = false;
@@ -193,22 +198,30 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
+
             fill = false;
+            if (_fillColor != Color.White)
+            {
+                CurrentFigure.FindPoint();
+
+                CurrentFigure.FillFigure();
+
+            }
+
             if (CurrentFigure != null)
             {
                 bitmap.AddFigure(CurrentFigure);
             }
+
+
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
 
-            //if (toolBox.SelectedIndex != -1)
-            //{               
-            //    changeFigure = false;            
-            //}
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
         {
+
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
@@ -304,7 +317,12 @@ namespace Painter
         private void Fill_Click(object sender, EventArgs e)
         {
             fill = true;
-            toolBox.SelectedIndex = -1;
+
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                _fillColor = colorDialog1.Color;
+            }
         }
 
         private void thicknessValue_ValueChanged(object sender, EventArgs e)

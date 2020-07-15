@@ -47,5 +47,25 @@ namespace Painter.Figures
         {
             throw new NotImplementedException();
         }
+
+        public override Color FillSetColor()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Point FindPoint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void FillFigure()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void FillFigure()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
