@@ -208,7 +208,7 @@ namespace Painter
             tmpFigure.Add(aFigures[aFigures.Count - 1]);
             if (tmpFigure != null)
             {
-                DrawFigureN(tmpFigure[tmpFigure.Count - 1]);
+                DrawUponFigureWithWhite(tmpFigure[tmpFigure.Count - 1]);
             }
             aFigures.RemoveAt(aFigures.Count - 1);
             ShowOnTheScreen();
@@ -226,12 +226,12 @@ namespace Painter
             ShowOnTheScreen();
         }
 
-        public void DrawFigureN(AFigure aFigure)
+        public void DrawUponFigureWithWhite(AFigure aFigure)
         {
             if (aFigure != null)
             {
                 List<Point> points = aFigure.Math();
-                ConnectPoints(points, Color.White);
+                ConnectPoints(points, Color.White, aFigure.SetThickness());
             }
 
         }
@@ -248,7 +248,7 @@ namespace Painter
                 }
 
             }
-            DrawFigureN(aFigures[q]);
+            DrawUponFigureWithWhite(aFigures[q]);
             aFigures.RemoveAt(q);
             ShowOnTheScreen();
 
