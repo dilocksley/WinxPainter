@@ -21,7 +21,7 @@ namespace Painter.Figures
             this.color = color;
             this.thickness = thickness;
         }
-        public override List<Point> Math()
+        public override List<Point> DoFigureMath()
         {
             return new MathEllipse().MathFigure(first, second);
         }

@@ -24,7 +24,7 @@ namespace Painter.Figures
             this.n = n;
             this.thickness = thickness;
         }
-        public override List<Point> Math()
+        public override List<Point> DoFigureMath()
         {                     
             return new MathNSidedPolygon(n).MathFigure(first, second);
         }

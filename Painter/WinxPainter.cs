@@ -307,9 +307,9 @@ namespace Painter
             toolBox.SelectedIndex = -1;
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void thicknessValue_ValueChanged(object sender, EventArgs e)
         {
-            _currentThickness = (int)numericUpDown1.Value;
+            _currentThickness = (int)thicknessValue.Value;
         }
     }
 }

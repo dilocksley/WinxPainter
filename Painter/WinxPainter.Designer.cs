@@ -37,7 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.DeletAll = new System.Windows.Forms.Button();
             this.Rubber = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.thicknessValue = new System.Windows.Forms.NumericUpDown();
             this.Fill = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.showAll = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -146,29 +146,29 @@
             this.Rubber.UseVisualStyleBackColor = true;
             this.Rubber.Click += new System.EventHandler(this.Rubber_Click);
             // 
-            // numericUpDown1
+            // thicknessValue
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(276, 13);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.thicknessValue.Location = new System.Drawing.Point(276, 13);
+            this.thicknessValue.Margin = new System.Windows.Forms.Padding(4);
+            this.thicknessValue.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.thicknessValue.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 8;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.thicknessValue.Name = "thicknessValue";
+            this.thicknessValue.Size = new System.Drawing.Size(120, 20);
+            this.thicknessValue.TabIndex = 8;
+            this.thicknessValue.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.thicknessValue.ValueChanged += new System.EventHandler(this.thicknessValue_ValueChanged);
             // 
             // Fill
             // 
@@ -256,7 +256,7 @@
             this.Controls.Add(this.showAll);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Fill);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.thicknessValue);
             this.Controls.Add(this.Rubber);
             this.Controls.Add(this.DeletAll);
             this.Controls.Add(this.label2);
@@ -268,7 +268,7 @@
             this.Name = "Painter";
             this.Text = "Painter";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,7 +284,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button DeletAll;
         private System.Windows.Forms.Button Rubber;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown thicknessValue;
         private System.Windows.Forms.Button Fill;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button showAll;

@@ -84,7 +84,7 @@ namespace Painter
 
         public void DrawFigure(AFigure aFigure)
         {
-            List<Point> points = aFigure.Math();
+            List<Point> points = aFigure.DoFigureMath();
             ConnectPoints(points, aFigure.SetColor(), aFigure.SetThickness());
         }
         public static StaticBitmap GetInstance()
@@ -135,7 +135,7 @@ namespace Painter
             }
             DrawLine(tmp, list[0], thickness, color);       // соедиение последней точки с первой
         }
-        public void DrawVoluntary(Point first, Point second, Color color)
+        public void DrawVoluntary(Point first, Point second, Color color)    // произвольное рисование карандашом 
         {
             Point Delta = new Point(0, 0);
 
@@ -164,8 +164,7 @@ namespace Painter
                 startX += incrementX;
                 startY += incrementY;
             }
-            //  pictureBox.Image = StaticBitmap.Bitmap; // в самой форме
-        } // рисование карандашом (произвольное)
+        } 
 
         public void DrawLine(Point first, Point second, Color color)
         {
@@ -230,7 +229,7 @@ namespace Painter
         {
             if (aFigure != null)
             {
-                List<Point> points = aFigure.Math();
+                List<Point> points = aFigure.DoFigureMath();
                 ConnectPoints(points, Color.White, aFigure.SetThickness());
             }
 

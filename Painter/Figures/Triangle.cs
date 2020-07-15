@@ -22,7 +22,7 @@ namespace Painter.Figures
             this.color = color;
             this.list = list;
         }
-        public override List<Point> Math()
+        public override List<Point> DoFigureMath()
         {
             return new MathTriangle(list).MathFigure(first, second);
         }

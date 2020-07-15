@@ -18,7 +18,7 @@ namespace Painter.Figures
 
        // protected int thickness;
 
-        public abstract List<Point> Math();
+        public abstract List<Point> DoFigureMath();
        
         public abstract Color SetColor();
 

@@ -25,7 +25,7 @@ namespace Painter.Figures
             this.thickness = thickness;
        }
 
-       public override List<Point> Math()
+       public override List<Point> DoFigureMath()
        {
             a= new MathSquare().MathFigure(first, second);
             return a;

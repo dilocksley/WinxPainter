@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using Painter.MathFigures;
-
+using System.Runtime.InteropServices;
 
 namespace Painter.Figures
 {
@@ -25,7 +25,7 @@ namespace Painter.Figures
             this.thickness = thickness;
         }
 
-        public override List<Point> Math()
+        public override List<Point> DoFigureMath()
         {
             return new MathCircle().MathFigure(first, second);
         }
@@ -45,12 +45,37 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new NotImplementedException();
+            int maxX = second.X;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                maxX = first.X;
+                minX = second.X;
+            }
+            int maxY = second.Y;
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                maxY = first.Y;
+                minY = second.Y;
+            }
+            //int midX = minX + ((maxX - minX) / 2);
+            //int midY = minY + ((maxY - minY) / 2);
+            int radius = (maxX - minX) / 2;
+            Point center = new Point(minX + radius, minY + radius);
+            Point right = new Point(center.X + radius, center.Y);
+            Point left = new Point(center.X - radius, center.Y);
+            Point top = new Point(center.X, center.Y - radius);
+            Point bottom = new Point(center.X, center.Y + radius);
+            return (mousePoint.X <= right.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= top.Y);
         }
 
         public override void Move(Point point)
         {
-            throw new NotImplementedException();
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y; 
         }
 
 
