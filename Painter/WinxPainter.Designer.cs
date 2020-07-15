@@ -45,6 +45,7 @@
             this.redo = new System.Windows.Forms.Button();
             this.Change_figure = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +59,7 @@
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1210, 644);
+            this.pictureBox.Size = new System.Drawing.Size(1613, 793);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -96,10 +97,10 @@
             // 
             // ColorBox
             // 
-            this.ColorBox.Location = new System.Drawing.Point(496, 11);
+            this.ColorBox.Location = new System.Drawing.Point(502, 11);
             this.ColorBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorBox.Name = "ColorBox";
-            this.ColorBox.Size = new System.Drawing.Size(127, 23);
+            this.ColorBox.Size = new System.Drawing.Size(127, 27);
             this.ColorBox.TabIndex = 2;
             this.ColorBox.Text = "Выбор цвета";
             this.ColorBox.UseVisualStyleBackColor = true;
@@ -125,10 +126,10 @@
             // 
             // DeletAll
             // 
-            this.DeletAll.Location = new System.Drawing.Point(781, 11);
+            this.DeletAll.Location = new System.Drawing.Point(795, 11);
             this.DeletAll.Margin = new System.Windows.Forms.Padding(4);
             this.DeletAll.Name = "DeletAll";
-            this.DeletAll.Size = new System.Drawing.Size(100, 23);
+            this.DeletAll.Size = new System.Drawing.Size(100, 27);
             this.DeletAll.TabIndex = 5;
             this.DeletAll.Text = "Удалить всё!";
             this.DeletAll.UseVisualStyleBackColor = true;
@@ -136,10 +137,10 @@
             // 
             // Rubber
             // 
-            this.Rubber.Location = new System.Drawing.Point(1059, 11);
+            this.Rubber.Location = new System.Drawing.Point(1101, 12);
             this.Rubber.Margin = new System.Windows.Forms.Padding(4);
             this.Rubber.Name = "Rubber";
-            this.Rubber.Size = new System.Drawing.Size(75, 23);
+            this.Rubber.Size = new System.Drawing.Size(75, 26);
             this.Rubber.TabIndex = 6;
             this.Rubber.Text = "Стерка";
             this.Rubber.UseVisualStyleBackColor = true;
@@ -158,10 +159,11 @@
             this.Fill.Location = new System.Drawing.Point(673, 11);
             this.Fill.Margin = new System.Windows.Forms.Padding(4);
             this.Fill.Name = "Fill";
-            this.Fill.Size = new System.Drawing.Size(75, 23);
+            this.Fill.Size = new System.Drawing.Size(75, 27);
             this.Fill.TabIndex = 9;
             this.Fill.Text = "Заливка";
             this.Fill.UseVisualStyleBackColor = true;
+            this.Fill.Click += new System.EventHandler(this.Fill_Click);
             // 
             // textBox1
             // 
@@ -173,10 +175,10 @@
             // 
             // showAll
             // 
-            this.showAll.Location = new System.Drawing.Point(923, 11);
+            this.showAll.Location = new System.Drawing.Point(924, 11);
             this.showAll.Margin = new System.Windows.Forms.Padding(4);
             this.showAll.Name = "showAll";
-            this.showAll.Size = new System.Drawing.Size(96, 23);
+            this.showAll.Size = new System.Drawing.Size(96, 27);
             this.showAll.TabIndex = 11;
             this.showAll.Text = "Показать всё";
             this.showAll.UseVisualStyleBackColor = true;
@@ -208,10 +210,10 @@
             // 
             // Change_figure
             // 
-            this.Change_figure.Location = new System.Drawing.Point(878, 9);
-            this.Change_figure.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Change_figure.Location = new System.Drawing.Point(1209, 12);
+            this.Change_figure.Margin = new System.Windows.Forms.Padding(2);
             this.Change_figure.Name = "Change_figure";
-            this.Change_figure.Size = new System.Drawing.Size(83, 22);
+            this.Change_figure.Size = new System.Drawing.Size(83, 26);
             this.Change_figure.TabIndex = 14;
             this.Change_figure.Text = "Переместить";
             this.Change_figure.UseVisualStyleBackColor = true;
@@ -274,6 +276,7 @@
         private System.Windows.Forms.Button redo;
         private System.Windows.Forms.Button Change_figure;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.FontDialog fontDialog1;
     }
 }
 
