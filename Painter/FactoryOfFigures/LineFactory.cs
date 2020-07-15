@@ -10,8 +10,7 @@ namespace Painter.FactoryOfFigures
 {
     class LineFactory : IFigureFactory
     {
-        public AFigure Create(Point first, int n, Color color, Color fillColor)
-        public AFigure Create(Point first, int n, Color color, int thickness)
+        public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
             Line line = new Line(first, color, thickness);
             return line;

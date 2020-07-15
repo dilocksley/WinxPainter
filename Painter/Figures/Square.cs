@@ -18,10 +18,10 @@ namespace Painter.Figures
         public Color color;
         public int thickness;
         List<Point> a;
-       public Square(Point first, Color color, int thickness)
+       
         Color fillColor = Color.Transparent;
         Point e;
-       public Square(Point first, Color color, Color fillColor)
+       public Square(Point first, Color color, Color fillColor, int thickness)
        {
             this.first = first;
             this.color = color;

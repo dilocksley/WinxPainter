@@ -113,8 +113,7 @@ namespace Painter
                     count = 0;
                     list = new List<Point>();
 
-                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor);
-                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _currentThickness);
+                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor, _currentThickness);
                     bitmap.DrawFigure(CurrentFigure);
                     pictureBox.Image = bitmap.tmpBitmap;
                 }
@@ -169,7 +168,7 @@ namespace Painter
                     if (CurrentFigure == null && factoryFigure != null)
                     {
 
-                        CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor);
+                        CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor, _currentThickness);
                     }
 
                     if (CurrentFigure != null)
@@ -200,16 +199,23 @@ namespace Painter
             mouseDown = false;
 
             fill = false;
-            if (_fillColor != Color.White)
-            {
-                CurrentFigure.FindPoint();
+            //if (_fillColor != Color.White)
+            //{
+            //    CurrentFigure.FindPoint();
 
-                CurrentFigure.FillFigure();
+            //    CurrentFigure.FillFigure();
 
-            }
+            //}
 
             if (CurrentFigure != null)
             {
+                if (_fillColor != Color.White)
+                {
+                    CurrentFigure.FindPoint();
+
+                    CurrentFigure.FillFigure();
+
+                }
                 bitmap.AddFigure(CurrentFigure);
             }
 

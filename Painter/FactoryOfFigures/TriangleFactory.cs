@@ -12,8 +12,7 @@ namespace Painter.FactoryOfFigures
             this.list = list;
         }
 
-        public AFigure Create(Point first, int n, Color color, Color fillColor)
-        public AFigure Create(Point first, int n, Color color, int thickness)
+        public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
             Triangle triangle = new Triangle(color, list, thickness);
             return triangle;
