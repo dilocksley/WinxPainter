@@ -10,9 +10,9 @@ namespace Painter.FactoryOfFigures
 {
     class SquareFactory : IFigureFactory
     {
-        public AFigure Create( Point first, int n, Color color)
+        public AFigure Create( Point first, int n, Color color, int thickness)
         {
-            Square square = new Square(first, color);
+            Square square = new Square(first, color, thickness);
             return square;
         }
     }

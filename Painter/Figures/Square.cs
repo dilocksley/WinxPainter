@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using Painter.MathFigures;
+using Painter.Instruments;
 using System.Deployment.Application;
 
 namespace Painter.Figures
@@ -14,12 +15,14 @@ namespace Painter.Figures
         Point first;
         Point second;
         public Color color;
+        public int thickness;
         List<Point> a;
-       public Square(Point first, Color color)
+       public Square(Point first, Color color, int thickness)
        {
             this.first = first;
             this.color = color;
             this.second = first;
+            this.thickness = thickness;
        }
 
        public override List<Point> Math()
@@ -31,6 +34,10 @@ namespace Painter.Figures
         public override Color SetColor ()
         {
             return color;
+        }
+        public override int SetThickness()
+        {
+            return thickness;
         }
         public override void Update(Point e)
         {
@@ -67,6 +74,8 @@ namespace Painter.Figures
             first.Y += point.Y;
             second.X += point.X;
             second.Y += point.Y;
-        }               
+        }
+
+        
     }
 }

@@ -16,6 +16,7 @@ namespace Painter
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
         Color _currentColor;
+        int _currentThickness;      // текущая толщина
         bool mouseDown;
         Point FirstPoint;
         Point SecondPoint;
@@ -33,6 +34,7 @@ namespace Painter
             InitializeComponent();
             bitmap = StaticBitmap.GetInstance();
             _currentColor = Color.Black;
+            _currentThickness = 1;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             textBox1.Text = "0";
@@ -74,15 +76,15 @@ namespace Painter
                     FirstPoint = e.Location;
                 }
             }
-          
+
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
 
-            if(fill)
+            if (fill)
             {
-               
+
                 bitmap.Fill(e.Location, _currentColor);
                 bitmap.CopyInOld();
                 pictureBox.Image = bitmap.Bitmap;
@@ -109,7 +111,7 @@ namespace Painter
                     count = 0;
                     list = new List<Point>();
 
-                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
+                    CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _currentThickness);
                     bitmap.DrawFigure(CurrentFigure);
                     pictureBox.Image = bitmap.tmpBitmap;
                 }
@@ -164,7 +166,7 @@ namespace Painter
                     {
                         if (CurrentFigure == null && factoryFigure != null)
                         {
-                            CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor);
+                            CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _currentThickness);
                         }
 
                         if (CurrentFigure != null)
@@ -185,8 +187,8 @@ namespace Painter
             pictureBox.Image = bitmap.tmpBitmap;
         }
 
-    
-        
+
+
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -297,12 +299,17 @@ namespace Painter
             CurrentFigure = null;
             toolBox.SelectedIndex = -1;
         }
-       
+
 
         private void Fill_Click(object sender, EventArgs e)
-        {           
+        {
             fill = true;
             toolBox.SelectedIndex = -1;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            _currentThickness = (int)numericUpDown1.Value;
         }
     }
 }

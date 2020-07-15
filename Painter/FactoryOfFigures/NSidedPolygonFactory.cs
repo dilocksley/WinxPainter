@@ -10,9 +10,9 @@ namespace Painter.FactoryOfFigures
 {
     class NSidedPolygonFactory : IFigureFactory
     {
-        public AFigure Create(Point first, int n, Color color)
+        public AFigure Create(Point first, int n, Color color, int thickness)
         {
-            NSidedPolygon nSided = new NSidedPolygon(first,n, color);
+            NSidedPolygon nSided = new NSidedPolygon(first,n, color, thickness);
             return nSided;
         }
     }

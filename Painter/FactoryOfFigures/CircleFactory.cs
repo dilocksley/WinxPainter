@@ -10,9 +10,9 @@ namespace Painter.FactoryOfFigures
 {
     class CircleFactory : IFigureFactory
     {
-        public AFigure Create(Point first, int n, Color color)
+        public AFigure Create(Point first, int n, Color color, int thickness)
         {
-            Circle circle = new Circle(first, color);
+            Circle circle = new Circle(first, color, thickness);
             return circle;
         }
     }

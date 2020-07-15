@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using Painter.MathFigures;
+using Painter.Instruments;
 
 
 namespace Painter.Figures
@@ -12,12 +13,14 @@ namespace Painter.Figures
         Point first;
         Point second;
         public Color color;
+        public int thickness;
 
-        public RightTriangle(Point first, Color color)
+        public RightTriangle(Point first, Color color, int thickness)
         {
             this.first = first;
             this.second = first;
             this.color = color;
+            this.thickness = thickness;
         }
         public override List<Point> Math()                      // реализация метода абстр класса для получения точек фигуры
         {
@@ -26,6 +29,10 @@ namespace Painter.Figures
         public override Color SetColor()
         {
             return color;
+        }
+        public override int SetThickness()
+        {
+            return thickness;
         }
         public override void Update(Point e)
         {

@@ -5,9 +5,9 @@ namespace Painter.FactoryOfFigures
 {
     class RightTriangleFactory : IFigureFactory
     {
-        public AFigure Create(Point first, int n, Color color)
+        public AFigure Create(Point first, int n, Color color, int thickness)
         {
-            RightTriangle rightTriangle = new RightTriangle(first, color);
+            RightTriangle rightTriangle = new RightTriangle(first, color, thickness);
             return rightTriangle;
         }
 

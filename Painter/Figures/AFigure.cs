@@ -1,4 +1,5 @@
 ﻿using Painter.MathFigures;
+using Painter.Instruments;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,20 +16,26 @@ namespace Painter.Figures
 
         IMathFigure math;
 
+       // protected int thickness;
 
         public abstract List<Point> Math();
        
         public abstract Color SetColor();
-      
-        public abstract void Update(Point e);
 
+        public abstract int SetThickness();
+
+        //public int SetThickness(int thickness)
+        //{
+        //    this.thickness = thickness;
+        //    return thickness;
+        //}
+
+        public abstract void Update(Point e);
 
         public abstract bool IsPointInFigure(Point mousePoint);
 
         public abstract void Move(Point point);
 
-
     }
 
-    
 }

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Painter.Instruments;
 using Painter.MathFigures;
 
 namespace Painter.Figures
@@ -14,12 +15,14 @@ namespace Painter.Figures
         Point second;
         public Color color;
         int n;
-        public NSidedPolygon(Point first,int n, Color color)
+        public int thickness;
+        public NSidedPolygon(Point first,int n, Color color, int thickness)
         {
             this.first = first;
             this.second = first;
             this.color = color;
             this.n = n;
+            this.thickness = thickness;
         }
         public override List<Point> Math()
         {                     
@@ -28,6 +31,10 @@ namespace Painter.Figures
         public override Color SetColor()
         {
             return color;
+        }
+        public override int SetThickness()
+        {
+            return thickness;
         }
         public override void Update(Point e)
         {

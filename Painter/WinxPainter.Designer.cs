@@ -59,7 +59,7 @@
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1613, 793);
+            this.pictureBox.Size = new System.Drawing.Size(1362, 741);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -87,7 +87,7 @@
             "Дерево",
             "Круг",
             "Эллипс"});
-            this.toolBox.Location = new System.Drawing.Point(173, 12);
+            this.toolBox.Location = new System.Drawing.Point(147, 14);
             this.toolBox.Margin = new System.Windows.Forms.Padding(4);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);
@@ -97,10 +97,10 @@
             // 
             // ColorBox
             // 
-            this.ColorBox.Location = new System.Drawing.Point(502, 11);
+            this.ColorBox.Location = new System.Drawing.Point(418, 12);
             this.ColorBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorBox.Name = "ColorBox";
-            this.ColorBox.Size = new System.Drawing.Size(127, 27);
+            this.ColorBox.Size = new System.Drawing.Size(127, 21);
             this.ColorBox.TabIndex = 2;
             this.ColorBox.Text = "Выбор цвета";
             this.ColorBox.UseVisualStyleBackColor = true;
@@ -126,10 +126,10 @@
             // 
             // DeletAll
             // 
-            this.DeletAll.Location = new System.Drawing.Point(795, 11);
+            this.DeletAll.Location = new System.Drawing.Point(636, 12);
             this.DeletAll.Margin = new System.Windows.Forms.Padding(4);
             this.DeletAll.Name = "DeletAll";
-            this.DeletAll.Size = new System.Drawing.Size(100, 27);
+            this.DeletAll.Size = new System.Drawing.Size(100, 22);
             this.DeletAll.TabIndex = 5;
             this.DeletAll.Text = "Удалить всё!";
             this.DeletAll.UseVisualStyleBackColor = true;
@@ -137,10 +137,10 @@
             // 
             // Rubber
             // 
-            this.Rubber.Location = new System.Drawing.Point(1101, 12);
+            this.Rubber.Location = new System.Drawing.Point(1131, 14);
             this.Rubber.Margin = new System.Windows.Forms.Padding(4);
             this.Rubber.Name = "Rubber";
-            this.Rubber.Size = new System.Drawing.Size(75, 26);
+            this.Rubber.Size = new System.Drawing.Size(75, 23);
             this.Rubber.TabIndex = 6;
             this.Rubber.Text = "Стерка";
             this.Rubber.UseVisualStyleBackColor = true;
@@ -148,18 +148,34 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(328, 12);
+            this.numericUpDown1.Location = new System.Drawing.Point(276, 13);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 8;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // Fill
             // 
-            this.Fill.Location = new System.Drawing.Point(673, 11);
+            this.Fill.Location = new System.Drawing.Point(553, 12);
             this.Fill.Margin = new System.Windows.Forms.Padding(4);
             this.Fill.Name = "Fill";
-            this.Fill.Size = new System.Drawing.Size(75, 27);
+            this.Fill.Size = new System.Drawing.Size(75, 22);
             this.Fill.TabIndex = 9;
             this.Fill.Text = "Заливка";
             this.Fill.UseVisualStyleBackColor = true;
@@ -175,10 +191,10 @@
             // 
             // showAll
             // 
-            this.showAll.Location = new System.Drawing.Point(924, 11);
+            this.showAll.Location = new System.Drawing.Point(744, 12);
             this.showAll.Margin = new System.Windows.Forms.Padding(4);
             this.showAll.Name = "showAll";
-            this.showAll.Size = new System.Drawing.Size(96, 27);
+            this.showAll.Size = new System.Drawing.Size(96, 22);
             this.showAll.TabIndex = 11;
             this.showAll.Text = "Показать всё";
             this.showAll.UseVisualStyleBackColor = true;
@@ -210,10 +226,10 @@
             // 
             // Change_figure
             // 
-            this.Change_figure.Location = new System.Drawing.Point(1209, 12);
+            this.Change_figure.Location = new System.Drawing.Point(846, 12);
             this.Change_figure.Margin = new System.Windows.Forms.Padding(2);
             this.Change_figure.Name = "Change_figure";
-            this.Change_figure.Size = new System.Drawing.Size(83, 26);
+            this.Change_figure.Size = new System.Drawing.Size(83, 22);
             this.Change_figure.TabIndex = 14;
             this.Change_figure.Text = "Переместить";
             this.Change_figure.UseVisualStyleBackColor = true;
@@ -221,9 +237,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1297, 12);
+            this.button1.Location = new System.Drawing.Point(938, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(186, 26);
+            this.button1.Size = new System.Drawing.Size(186, 24);
             this.button1.TabIndex = 15;
             this.button1.Text = "Режим редактирования";
             this.button1.UseVisualStyleBackColor = true;
@@ -232,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1613, 793);
+            this.ClientSize = new System.Drawing.Size(1362, 741);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Change_figure);
             this.Controls.Add(this.redo);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Painter.Instruments;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,14 @@ namespace Painter.Figures
         Point first;
         Point second;
         public Color color;
+        public int thickness;
 
-        public Circle(Point first, Color color)
+        public Circle(Point first, Color color, int thickness)
         {
             this.first = first;
             this.color = color;
             this.second = first;
+            this.thickness = thickness;
         }
 
         public override List<Point> Math()
@@ -30,6 +33,10 @@ namespace Painter.Figures
         public override Color SetColor()
         {
             return color;
+        }
+        public override int SetThickness()
+        {
+            return thickness;
         }
         public override void Update(Point e)
         {
