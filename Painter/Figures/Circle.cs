@@ -67,7 +67,28 @@ namespace Painter.Figures
             Point left = new Point(center.X - radius, center.Y);
             Point top = new Point(center.X, center.Y - radius);
             Point bottom = new Point(center.X, center.Y + radius);
-            return (mousePoint.X <= right.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= top.Y);
+            if (mousePoint == center || mousePoint == right || mousePoint == left || mousePoint == top || mousePoint == bottom)
+            {
+                return true;
+            }
+            else if(mousePoint.X <= right.X && mousePoint.X >= top.X && mousePoint.Y <= right.Y && mousePoint.Y >= top.Y) // top right quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X <= right.X && mousePoint.X >= bottom.X && mousePoint.Y >= right.Y && mousePoint.Y <= bottom.Y) //bottom right quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X <= bottom.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= left.Y) //bottom left quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X >= left.X & mousePoint.X <= top.X && mousePoint.Y <= left.Y && mousePoint.Y >= top.Y) // top left quarter
+            {
+                return true;
+            }
+            return false;
+            //return (mousePoint.X <= right.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= top.Y);
         }
 
         public override void Move(Point point)
