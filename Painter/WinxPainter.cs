@@ -40,8 +40,8 @@ namespace Painter
             _fillColor = Color.White;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-
-
+            Change_location.Hide();
+            DeleteFigure.Hide();
             textBox1.Hide();
         }
 
@@ -242,10 +242,10 @@ namespace Painter
             }
             if (changeFigure)
             {
-               bitmap.DrawSelectedFigure(ActiveFigure);
-
+                //DeleteFigure.Show();
+                bitmap.DrawSelectedFigure(ActiveFigure);
             }
-
+            //DeleteFigure.Hide();
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
 
@@ -267,18 +267,20 @@ namespace Painter
             bitmap.Bitmap = null;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
         }
-
-        private void Rubber_Click(object sender, EventArgs e)
+        private void DeleteFigure_Click(object sender, EventArgs e)
         {
-            if (_currentColor != Color.White)
+            if (changeFigure)
             {
-                copyColor = _currentColor;
-                _currentColor = Color.White;
-                return;
-            }
-            _currentColor = copyColor;
-        }
 
+                if (_currentColor != Color.White)
+                {
+                    copyColor = _currentColor;
+                    _currentColor = Color.White;
+                    return;
+                }
+                _currentColor = copyColor;
+            }
+        }
 
         private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -353,7 +355,7 @@ namespace Painter
             pictureBox.Image = bitmap.Bitmap;
         }
 
-        private void Change_figure_Click(object sender, EventArgs e)
+        private void Change_location_Click(object sender, EventArgs e)
         {
             changeFigure = true;
             CurrentFigure = null;
@@ -380,7 +382,9 @@ namespace Painter
         private void Edit_Figure_Click(object sender, EventArgs e)
         {
             changeFigure = true;
-            if(CurrentFigure != null)
+            Change_location.Show();
+            DeleteFigure.Show();
+            if (CurrentFigure != null)
             {
                 ActiveFigure = CurrentFigure;
              
@@ -390,5 +394,6 @@ namespace Painter
             //CurrentFigure = null;
             toolBox.SelectedIndex = -1;
         }
+       
     }
 }
