@@ -158,7 +158,7 @@ namespace Painter
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
 
-                    bitmap.DrawLine(FirstPoint, SecondPoint, _currentColor);
+                    bitmap.DrawLine(FirstPoint, SecondPoint, _currentThickness, _currentColor);
                     bitmap.CopyInOld();
                     pictureBox.Image = bitmap.Bitmap;
                     
