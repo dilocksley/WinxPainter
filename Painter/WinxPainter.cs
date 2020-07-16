@@ -12,7 +12,7 @@ namespace Painter
     public partial class Painter : Form
     {
         AFigure CurrentFigure;
-
+        AFigure ActiveFigure;
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
         Color _fillColor;
@@ -159,7 +159,10 @@ namespace Painter
                         {
 
                             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+
                             bitmap.ShowWithOutFigure(CurrentFigure);
+                            
+
                         }
                     }
                     if (CurrentFigure != null)
@@ -167,6 +170,8 @@ namespace Painter
                         bitmap.ShowOnTheScreen();
                         CurrentFigure.Move(delta);
                         bitmap.DrawFigure(CurrentFigure);
+                        bitmap.DrawSelectedFigure(ActiveFigure);
+
                     }
                 }
                 else if (toolBox.SelectedIndex == 0)
@@ -225,6 +230,7 @@ namespace Painter
 
             if (CurrentFigure != null)
             {
+                
                 if (_fillColor != Color.White)
                 {
                     CurrentFigure.FindPoint();
@@ -234,7 +240,11 @@ namespace Painter
                 }
                 bitmap.AddFigure(CurrentFigure);
             }
+            if (changeFigure)
+            {
+               bitmap.DrawSelectedFigure(ActiveFigure);
 
+            }
 
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
@@ -365,6 +375,20 @@ namespace Painter
         private void thicknessValue_ValueChanged(object sender, EventArgs e)
         {
             _currentThickness = (int)thicknessValue.Value;
+        }
+
+        private void Edit_Figure_Click(object sender, EventArgs e)
+        {
+            changeFigure = true;
+            if(CurrentFigure != null)
+            {
+                ActiveFigure = CurrentFigure;
+             
+                bitmap.DrawSelectedFigure(ActiveFigure);
+                
+            }
+            //CurrentFigure = null;
+            toolBox.SelectedIndex = -1;
         }
     }
 }

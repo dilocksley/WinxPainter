@@ -30,6 +30,7 @@ namespace Painter
             }
         }
 
+
         public void DrawLine(Point a, Point b, int radius, Color color)
         {
             Point Delta = new Point(0, 0);
@@ -57,7 +58,7 @@ namespace Painter
             {
                 for (int i = -radius; i <= radius; i++)
                 {
-                    double delta = Math.Sqrt(radius * radius - i  * i);
+                    double delta = Math.Sqrt(radius * radius - i * i);
                     Point tmp = new Point((int)(i + startX), (int)(delta + startY));
                     SetPixel(tmp.X, tmp.Y, color);
                     tmp = new Point((int)(i + startX), (int)(-delta + startY));
@@ -86,6 +87,25 @@ namespace Painter
         {
             List<Point> points = aFigure.DoFigureMath();
             ConnectPoints(points, aFigure.SetColor(), aFigure.SetThickness());
+        }
+
+        public void DrawSelectedFigure(AFigure aFigure)
+        {
+            List<Point> points = aFigure.DoFigureMath();
+            for (int i = 0; i < points.Count; i++)
+            {
+
+                DrawLine(points[i], points[i], 7, Color.Red);
+                //for (int j = 1; j <= 360; j++)
+                //{
+                //    double a = Math.Cos(2 * Math.PI * i / 360) * 7 + 0.5 + points[i].X;
+                //    double b = Math.Sin(2 * Math.PI * i / 360) * 7 + 0.5 + points[i].Y;
+
+                //    Bitmap.SetPixel((int)a, (int)b, Color.Red);
+                //    //circleList.Add(tmp);
+                //}
+
+            }
         }
         public static StaticBitmap GetInstance()
         {
@@ -164,7 +184,7 @@ namespace Painter
                 startX += incrementX;
                 startY += incrementY;
             }
-        } 
+        }
 
         public void DrawLine(Point first, Point second, Color color)
         {

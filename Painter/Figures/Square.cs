@@ -95,6 +95,6 @@ namespace Painter.Figures
             new Fill().FillFigure(e, fillColor);
         }
 
-      
+        
     }
 }

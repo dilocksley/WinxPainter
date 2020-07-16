@@ -34,6 +34,7 @@ namespace Painter.Figures
 
         public abstract bool IsPointInFigure(Point mousePoint);
 
+        
         public abstract void Move(Point point);
 
     }

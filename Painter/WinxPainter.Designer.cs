@@ -44,7 +44,7 @@
             this.undo = new System.Windows.Forms.Button();
             this.redo = new System.Windows.Forms.Button();
             this.Change_figure = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Edit_Figure = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).BeginInit();
             this.SuspendLayout();
@@ -238,21 +238,22 @@
             this.Change_figure.UseVisualStyleBackColor = true;
             this.Change_figure.Click += new System.EventHandler(this.Change_figure_Click);
             // 
-            // button1
+            // Edit_Figure
             // 
-            this.button1.Location = new System.Drawing.Point(732, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 24);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Режим редактирования";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Edit_Figure.Location = new System.Drawing.Point(938, 12);
+            this.Edit_Figure.Name = "Edit_Figure";
+            this.Edit_Figure.Size = new System.Drawing.Size(186, 24);
+            this.Edit_Figure.TabIndex = 15;
+            this.Edit_Figure.Text = "Режим редактирования";
+            this.Edit_Figure.UseVisualStyleBackColor = true;
+            this.Edit_Figure.Click += new System.EventHandler(this.Edit_Figure_Click);
             // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 733);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1362, 741);
+            this.Controls.Add(this.Edit_Figure);
             this.Controls.Add(this.Change_figure);
             this.Controls.Add(this.redo);
             this.Controls.Add(this.undo);
@@ -294,7 +295,7 @@
         private System.Windows.Forms.Button undo;
         private System.Windows.Forms.Button redo;
         private System.Windows.Forms.Button Change_figure;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Edit_Figure;
     }
 }
 
