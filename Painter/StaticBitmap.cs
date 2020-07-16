@@ -109,19 +109,19 @@ namespace Painter
                 Bitmap = (Bitmap)tmpBitmap.Clone();
             }
         }
-        public void ConnectPoints(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
-        {
-            Point tmp = new Point(-1, -1);
-            foreach (Point point in list)
-            {
-                if (tmp.X != -1)
-                {
-                    DrawLine(point, tmp, color);
-                }
-                tmp = point;
-            }
-            DrawLine(tmp, list[0], color);       // соедиение последней точки с первой
-        }
+        //public void ConnectPoints(List<Point> list, Color color) // для любой фигуры - соединение точек по кол-ву в листе
+        //{
+        //    Point tmp = new Point(-1, -1);
+        //    foreach (Point point in list)
+        //    {
+        //        if (tmp.X != -1)
+        //        {
+        //            DrawLine(point, tmp, color);
+        //        }
+        //        tmp = point;
+        //    }
+        //    DrawLine(tmp, list[0], color);       // соедиение последней точки с первой
+        //}
         public void ConnectPoints(List<Point> list, Color color, int thickness) // для любой фигуры - соединение точек по кол-ву в листе
         {
             Point tmp = new Point(-1, -1);
