@@ -91,20 +91,13 @@ namespace Painter
 
         public void DrawSelectedFigure(AFigure aFigure)
         {
-            List<Point> points = aFigure.DoFigureMath();
-            for (int i = 0; i < points.Count; i++)
+            if (aFigure != null)
             {
-
-                DrawLine(points[i], points[i], 7, Color.Red);
-                //for (int j = 1; j <= 360; j++)
-                //{
-                //    double a = Math.Cos(2 * Math.PI * i / 360) * 7 + 0.5 + points[i].X;
-                //    double b = Math.Sin(2 * Math.PI * i / 360) * 7 + 0.5 + points[i].Y;
-
-                //    Bitmap.SetPixel((int)a, (int)b, Color.Red);
-                //    //circleList.Add(tmp);
-                //}
-
+                List<Point> points = aFigure.DoFigureMath();
+                for (int i = 0; i < points.Count; i++)
+                {
+                    DrawLine(points[i], points[i], 7, Color.Red);
+                }
             }
         }
         public static StaticBitmap GetInstance()
@@ -217,6 +210,26 @@ namespace Painter
             }
         }
 
+        public void DeleteFigure(AFigure figure)
+        {
+            if (aFigures.Count < 1)
+            {
+                return;
+            }
+            tmpFigure.Add(figure);
+            int index = 0;
+            for (int i = 0; i < aFigures.Count; i++)
+            {
+                if (aFigures[i] == figure)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            aFigures.RemoveAt(index);
+            ShowOnTheScreen();
+        }
+
 
         public void Undo()
         {
@@ -266,12 +279,10 @@ namespace Painter
                     q = i;
                     break;
                 }
-
             }
             DrawUponFigureWithWhite(aFigures[q]);
             aFigures.RemoveAt(q);
             ShowOnTheScreen();
-
         }
 
         public void Fill(Point e, Color colorFill)
@@ -319,8 +330,6 @@ namespace Painter
                     }
                 }
             }
-
-
         }
     }
 }

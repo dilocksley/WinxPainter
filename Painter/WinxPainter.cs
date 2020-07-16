@@ -28,7 +28,9 @@ namespace Painter
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
         Color copyColor;
         List<Point> list = new List<Point>();
-        bool changeFigure;
+        bool _editFigure;
+        bool _changeLocation;
+        bool _deletingFigure;
         bool fill;
         public Painter()
         {
@@ -78,7 +80,6 @@ namespace Painter
 
                 if (toolBox.SelectedIndex == 4)
                 {
-                    
                     try
                     {
                         n = Convert.ToInt32(textBox1.Text);
@@ -107,8 +108,13 @@ namespace Painter
             //    bitmap.CopyInOld();
             //    pictureBox.Image = bitmap.Bitmap;
             //}
-
-
+            if (_editFigure)
+            {
+                //ActiveFigure = bitmap.SelectFigureByPoint(e.Location);
+                //bitmap.DrawSelectedFigure(ActiveFigure);
+                //Change_location.Show();
+                //DeleteFigure.Show();
+            }
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
@@ -140,11 +146,9 @@ namespace Painter
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             bitmap.CopyInNew();
-
-
             if (mouseDown)
             {
-                if (changeFigure)
+                if (_changeLocation)
                 {
                     Point delta = new Point();
 
@@ -157,12 +161,8 @@ namespace Painter
                         CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
                         if (CurrentFigure != null)
                         {
-
                             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-
-                            bitmap.ShowWithOutFigure(CurrentFigure);
-                            
-
+                            bitmap.DeleteFigure(CurrentFigure);
                         }
                     }
                     if (CurrentFigure != null)
@@ -170,8 +170,19 @@ namespace Painter
                         bitmap.ShowOnTheScreen();
                         CurrentFigure.Move(delta);
                         bitmap.DrawFigure(CurrentFigure);
-                        bitmap.DrawSelectedFigure(ActiveFigure);
-
+                        bitmap.DrawSelectedFigure(CurrentFigure);
+                    }
+                }
+                if (_deletingFigure)
+                {
+                    if (CurrentFigure == null)
+                    {
+                        CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
+                        if (CurrentFigure != null)
+                        {
+                            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                            bitmap.DeleteFigure(CurrentFigure);
+                        }
                     }
                 }
                 else if (toolBox.SelectedIndex == 0)
@@ -184,7 +195,7 @@ namespace Painter
                     pictureBox.Image = bitmap.Bitmap;
 
                 }
-                else if (toolBox.SelectedIndex != 6)
+                else if (toolBox.SelectedIndex != 6 && toolBox.SelectedIndex != -1)
                 {
                     if (CurrentFigure == null && factoryFigure != null)
                     {
@@ -204,7 +215,9 @@ namespace Painter
 
             if (toolBox.SelectedIndex != -1)
             {
-                changeFigure = false;
+                _changeLocation = false;
+                _deletingFigure = false;
+                _editFigure = false;
             }
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
@@ -230,7 +243,7 @@ namespace Painter
 
             if (CurrentFigure != null)
             {
-                
+
                 if (_fillColor != Color.White)
                 {
                     CurrentFigure.FindPoint();
@@ -239,12 +252,16 @@ namespace Painter
 
                 }
                 bitmap.AddFigure(CurrentFigure);
+                //if (ActiveFigure != null)
+                //{
+                //    bitmap.AddFigure(ActiveFigure);
+                //}
             }
-            if (changeFigure)
-            {
-                //DeleteFigure.Show();
-                bitmap.DrawSelectedFigure(ActiveFigure);
-            }
+            //if (_editFigure)
+            //{
+            //    //DeleteFigure.Show();
+            //    bitmap.DrawSelectedFigure(ActiveFigure);
+            //}
             //DeleteFigure.Hide();
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
@@ -269,21 +286,22 @@ namespace Painter
         }
         private void DeleteFigure_Click(object sender, EventArgs e)
         {
-            if (changeFigure)
-            {
-
-                if (_currentColor != Color.White)
-                {
-                    copyColor = _currentColor;
-                    _currentColor = Color.White;
-                    return;
-                }
-                _currentColor = copyColor;
-            }
+            _deletingFigure = true;
+            CurrentFigure = null;
+            toolBox.SelectedIndex = -1;
+            //bitmap.DeleteFigure(ActiveFigure);
+            //if (_editFigure)
+            //{
+            //    bitmap.Undo();
+            //    bitmap.CopyInOld();
+            //    pictureBox.Image = bitmap.Bitmap;
+            //}
         }
 
         private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Change_location.Hide();
+            DeleteFigure.Hide();
             switch (toolBox.SelectedIndex)
             {
                 case 1:
@@ -357,7 +375,8 @@ namespace Painter
 
         private void Change_location_Click(object sender, EventArgs e)
         {
-            changeFigure = true;
+            _changeLocation = true;
+            //_editFigure = true;
             CurrentFigure = null;
             toolBox.SelectedIndex = -1;
         }
@@ -381,19 +400,18 @@ namespace Painter
 
         private void Edit_Figure_Click(object sender, EventArgs e)
         {
-            changeFigure = true;
-            Change_location.Show();
-            DeleteFigure.Show();
-            if (CurrentFigure != null)
-            {
-                ActiveFigure = CurrentFigure;
-             
-                bitmap.DrawSelectedFigure(ActiveFigure);
-                
-            }
+            _editFigure = true;
+            //if (CurrentFigure != null)
+            //{
+            //    ActiveFigure = CurrentFigure;
+
+            //    bitmap.DrawSelectedFigure(ActiveFigure);
+
+            //}
             //CurrentFigure = null;
             toolBox.SelectedIndex = -1;
+            Change_location.Show();
+            DeleteFigure.Show();
         }
-       
     }
 }

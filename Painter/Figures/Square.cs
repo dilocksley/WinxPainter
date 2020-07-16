@@ -66,9 +66,6 @@ namespace Painter.Figures
                 minY = second.Y;
             }
             return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
-
-            
-
         }
 
         public override void Move(Point point)

@@ -139,6 +139,7 @@
             // 
             this.DeleteFigure.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteFigure.BackgroundImage")));
             this.DeleteFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DeleteFigure.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DeleteFigure.Location = new System.Drawing.Point(303, 43);
             this.DeleteFigure.Margin = new System.Windows.Forms.Padding(4);
             this.DeleteFigure.Name = "DeleteFigure";
@@ -232,6 +233,7 @@
             // 
             this.Change_location.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Change_location.BackgroundImage")));
             this.Change_location.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Change_location.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Change_location.Location = new System.Drawing.Point(351, 43);
             this.Change_location.Margin = new System.Windows.Forms.Padding(2);
             this.Change_location.Name = "Change_location";
