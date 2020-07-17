@@ -13,13 +13,13 @@ namespace Painter
 
         public abstract void AddFigure(AFigure aFigure);
 
-        public AFigure SelectFigureByPoint(Point mousePoint)
+        public AFigure SelectFigureByPoint(Point mousePoint) // ищщет фигуру, в которой находится мышка (если она есть)
         {
             foreach(AFigure a in aFigures)
             {
                 if (a != null)
                 {
-                    if (a.IsPointInFigure(mousePoint))
+                    if (a.IsPointInFigure(mousePoint))    // проверяет, находится ли мышка в рамках фигуры
                     {
                         return a;
                     }

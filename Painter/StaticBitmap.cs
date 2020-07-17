@@ -108,14 +108,14 @@ namespace Painter
             }
             return instance;
         }
-        public void CopyInNew()
+        public void CopyInNew()     //копия основного битмапа во временный
         {
             if (Bitmap != null)
             {
                 tmpBitmap = (Bitmap)Bitmap.Clone();
             }
         }
-        public void CopyInOld()
+        public void CopyInOld()     //копия временного битмапа в основной
         {
             if (Bitmap != null)
             {
@@ -201,6 +201,8 @@ namespace Painter
         }
         public void ShowOnTheScreen()
         {
+            tmpBitmap = new Bitmap(tmpBitmap.Width, tmpBitmap.Height);
+            Bitmap = new Bitmap(Bitmap.Width, Bitmap.Height);
             foreach (AFigure figure in aFigures)
             {
                 if (figure != null)
@@ -271,18 +273,20 @@ namespace Painter
 
         public void ShowWithOutFigure(AFigure afigure)
         {
+            tmpBitmap = new Bitmap(tmpBitmap.Width, tmpBitmap.Height);
+            Bitmap = new Bitmap(Bitmap.Width, Bitmap.Height);
             int q = 0;
             for (int i = 0; i < aFigures.Count; i++)
             {
-                if (aFigures[i] == afigure)
+                if (aFigures[i] != afigure)
                 {
-                    q = i;
-                    break;
+                    DrawFigure(afigure);
                 }
             }
-            DrawUponFigureWithWhite(aFigures[q]);
-            aFigures.RemoveAt(q);
-            ShowOnTheScreen();
+            CopyInOld();
+            //DrawUponFigureWithWhite(aFigures[q]);
+            //aFigures.RemoveAt(q);
+            //ShowOnTheScreen();
         }
 
         public void Fill(Point e, Color colorFill)

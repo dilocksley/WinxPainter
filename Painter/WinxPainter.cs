@@ -102,11 +102,11 @@ namespace Painter
                 if (CurrentFigure == null)
                 {
                     CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                    if (CurrentFigure != null)
-                    {
-                        bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-                        bitmap.DeleteFigure(CurrentFigure);
-                    }
+                }
+                if (CurrentFigure != null)
+                {
+                    bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                    bitmap.DeleteFigure(CurrentFigure);
                 }
             }
         }
@@ -171,17 +171,19 @@ namespace Painter
                     if (CurrentFigure == null)
                     {
                         CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                        if (CurrentFigure != null)
-                        {
-                            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-                            bitmap.DeleteFigure(CurrentFigure);
-                        }
+                        //if (CurrentFigure != null)
+                        //{
+                        //    bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                        //    bitmap.DeleteFigure(CurrentFigure);
+                        //}
                     }
                     if (CurrentFigure != null)
                     {
-                        bitmap.ShowOnTheScreen();
+                        //bitmap.ShowOnTheScreen();
+                        bitmap.ShowWithOutFigure(CurrentFigure);
+                        pictureBox.Image = bitmap.Bitmap;
                         CurrentFigure.Move(delta);
-                        bitmap.DrawFigure(CurrentFigure);
+                        //bitmap.DrawFigure(CurrentFigure);
                         bitmap.DrawSelectedFigure(CurrentFigure);
                     }
                 }
@@ -287,7 +289,7 @@ namespace Painter
         private void DeleteFigure_Click(object sender, EventArgs e)
         {
             _deletingFigure = true;
-            CurrentFigure = null;
+            //CurrentFigure = null;
             toolBox.SelectedIndex = -1;
             //bitmap.DeleteFigure(ActiveFigure);
             //if (_editFigure)
