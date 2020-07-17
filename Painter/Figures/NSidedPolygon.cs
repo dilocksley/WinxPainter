@@ -16,6 +16,8 @@ namespace Painter.Figures
         public Color color;
         int n;
         public int thickness;
+        Color fillColor = Color.Transparent;
+        Point e;
         public NSidedPolygon(Point first,int n, Color color, int thickness)
         {
             this.first = first;
@@ -53,17 +55,18 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()
         {
-            throw new NotImplementedException();
+            e = new Fill().FindPointFigure(first, second);
+            return e;
         }
 
         public override void FillFigure()
         {
-            throw new NotImplementedException();
+            new Fill().FillFigure(e, fillColor);
         }
 
         //public override void FillFigure()

@@ -16,7 +16,8 @@ namespace Painter.Figures
         Point second;
         public Color color;
         public int thickness;
-
+        Point e;
+        Color fillColor = Color.Transparent;
         public Circle(Point first, Color color, int thickness)
         {
             this.first = first;
@@ -101,25 +102,19 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()
         {
-            throw new NotImplementedException();
+            e = new Fill().FindPointFigure(first, second);
+            return e;
         }
 
         public override void FillFigure()
         {
-            throw new NotImplementedException();
+            new Fill().FillFigure(e, fillColor);
         }
-
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
 
         #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры

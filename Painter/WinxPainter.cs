@@ -102,11 +102,12 @@ namespace Painter
                 if (CurrentFigure == null)
                 {
                     CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                }
-                if (CurrentFigure != null)
-                {
-                    bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-                    bitmap.DeleteFigure(CurrentFigure);
+                    if (CurrentFigure != null)
+                    {
+                        // bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                        bitmap.DeleteFigure(CurrentFigure);
+
+                    }
                 }
             }
         }
@@ -123,7 +124,7 @@ namespace Painter
             if (_editFigure)
             {
                 //ActiveFigure = bitmap.SelectFigureByPoint(e.Location);
-                //bitmap.DrawSelectedFigure(ActiveFigure);
+                //bitmap.HighlightSelectedFigure(ActiveFigure);
                 //Change_location.Show();
                 //DeleteFigure.Show();
             }
@@ -184,7 +185,7 @@ namespace Painter
                         pictureBox.Image = bitmap.Bitmap;
                         CurrentFigure.Move(delta);
                         //bitmap.DrawFigure(CurrentFigure);
-                        bitmap.DrawSelectedFigure(CurrentFigure);
+                        bitmap.HighlightSelectedFigure(CurrentFigure);
                     }
                 }
                 else if (toolBox.SelectedIndex == 0)
@@ -251,8 +252,8 @@ namespace Painter
                     CurrentFigure.FindPoint();
 
                     CurrentFigure.FillFigure();
-
                 }
+                bitmap.HighlightSelectedFigure(CurrentFigure);
                 bitmap.AddFigure(CurrentFigure);
                 //if (ActiveFigure != null)
                 //{
@@ -262,7 +263,7 @@ namespace Painter
             //if (_editFigure)
             //{
             //    //DeleteFigure.Show();
-            //    bitmap.DrawSelectedFigure(ActiveFigure);
+            //    bitmap.HighlightSelectedFigure(ActiveFigure);
             //}
             //DeleteFigure.Hide();
             bitmap.CopyInOld();
@@ -285,6 +286,7 @@ namespace Painter
             pictureBox.Image = null;
             bitmap.Bitmap = null;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+            bitmap.ClearStorage();
         }
         private void DeleteFigure_Click(object sender, EventArgs e)
         {
@@ -407,7 +409,7 @@ namespace Painter
             //{
             //    ActiveFigure = CurrentFigure;
 
-            //    bitmap.DrawSelectedFigure(ActiveFigure);
+            //    bitmap.HighlightSelectedFigure(ActiveFigure);
 
             //}
             //CurrentFigure = null;

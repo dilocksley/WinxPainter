@@ -89,14 +89,37 @@ namespace Painter
             ConnectPoints(points, aFigure.SetColor(), aFigure.SetThickness());
         }
 
-        public void DrawSelectedFigure(AFigure aFigure)
+        public void HighlightSelectedFigure(AFigure aFigure)
         {
             if (aFigure != null)
             {
                 List<Point> points = aFigure.DoFigureMath();
-                for (int i = 0; i < points.Count; i++)
+                if (points.Count > 100)
                 {
-                    DrawLine(points[i], points[i], 7, Color.Red);
+                    if (points.Count > 360)
+                    {
+                        for (int i = 0; i < points.Count; i = i + (points.Count / 4))
+                        {
+                            DrawLine(points[i], points[i], 7, Color.Red);
+                        }
+                    }
+                    for (int i = 0; i < points.Count; i = i + 45)
+                    {
+                        if (i == 0 || i == 90 || i == 180 || i == 270 || i == 360)
+                        {
+                        }
+                        else
+                        {
+                            DrawLine(points[i], points[i], 7, Color.Red);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        DrawLine(points[i], points[i], 7, Color.Red);
+                    }
                 }
             }
         }
@@ -228,7 +251,8 @@ namespace Painter
                     break;
                 }
             }
-            aFigures.RemoveAt(index);
+            aFigures[index] = null;
+            //aFigures.RemoveAt(index);
             ShowOnTheScreen();
         }
 
@@ -287,6 +311,12 @@ namespace Painter
             //DrawUponFigureWithWhite(aFigures[q]);
             //aFigures.RemoveAt(q);
             //ShowOnTheScreen();
+        }
+
+        public void ClearStorage()
+        {
+            aFigures.Clear();
+            tmpFigure.Clear();
         }
 
         public void Fill(Point e, Color colorFill)
