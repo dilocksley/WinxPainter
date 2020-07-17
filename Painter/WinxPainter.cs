@@ -97,6 +97,18 @@ namespace Painter
                 }
                 FirstPoint = e.Location;
             }
+            if (_deletingFigure)
+            {
+                if (CurrentFigure == null)
+                {
+                    CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
+                    if (CurrentFigure != null)
+                    {
+                        bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                        bitmap.DeleteFigure(CurrentFigure);
+                    }
+                }
+            }
         }
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
@@ -171,18 +183,6 @@ namespace Painter
                         CurrentFigure.Move(delta);
                         bitmap.DrawFigure(CurrentFigure);
                         bitmap.DrawSelectedFigure(CurrentFigure);
-                    }
-                }
-                if (_deletingFigure)
-                {
-                    if (CurrentFigure == null)
-                    {
-                        CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                        if (CurrentFigure != null)
-                        {
-                            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-                            bitmap.DeleteFigure(CurrentFigure);
-                        }
                     }
                 }
                 else if (toolBox.SelectedIndex == 0)
