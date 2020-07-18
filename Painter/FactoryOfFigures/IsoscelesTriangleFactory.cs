@@ -8,7 +8,7 @@ namespace Painter.FactoryOfFigures
         
         public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
-            IsoscelesTriangle triangle = new IsoscelesTriangle(first, color, thickness);
+            IsoscelesTriangle triangle = new IsoscelesTriangle(first, color, fillColor, thickness);
             return triangle;
         }
        

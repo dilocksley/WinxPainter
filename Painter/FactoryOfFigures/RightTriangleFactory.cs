@@ -7,7 +7,7 @@ namespace Painter.FactoryOfFigures
     {
         public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
-            RightTriangle rightTriangle = new RightTriangle(first, color, thickness);
+            RightTriangle rightTriangle = new RightTriangle(first, color, fillColor, thickness);
             return rightTriangle;
         }
 

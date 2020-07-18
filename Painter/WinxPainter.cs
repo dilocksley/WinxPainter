@@ -12,7 +12,7 @@ namespace Painter
     public partial class Painter : Form
     {
         AFigure CurrentFigure;
-        AFigure ActiveFigure;
+       
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
         Color _fillColor;
@@ -23,10 +23,10 @@ namespace Painter
         Point SecondPoint;
         int n = 1;                  //количество сторон
         int count = 0;
-        double angle = Math.PI / 2; //Угол поворота на 90 градусов
+      
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
-        Color copyColor;
+      
         List<Point> list = new List<Point>();
         bool _editFigure;
         bool _changeLocation;
@@ -38,7 +38,7 @@ namespace Painter
             InitializeComponent();
             bitmap = StaticBitmap.GetInstance();
             _currentColor = Color.Black;
-            _fillColor = Color.White;
+           
             _currentThickness = 1;
             _fillColor = Color.Transparent;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
@@ -108,13 +108,13 @@ namespace Painter
                     CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
                     if (CurrentFigure != null)
                     {
-                        // bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                        bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
                         bitmap.DeleteFigure(CurrentFigure);
 
                     }
                 }
             }
-            bitmap.ShowOnTheScreen();
+           // bitmap.ShowOnTheScreen();
         }
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
@@ -158,6 +158,7 @@ namespace Painter
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             bitmap.CopyInNew();
+
             if (mouseDown)
             {
                 if (_changeLocation)

@@ -12,20 +12,25 @@ namespace Painter.Figures
     {
         Point first;
         Point second;
+        Point third;
         public Color color;
         public int thickness;
         Color fillColor = Color.Transparent;
         Point e;
-        public RightTriangle(Point first, Color color, int thickness)
+        List<Point> points;
+        public RightTriangle(Point first, Color color, Color fillColor, int thickness)
         {
             this.first = first;
             this.second = first;
             this.color = color;
             this.thickness = thickness;
+            this.fillColor = fillColor;
         }
         public override List<Point> DoFigureMath()                      // реализация метода абстр класса для получения точек фигуры
         {
-            return new MathRightTriangle().MathFigure(first, second);
+            points = new MathRightTriangle().MathFigure(first, second);
+            third = points[1];
+            return points;
         }
         public override Color SetColor()
         {
@@ -42,12 +47,24 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new System.NotImplementedException();
+            int a = (first.X - mousePoint.X) * (second.Y - first.Y) - (second.X - first.X) * (first.Y - mousePoint.Y);
+            int b = (second.X - mousePoint.X) * (third.Y - second.Y) - (third.X - second.X) * (second.Y - mousePoint.Y);
+            int c = (third.X - mousePoint.X) * (first.Y - third.Y) - (first.X - third.X) * (third.Y - mousePoint.Y);
+
+            if ((a >= 0 && b >= 0 && c >= 0) || (a <= 0 && b <= 0 && c <= 0))
+            {
+                return true;
+            }
+            return false;
         }
 
         public override void Move(Point point)
         {
-            throw new System.NotImplementedException();
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y;
+           
         }
 
         public override Color FillSetColor()
@@ -57,7 +74,7 @@ namespace Painter.Figures
 
         public override Point FindPoint()
         {
-            e = new Fill().FindPointFigure(first, second);
+            e = new Fill().FindPointFigure(first, second, third);
             return e;
         }
 
@@ -68,28 +85,7 @@ namespace Painter.Figures
 
         public override void ChangeFillColor(Color color)
         {
-            throw new System.NotImplementedException();
-        }
-
-        //public override void FillFigure()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //public List<Point> FindRightTrianglePoints(Point First, Point Second)
-        //{
-
-        //    Point first = First;
-        //    Point second = Second;
-        //    Point next = Second;
-        //    next.X = first.X;
-        //    next.Y = second.Y;
-
-        //    triangleList.Add(first);
-        //    triangleList.Add(next);
-        //    triangleList.Add(second);
-
-        //    return triangleList;
-        //}
+            fillColor = color;
+        }              
     }
 }
