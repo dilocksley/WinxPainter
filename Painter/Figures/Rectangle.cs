@@ -16,13 +16,15 @@ namespace Painter.Figures
         Point second;
         public Color color;
         public int thickness;
-
-        public Rectangle(Point first, Color color, int thickness)
+        Color fillColor = Color.Transparent;
+        Point e;
+        public Rectangle(Point first, Color color, Color fillColor, int thickness)
         {
             this.first = first;
             this.second = first;
             this.color = color;
             this.thickness = thickness;
+            this.fillColor = fillColor;
         }
         public override List<Point> DoFigureMath()
         {
@@ -70,15 +72,22 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()
         {
-            throw new NotImplementedException();
+
+            e = new Fill().FindPointFigure(first, second);
+            return e;
         }
 
         public override void FillFigure()
+        {
+            new Fill().FillFigure(e, fillColor);
+        }
+
+        public override void ChangeFillColor(Color color)
         {
             throw new NotImplementedException();
         }

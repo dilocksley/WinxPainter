@@ -37,6 +37,36 @@ namespace Painter.Instruments
             return point;
         }
 
+        public Point FindPointFigure(Point first, Point second, Point thrid)
+        {
+            Point point = new Point();
+           
+            point.X = (int)((first.X + second.X + thrid.X) / 3);
+            point.Y = (int)((first.Y + second.Y + thrid.Y) / 3);
+
+           
+            //if (first.X < second.X && first.Y < second.Y) // IV четверть
+            //{
+            //    point.X = first.X - (first.Y - second.Y) / 2;
+            //    point.Y = first.Y - (first.Y - second.Y) / 2;
+            //}
+            //if (first.X > second.X && first.Y > second.Y) // II четверть
+            //{
+            //    point.X = first.X + (second.X - first.X) / 2;
+            //    point.Y = first.Y + (second.X - first.X) / 2;
+            //}
+            //if (first.X > second.X && first.Y < second.Y) // III четверть
+            //{
+            //    point.X = first.X - (first.X - second.X) / 2;
+            //    point.Y = first.Y + (first.X - second.X) / 2;
+            //}
+            //if (first.X < second.X && first.Y > second.Y) // I четверть
+            //{
+            //    point.X = first.X + (second.X - first.X) / 2;
+            //    point.Y = first.Y - (second.X - first.X) / 2;
+            //}
+            return point;
+        }
         public void FillFigure(Point e, Color fillColor)
         {
             Color startColor = bitmap.tmpBitmap.GetPixel(e.X, e.Y);

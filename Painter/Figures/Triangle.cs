@@ -15,12 +15,17 @@ namespace Painter.Figures
         public Color color;
         List<Point> list;
         public int thickness;
-
-        public Triangle(Color color, List<Point> list, int thickness)
+        Color fillColor = Color.Transparent;
+        Point e;
+        public Triangle(Color color, List<Point> list, Color fillColor, int thickness)
         {
             this.thickness = thickness;
             this.color = color;
             this.list = list;
+            this.fillColor = fillColor;
+            first = list[0];
+            second = list[1];
+            third = list[2];
         }
         public override List<Point> DoFigureMath()
         {
@@ -41,12 +46,26 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new System.NotImplementedException();
+            int a = (first.X - mousePoint.X) * (second.Y - first.Y) - (second.X - first.X) * (first.Y - mousePoint.Y);
+            int b = (second.X - mousePoint.X) * (third.Y - second.Y) - (third.X - second.X) * (second.Y - mousePoint.Y);
+            int c = (third.X - mousePoint.X) * (first.Y - third.Y) - (first.X - third.X) * (third.Y - mousePoint.Y);
+
+            if ((a >= 0 && b >= 0 && c >= 0) || (a <= 0 && b <= 0 && c <= 0))
+            {
+                return true;
+            }
+            return false;
         }
 
         public override void Move(Point point)
         {
-            throw new System.NotImplementedException();
+
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y;
+            third.X += point.X;
+            third.Y += point.Y;
         }
 
         public override Color FillSetColor()
@@ -56,10 +75,16 @@ namespace Painter.Figures
 
         public override Point FindPoint()
         {
-            throw new System.NotImplementedException();
+            e = new Fill().FindPointFigure(first, second,third);
+            return e;
         }
 
         public override void FillFigure()
+        {
+            new Fill().FillFigure(e, fillColor);
+        }
+
+        public override void ChangeFillColor(Color color)
         {
             throw new System.NotImplementedException();
         }

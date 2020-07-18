@@ -12,7 +12,7 @@ namespace Painter.FactoryOfFigures
     {
         public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
-            NSidedPolygon nSided = new NSidedPolygon(first,n, color, thickness);
+            NSidedPolygon nSided = new NSidedPolygon(first,n, color, fillColor, thickness);
             return nSided;
         }
     }

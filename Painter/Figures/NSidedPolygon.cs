@@ -18,13 +18,14 @@ namespace Painter.Figures
         public int thickness;
         Color fillColor = Color.Transparent;
         Point e;
-        public NSidedPolygon(Point first,int n, Color color, int thickness)
+        public NSidedPolygon(Point first,int n, Color color, Color fillColor, int thickness)
         {
             this.first = first;
             this.second = first;
             this.color = color;
             this.n = n;
             this.thickness = thickness;
+            this.fillColor = fillColor;
         }
         public override List<Point> DoFigureMath()
         {                     
@@ -45,12 +46,29 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new NotImplementedException();
+            int maxX = second.X;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                maxX = first.X;
+                minX = second.X;
+            }
+            int maxY = second.Y;
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                maxY = first.Y;
+                minY = second.Y;
+            }
+            return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
         }
 
         public override void Move(Point point)
         {
-            throw new NotImplementedException();
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y;
         }
 
         public override Color FillSetColor()
@@ -67,6 +85,11 @@ namespace Painter.Figures
         public override void FillFigure()
         {
             new Fill().FillFigure(e, fillColor);
+        }
+
+        public override void ChangeFillColor(Color color)
+        {
+            throw new NotImplementedException();
         }
 
         //public override void FillFigure()

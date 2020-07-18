@@ -22,10 +22,8 @@ namespace Painter
                     if (a.IsPointInFigure(mousePoint))    // проверяет, находится ли мышка в рамках фигуры
                     {
                         return a;
-                    }
-                    
-                }
-                
+                    }                    
+                }                
             }
             return null;
         }

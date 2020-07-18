@@ -38,13 +38,15 @@ namespace Painter
             InitializeComponent();
             bitmap = StaticBitmap.GetInstance();
             _currentColor = Color.Black;
-            _currentThickness = 1;
             _fillColor = Color.White;
+            _currentThickness = 1;
+            _fillColor = Color.Transparent;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             Change_location.Hide();
             DeleteFigure.Hide();
             textBox1.Hide();
+            
         }
 
         private void DrawTree(double x, double y, double a, double angle)
@@ -83,20 +85,22 @@ namespace Painter
                     try
                     {
                         n = Convert.ToInt32(textBox1.Text);
-                        if (n < 5)
+                        if (n < 3)
                         {
                             mouseDown = false;
-                            MessageBox.Show("Минимальное количество граней = 5.");
+                            MessageBox.Show("Минимальное количество граней = 3.");
                         }
                     }
                     catch (FormatException)
                     {
-                        MessageBox.Show("Введите число 5 или больше.");
+                        MessageBox.Show("Введите число 3 или больше.");
                         mouseDown = false;
                     }
                 }
                 FirstPoint = e.Location;
             }
+           
+                
             if (_deletingFigure)
             {
                 if (CurrentFigure == null)
@@ -110,24 +114,19 @@ namespace Painter
                     }
                 }
             }
+            bitmap.ShowOnTheScreen();
         }
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
 
-            //if (fill)
-            //{
 
-            //    bitmap.Fill(e.Location, _fillColor);
-            //    bitmap.CopyInOld();
-            //    pictureBox.Image = bitmap.Bitmap;
-            //}
             if (_editFigure)
             {
-                //ActiveFigure = bitmap.SelectFigureByPoint(e.Location);
-                //bitmap.HighlightSelectedFigure(ActiveFigure);
-                //Change_location.Show();
-                //DeleteFigure.Show();
+                CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
+                bitmap.HighlightSelectedFigure(CurrentFigure);
+               
             }
+
             if (toolBox.SelectedIndex == 6)
             {
                 if (count == 0)
@@ -150,7 +149,7 @@ namespace Painter
 
                     CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor, _currentThickness);
                     bitmap.DrawFigure(CurrentFigure);
-                    pictureBox.Image = bitmap.tmpBitmap;
+
                 }
             }
         }
@@ -172,46 +171,41 @@ namespace Painter
                     if (CurrentFigure == null)
                     {
                         CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                        //if (CurrentFigure != null)
-                        //{
-                        //    bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-                        //    bitmap.DeleteFigure(CurrentFigure);
-                        //}
+                        if (CurrentFigure != null)
+                        {
+                            bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+                            bitmap.DeleteFigure(CurrentFigure);
+
+                        }
                     }
                     if (CurrentFigure != null)
                     {
-                        //bitmap.ShowOnTheScreen();
-                        bitmap.ShowWithOutFigure(CurrentFigure);
-                        pictureBox.Image = bitmap.Bitmap;
+                        bitmap.ShowOnTheScreen();
                         CurrentFigure.Move(delta);
-                        //bitmap.DrawFigure(CurrentFigure);
+                        bitmap.DrawFigure(CurrentFigure);
                         bitmap.HighlightSelectedFigure(CurrentFigure);
                     }
                 }
+
                 else if (toolBox.SelectedIndex == 0)
                 {
                     SecondPoint = FirstPoint;
                     FirstPoint = e.Location;
-
                     bitmap.DrawLine(FirstPoint, SecondPoint, _currentThickness, _currentColor);
                     bitmap.CopyInOld();
                     pictureBox.Image = bitmap.Bitmap;
-
                 }
                 else if (toolBox.SelectedIndex != 6 && toolBox.SelectedIndex != -1)
                 {
                     if (CurrentFigure == null && factoryFigure != null)
                     {
-
                         CurrentFigure = factoryFigure.Create(FirstPoint, n, _currentColor, _fillColor, _currentThickness);
                     }
 
                     if (CurrentFigure != null)
                     {
-
                         CurrentFigure.Update(e.Location);
-                        bitmap.DrawFigure(CurrentFigure);
-
+                        bitmap.DrawFigure(CurrentFigure);                       
                     }
                 }
             }
@@ -225,6 +219,7 @@ namespace Painter
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
             GC.Collect();
+           
             pictureBox.Image = bitmap.tmpBitmap;
         }
 
@@ -234,41 +229,21 @@ namespace Painter
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-
             fill = false;
-            //if (_fillColor != Color.White)
-            //{
-            //    CurrentFigure.FindPoint();
-
-            //    CurrentFigure.FillFigure();
-
-            //}
 
             if (CurrentFigure != null)
             {
 
-                if (_fillColor != Color.White)
+                if (_fillColor != Color.Transparent)
                 {
                     CurrentFigure.FindPoint();
-
                     CurrentFigure.FillFigure();
-                }
-                bitmap.HighlightSelectedFigure(CurrentFigure);
-                bitmap.AddFigure(CurrentFigure);
-                //if (ActiveFigure != null)
-                //{
-                //    bitmap.AddFigure(ActiveFigure);
-                //}
+                }              
+                bitmap.AddFigure(CurrentFigure);                  
             }
-            //if (_editFigure)
-            //{
-            //    //DeleteFigure.Show();
-            //    bitmap.HighlightSelectedFigure(ActiveFigure);
-            //}
-            //DeleteFigure.Hide();
+            
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
-
         }
 
         private void ColorBox_Click(object sender, EventArgs e)
@@ -380,7 +355,6 @@ namespace Painter
         private void Change_location_Click(object sender, EventArgs e)
         {
             _changeLocation = true;
-            //_editFigure = true;
             CurrentFigure = null;
             toolBox.SelectedIndex = -1;
         }
@@ -388,8 +362,10 @@ namespace Painter
 
         private void Fill_Click(object sender, EventArgs e)
         {
-            fill = true;
-
+            if (_editFigure)
+            {
+                fill = true;
+            }
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
@@ -405,13 +381,10 @@ namespace Painter
         private void Edit_Figure_Click(object sender, EventArgs e)
         {
             _editFigure = true;
-            //if (CurrentFigure != null)
-            //{
-            //    ActiveFigure = CurrentFigure;
-
-            //    bitmap.HighlightSelectedFigure(ActiveFigure);
-
-            //}
+            if (CurrentFigure != null)
+            {      
+                bitmap.HighlightSelectedFigure(CurrentFigure);
+            }
             //CurrentFigure = null;
             toolBox.SelectedIndex = -1;
             Change_location.Show();

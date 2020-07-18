@@ -87,9 +87,16 @@ namespace Painter
         {
             List<Point> points = aFigure.DoFigureMath();
             ConnectPoints(points, aFigure.SetColor(), aFigure.SetThickness());
-        }
+        }  
 
+        public void DrawFillFigure(AFigure aFigure)
+        {
+            List<Point> points = aFigure.DoFigureMath();
+            ConnectPoints(points, aFigure.SetColor(), aFigure.SetThickness());
+            aFigure.FillFigure();
+        }
         public void HighlightSelectedFigure(AFigure aFigure)
+
         {
             if (aFigure != null)
             {
@@ -230,7 +237,7 @@ namespace Painter
             {
                 if (figure != null)
                 {
-                    DrawFigure(figure);
+                    DrawFillFigure(figure);
                 }
             }
         }
@@ -251,8 +258,8 @@ namespace Painter
                     break;
                 }
             }
-            aFigures[index] = null;
-            //aFigures.RemoveAt(index);
+            aFigures.RemoveAt(index);
+            
             ShowOnTheScreen();
         }
 
@@ -270,6 +277,7 @@ namespace Painter
             }
 
             aFigures.RemoveAt(aFigures.Count - 1);
+            
             ShowOnTheScreen();
         }
 

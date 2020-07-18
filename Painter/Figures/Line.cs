@@ -15,7 +15,9 @@ namespace Painter.Figures
         Point second;
         public Color color;
         public int thickness;
-
+        Color fillColor = Color.Transparent;
+        Point e;
+        List<Point> points;
         public Line(Point first, Color color, int thickness)
         {
             this.first = first;
@@ -42,7 +44,8 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new NotImplementedException();
+            points = new MathLine().MathFigure(first, second);           
+            return points.Contains(mousePoint);
         }
 
         public override void Move(Point point)
@@ -52,22 +55,23 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()
         {
-            throw new NotImplementedException();
+            e = new Fill().FindPointFigure(first, second);
+            return e;
         }
 
         public override void FillFigure()
         {
-            throw new NotImplementedException();
+            
         }
 
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override void ChangeFillColor(Color color)
+        {
+            fillColor = color;
+        }
     }
 }

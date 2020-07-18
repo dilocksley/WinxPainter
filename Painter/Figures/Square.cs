@@ -92,6 +92,9 @@ namespace Painter.Figures
             new Fill().FillFigure(e, fillColor);
         }
 
-        
+        public override void ChangeFillColor(Color color)
+        {
+            fillColor = color;
+        }
     }
 }

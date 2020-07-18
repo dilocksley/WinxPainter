@@ -116,6 +116,18 @@ namespace Painter.Figures
             new Fill().FillFigure(e, fillColor);
         }
 
+        public override void ChangeFillColor(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void FillFigure()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+
+
         #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
         //{

@@ -12,7 +12,7 @@ namespace Painter.FactoryOfFigures
     {
         public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
-            Figures.Rectangle rectangle = new Figures.Rectangle(first, color, thickness);
+            Figures.Rectangle rectangle = new Figures.Rectangle(first, color, fillColor, thickness);
             return rectangle;
         }
     }
