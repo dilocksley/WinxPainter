@@ -74,29 +74,32 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
+            
             mouseDown = true;
 
-            if (toolBox.SelectedIndex != 6)
+            if (toolBox.SelectedIndex != 6 )
             {
-                CurrentFigure = null;
+               
+                    CurrentFigure = null;
 
-                if (toolBox.SelectedIndex == 4)
-                {
-                    try
+                    if (toolBox.SelectedIndex == 4)
                     {
-                        n = Convert.ToInt32(textBox1.Text);
-                        if (n < 3)
+                        try
                         {
+                            n = Convert.ToInt32(textBox1.Text);
+                            if (n < 3)
+                            {
+                                mouseDown = false;
+                                MessageBox.Show("Минимальное количество граней = 3.");
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Введите число 3 или больше.");
                             mouseDown = false;
-                            MessageBox.Show("Минимальное количество граней = 3.");
                         }
                     }
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Введите число 3 или больше.");
-                        mouseDown = false;
-                    }
-                }
+                
                 FirstPoint = e.Location;
             }
            
@@ -163,6 +166,9 @@ namespace Painter
             {
                 if (_changeLocation)
                 {
+                    fill = false;
+                    _deletingFigure = false;
+
                     Point delta = new Point();
 
                     delta.X = e.X - FirstPoint.X;
@@ -231,10 +237,9 @@ namespace Painter
         {
             mouseDown = false;
             fill = false;
-
+            
             if (CurrentFigure != null)
             {
-
                 if (_fillColor != Color.Transparent)
                 {
                     CurrentFigure.FindPoint();
@@ -242,7 +247,7 @@ namespace Painter
                 }              
                 bitmap.AddFigure(CurrentFigure);                  
             }
-            
+           
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
         }

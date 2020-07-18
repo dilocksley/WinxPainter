@@ -18,12 +18,13 @@ namespace Painter.Figures
         public int thickness;
         Point e;
         Color fillColor = Color.Transparent;
-        public Circle(Point first, Color color, int thickness)
+        public Circle(Point first, Color color, Color fillColor, int thickness)
         {
             this.first = first;
             this.color = color;
             this.second = first;
             this.thickness = thickness;
+            this.fillColor = fillColor;
         }
 
         public override List<Point> DoFigureMath()

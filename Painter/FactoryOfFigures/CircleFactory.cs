@@ -13,7 +13,7 @@ namespace Painter.FactoryOfFigures
        
         public AFigure Create(Point first, int n, Color color, Color fillColor, int thickness)
         {
-            Circle circle = new Circle(first, color, thickness);
+            Circle circle = new Circle(first, color, fillColor , thickness);
             return circle;
         }
     }
