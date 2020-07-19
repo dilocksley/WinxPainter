@@ -99,8 +99,9 @@ namespace Painter
                 }
                 else
                 {
-                    bitmap.HighlightSelectedFigureW(ActiveFigure);
+                    bitmap.HighlightSelectedFigureW(ActiveFigure);                   
                     bitmap.DrawFigure(ActiveFigure);
+                    CurrentFigure = ActiveFigure;
                     ActiveFigure = null;
                     mode = "Рисуем";
                 }
@@ -137,13 +138,7 @@ namespace Painter
                 FirstPoint = e.Location;
             }
 
-            //if (mode == "Заливка")
-            //{
-            //    ActiveFigure.ChangeFillColor(_fillColor);
-            //    //ActiveFigure.FindPoint();
-            //    //ActiveFigure.FillFigure();
-            //    mode = "Рисуем";
-            //}
+           
             if (_deletingFigure)
             {
                 if (CurrentFigure == null)
@@ -316,6 +311,13 @@ namespace Painter
                 q = false;
             }
 
+            if (mode == "Заливка")
+            {
+                ActiveFigure.FindPoint();
+                ActiveFigure.FillFigure();
+                mode = "Рисуем";
+            }
+
             if (CurrentFigure != null && _deletingFigure == false)
             {
                 if (_fillColor != Color.Transparent)
@@ -350,16 +352,8 @@ namespace Painter
         }
         private void DeleteFigure_Click(object sender, EventArgs e)
         {
-            _deletingFigure = true;
-            //CurrentFigure = null;
-            toolBox.SelectedIndex = -1;
-            //bitmap.DeleteFigure(ActiveFigure);
-            //if (_editFigure)
-            //{
-            //    bitmap.Undo();
-            //    bitmap.CopyInOld();
-            //    pictureBox.Image = bitmap.Bitmap;
-            //}
+            _deletingFigure = true;          
+            toolBox.SelectedIndex = -1;            
         }
 
         private void toolBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -460,6 +454,7 @@ namespace Painter
             }
             if(mode == "Выбрал")
             {
+                ActiveFigure.ChangeFillColor(_fillColor);
                 mode = "Заливка";
             }    
         }
@@ -476,8 +471,9 @@ namespace Painter
             {
                 bitmap.HighlightSelectedFigure(CurrentFigure);
             }
-            //CurrentFigure = null;
+            
             mode = "Рисуем";
+            
             toolBox.SelectedIndex = -1;
             Change_location.Show();
             DeleteFigure.Show();
@@ -514,35 +510,7 @@ namespace Painter
                 default:
                     return;
 
-            }
-           
-
-            //if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-            //    return;
-
-            //if (dialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    string fileName = dialog.FileName;
-            //    //Get the extension
-            //    string strFilExtn =
-            //        fileName.Remove(0, fileName.Length - 4);
-            //    //Save file
-            //    file = JsonSerializer.Serialize(bitmap.GetListSt());
-            //    File.WriteAllText("Painter.winx", file);
-            //    Console.WriteLine("Проект сохранён.");
-            //    using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
-            //    {
-            //    }
-            //    switch (strFilExtn)
-            //    {
-            //        case "winx":
-            //            winx.Save(fileName, System.Drawing.Imaging.ImageFormat.Winx);
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-
+            }        
         }
 
         private void openFile_Click(object sender, EventArgs e)
@@ -560,21 +528,6 @@ namespace Painter
                     return;
 
             }
-
-            //OpenFileDialog dialog = new OpenFileDialog();
-            //dialog.Filter = "Winx files (*.WINX)|*.winx";
-            //if (dialog.ShowDialog() == DialogResult.Cancel)
-            //    return;
-            //if (dialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    Image image = Image.FromFile(dialog.FileName);
-
-            //}
-            //using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
-            //{
-            //    string file = File.ReadAllText("Painter.winx");
-            //    bitmap.SetListSt( JsonSerializer.Deserialize<List<AFigure>>(file));
-            //}
         }
     }
 }
