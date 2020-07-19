@@ -27,6 +27,7 @@ namespace Painter
         int n = 1;                  //количество сторон
         int count = 0;
         bool q;
+        AFigure Current;
         string file;
 
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
@@ -86,7 +87,7 @@ namespace Painter
         {
 
             mouseDown = true;
-            if (mode == "Навел")
+            if (mode == "Навел"  )
             {
                 if (ActiveFigure == null)
                 {
@@ -104,9 +105,14 @@ namespace Painter
                 }
             }
 
-            if (mode == "Выбрал" && q)
+            if (mode == "Выбрал")
             {
-                mode = "Изменить";
+                if (q)
+                {
+                    Current = ActiveFigure;
+                    mode = "Изменить";
+                }
+              
             }
 
 
@@ -194,7 +200,7 @@ namespace Painter
 
             if (mouseDown)
             {
-                if (_changeLocation )
+                if (_changeLocation)
                 {
                     fill = false;
                     _deletingFigure = false;
@@ -232,7 +238,7 @@ namespace Painter
                     bitmap.CopyInOld();
                     pictureBox.Image = bitmap.Bitmap;
                 }
-                else if (toolBox.SelectedIndex != 6 && toolBox.SelectedIndex != -1)
+                else if (toolBox.SelectedIndex != 6 && toolBox.SelectedIndex != -1 && mode == "Рисуем")
                 {
                     if (CurrentFigure == null && factoryFigure != null)
                     {
@@ -246,7 +252,7 @@ namespace Painter
                     }
                 }
             }
-            if (mode == "Изменить" && mouseDown)
+            if (mode == "Изменить" && mouseDown)  //mode == "Изменить"
             {
 
                 ActiveFigure.Update(e.Location);
@@ -254,29 +260,30 @@ namespace Painter
 
             }
 
-            if (bitmap.SelectFigureByPointq(e.Location) && mode != "Выбрал" )
+            if (bitmap.SelectFigureByPointq(e.Location) && mode != "Выбрал" && mode != "Изменить")
             {
                 CurrentFigure = bitmap.GetAFigure();
                 bitmap.HighlightSelectedFigure(CurrentFigure);
                 mode = "Навел";
             }
-            else if(mode != "Выбрал")
+            else if (mode != "Выбрал" && mode != "Изменить")
             {
                 mode = "Рисуем";
             }
 
             if (mode == "Выбрал")
             {
-                
+
                 q = bitmap.PointInPoint(ActiveFigure, e.Location);
+
             }
 
-            if (toolBox.SelectedIndex != -1)
+            if (toolBox.SelectedIndex != -1 && mode != "Изменить")
             {
                 _changeLocation = false;
                 _deletingFigure = false;
                 _editFigure = false;
-               
+
             }
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
@@ -293,9 +300,13 @@ namespace Painter
         {
             mouseDown = false;
             fill = false;
-            if(mode == "Изменить")
+            if (mode == "Изменить")
             {
-
+                mode = "Рисуем";
+                bitmap.AddFigure(ActiveFigure);
+                bitmap.DeleteFigure(Current);
+                ActiveFigure = null;
+                q = false;
             }
 
             if (CurrentFigure != null)
