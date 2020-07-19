@@ -26,7 +26,7 @@ namespace Painter
         int count = 0;
         bool q;
         AFigure Current;
-        string file;
+        //string file;
         bool _reversal;
         int angle = 0;
 
@@ -506,50 +506,78 @@ namespace Painter
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Winx files(*.winx)|*.winx";
-           
-            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-            if (dialog.ShowDialog() == DialogResult.OK)
+
+            switch (dialog.ShowDialog())
             {
-                string fileName = dialog.FileName;
-                //Get the extension
-                string strFilExtn =
-                    fileName.Remove(0, fileName.Length - 4);
-                //Save file
-                file = JsonSerializer.Serialize(bitmap.GetListSt());
-                File.WriteAllText("Painter.winx", file);
-                Console.WriteLine("Проект сохранён.");
-                using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
-                {
-                }
-                switch (strFilExtn)
-                {
-                    case "winx":
-                        winx.Save(fileName, System.Drawing.Imaging.ImageFormat.Winx);
-                        break;
-                    default:
-                        break;
-                }
+                case DialogResult.OK: 
+                    string file = JsonSerializer.Serialize(bitmap.GetListSt());
+                    File.WriteAllText(dialog.FileName, file);
+                    Console.WriteLine("Проект сохранён.");
+                    break;
+                default:
+                    return;
+
             }
+           
+
+            //if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+            //    return;
+
+            //if (dialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    string fileName = dialog.FileName;
+            //    //Get the extension
+            //    string strFilExtn =
+            //        fileName.Remove(0, fileName.Length - 4);
+            //    //Save file
+            //    file = JsonSerializer.Serialize(bitmap.GetListSt());
+            //    File.WriteAllText("Painter.winx", file);
+            //    Console.WriteLine("Проект сохранён.");
+            //    using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
+            //    {
+            //    }
+            //    switch (strFilExtn)
+            //    {
+            //        case "winx":
+            //            winx.Save(fileName, System.Drawing.Imaging.ImageFormat.Winx);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
 
         }
 
         private void openFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Winx files (*.WINX)|*.winx";
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return;
-            if (dialog.ShowDialog() == DialogResult.OK)
+            dialog.Filter = "Winx files(*.winx)|*.winx";
+
+            switch (dialog.ShowDialog())
             {
-                Image image = Image.FromFile(dialog.FileName);
+                case DialogResult.OK:
+                    string file = File.ReadAllText(dialog.FileName);
+                    bitmap.SetListSt(JsonSerializer.Deserialize<List<AFigure>>(file));
+                    break;
+                default:
+                    return;
 
             }
-            using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
-            {
-                file = File.ReadAllText("Painter.winx");
-                bitmap.SetListSt( JsonSerializer.Deserialize<List<AFigure>>(file));
-            }
+
+            //OpenFileDialog dialog = new OpenFileDialog();
+            //dialog.Filter = "Winx files (*.WINX)|*.winx";
+            //if (dialog.ShowDialog() == DialogResult.Cancel)
+            //    return;
+            //if (dialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    Image image = Image.FromFile(dialog.FileName);
+
+            //}
+            //using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
+            //{
+            //    string file = File.ReadAllText("Painter.winx");
+            //    bitmap.SetListSt( JsonSerializer.Deserialize<List<AFigure>>(file));
+            //}
         }
     }
 }

@@ -47,6 +47,8 @@ namespace Painter.Figures
         
         public abstract void Move(Point point);
 
+        //public abstract void Serialize(Point point);
+
 
     }
 

@@ -127,6 +127,8 @@ namespace Painter.Figures
             return points;
         }
 
+        
+
         #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
         //{
