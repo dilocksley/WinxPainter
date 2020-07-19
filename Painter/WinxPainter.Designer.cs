@@ -33,18 +33,26 @@
             this.toolBox = new System.Windows.Forms.ComboBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ColorBox = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.xLabel = new System.Windows.Forms.Label();
+            this.Ylabel = new System.Windows.Forms.Label();
             this.DeletAll = new System.Windows.Forms.Button();
-            this.Rubber = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.DeleteFigure = new System.Windows.Forms.Button();
+            this.thicknessValue = new System.Windows.Forms.NumericUpDown();
             this.Fill = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.showAll = new System.Windows.Forms.Button();
             this.undo = new System.Windows.Forms.Button();
             this.redo = new System.Windows.Forms.Button();
+            this.Change_location = new System.Windows.Forms.Button();
+            this.Edit_Figure = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.modeLabel = new System.Windows.Forms.Label();
+            this.saveFile = new System.Windows.Forms.Button();
+            this.openFile = new System.Windows.Forms.Button();
+            this.Reversal = new System.Windows.Forms.Button();
+            this.showAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -54,8 +62,9 @@
             this.pictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1210, 644);
+            this.pictureBox.Size = new System.Drawing.Size(1016, 596);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -83,7 +92,8 @@
             "Дерево",
             "Круг",
             "Эллипс"});
-            this.toolBox.Location = new System.Drawing.Point(130, 10);
+            this.toolBox.Location = new System.Drawing.Point(93, 14);
+            this.toolBox.Margin = new System.Windows.Forms.Padding(4);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(110, 21);
             this.toolBox.TabIndex = 1;
@@ -92,92 +102,112 @@
             // 
             // ColorBox
             // 
-            this.ColorBox.Location = new System.Drawing.Point(372, 9);
+            this.ColorBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ColorBox.BackgroundImage")));
+            this.ColorBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ColorBox.Location = new System.Drawing.Point(211, 42);
+            this.ColorBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorBox.Name = "ColorBox";
-            this.ColorBox.Size = new System.Drawing.Size(127, 23);
+            this.ColorBox.Size = new System.Drawing.Size(43, 30);
             this.ColorBox.TabIndex = 2;
-            this.ColorBox.Text = "Выбор цвета";
             this.ColorBox.UseVisualStyleBackColor = true;
             this.ColorBox.Click += new System.EventHandler(this.ColorBox_Click);
             // 
-            // label1
+            // xLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "X";
+            this.xLabel.AutoSize = true;
+            this.xLabel.Location = new System.Drawing.Point(12, 45);
+            this.xLabel.Name = "xLabel";
+            this.xLabel.Size = new System.Drawing.Size(14, 13);
+            this.xLabel.TabIndex = 3;
+            this.xLabel.Text = "X";
             // 
-            // label2
+            // Ylabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(71, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(14, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Y";
+            this.Ylabel.AutoSize = true;
+            this.Ylabel.Location = new System.Drawing.Point(12, 73);
+            this.Ylabel.Name = "Ylabel";
+            this.Ylabel.Size = new System.Drawing.Size(14, 13);
+            this.Ylabel.TabIndex = 4;
+            this.Ylabel.Text = "Y";
             // 
             // DeletAll
             // 
-            this.DeletAll.Location = new System.Drawing.Point(586, 9);
+            this.DeletAll.Location = new System.Drawing.Point(422, 14);
+            this.DeletAll.Margin = new System.Windows.Forms.Padding(4);
             this.DeletAll.Name = "DeletAll";
-            this.DeletAll.Size = new System.Drawing.Size(100, 23);
+            this.DeletAll.Size = new System.Drawing.Size(90, 22);
             this.DeletAll.TabIndex = 5;
             this.DeletAll.Text = "Удалить всё!";
             this.DeletAll.UseVisualStyleBackColor = true;
             this.DeletAll.Click += new System.EventHandler(this.DeletAll_Click);
             // 
-            // Rubber
+            // DeleteFigure
             // 
-            this.Rubber.Location = new System.Drawing.Point(794, 9);
-            this.Rubber.Name = "Rubber";
-            this.Rubber.Size = new System.Drawing.Size(75, 23);
-            this.Rubber.TabIndex = 6;
-            this.Rubber.Text = "Стерка";
-            this.Rubber.UseVisualStyleBackColor = true;
-            this.Rubber.Click += new System.EventHandler(this.Rubber_Click);
+            this.DeleteFigure.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteFigure.BackgroundImage")));
+            this.DeleteFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DeleteFigure.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.DeleteFigure.Location = new System.Drawing.Point(303, 43);
+            this.DeleteFigure.Margin = new System.Windows.Forms.Padding(4);
+            this.DeleteFigure.Name = "DeleteFigure";
+            this.DeleteFigure.Size = new System.Drawing.Size(42, 29);
+            this.DeleteFigure.TabIndex = 6;
+            this.DeleteFigure.UseVisualStyleBackColor = true;
+            this.DeleteFigure.Click += new System.EventHandler(this.DeleteFigure_Click);
             // 
-            // numericUpDown1
+            // thicknessValue
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(246, 10);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 8;
+            this.thicknessValue.BackColor = System.Drawing.SystemColors.Window;
+            this.thicknessValue.Location = new System.Drawing.Point(13, 15);
+            this.thicknessValue.Margin = new System.Windows.Forms.Padding(4);
+            this.thicknessValue.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.thicknessValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.thicknessValue.Name = "thicknessValue";
+            this.thicknessValue.Size = new System.Drawing.Size(58, 20);
+            this.thicknessValue.TabIndex = 8;
+            this.thicknessValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.thicknessValue.ValueChanged += new System.EventHandler(this.thicknessValue_ValueChanged);
             // 
             // Fill
             // 
-            this.Fill.Location = new System.Drawing.Point(505, 9);
+            this.Fill.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Fill.BackgroundImage")));
+            this.Fill.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Fill.Location = new System.Drawing.Point(262, 42);
+            this.Fill.Margin = new System.Windows.Forms.Padding(4);
             this.Fill.Name = "Fill";
-            this.Fill.Size = new System.Drawing.Size(75, 23);
+            this.Fill.Size = new System.Drawing.Size(33, 31);
             this.Fill.TabIndex = 9;
-            this.Fill.Text = "Заливка";
             this.Fill.UseVisualStyleBackColor = true;
+            this.Fill.Click += new System.EventHandler(this.Fill_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(14, 11);
+            this.textBox1.Location = new System.Drawing.Point(93, 43);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(110, 20);
             this.textBox1.TabIndex = 10;
-            // 
-            // showAll
-            // 
-            this.showAll.Location = new System.Drawing.Point(692, 9);
-            this.showAll.Name = "showAll";
-            this.showAll.Size = new System.Drawing.Size(96, 23);
-            this.showAll.TabIndex = 11;
-            this.showAll.Text = "Показать всё";
-            this.showAll.UseVisualStyleBackColor = true;
-            this.showAll.Click += new System.EventHandler(this.showAll_Click);
+            this.textBox1.Text = "Количество граней";
             // 
             // undo
             // 
             this.undo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("undo.BackgroundImage")));
             this.undo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.undo.Location = new System.Drawing.Point(15, 73);
+            this.undo.Location = new System.Drawing.Point(434, 44);
+            this.undo.Margin = new System.Windows.Forms.Padding(4);
             this.undo.Name = "undo";
-            this.undo.Size = new System.Drawing.Size(29, 29);
+            this.undo.Size = new System.Drawing.Size(29, 30);
             this.undo.TabIndex = 12;
             this.undo.UseVisualStyleBackColor = true;
             this.undo.Click += new System.EventHandler(this.undo_Click);
@@ -186,35 +216,131 @@
             // 
             this.redo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("redo.BackgroundImage")));
             this.redo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.redo.Location = new System.Drawing.Point(14, 108);
+            this.redo.Location = new System.Drawing.Point(470, 43);
+            this.redo.Margin = new System.Windows.Forms.Padding(4);
             this.redo.Name = "redo";
-            this.redo.Size = new System.Drawing.Size(29, 29);
+            this.redo.Size = new System.Drawing.Size(29, 31);
             this.redo.TabIndex = 13;
             this.redo.UseVisualStyleBackColor = true;
-            this.redo.Click += new System.EventHandler(this.redo_Click);            
-            //
+            this.redo.Click += new System.EventHandler(this.redo_Click);
+            // 
+            // Change_location
+            // 
+            this.Change_location.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Change_location.BackgroundImage")));
+            this.Change_location.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Change_location.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.Change_location.Location = new System.Drawing.Point(351, 43);
+            this.Change_location.Margin = new System.Windows.Forms.Padding(2);
+            this.Change_location.Name = "Change_location";
+            this.Change_location.Size = new System.Drawing.Size(30, 29);
+            this.Change_location.TabIndex = 14;
+            this.Change_location.UseVisualStyleBackColor = true;
+            this.Change_location.Click += new System.EventHandler(this.Change_location_Click);
+            // 
+            // Edit_Figure
+            // 
+            this.Edit_Figure.Location = new System.Drawing.Point(210, 13);
+            this.Edit_Figure.Name = "Edit_Figure";
+            this.Edit_Figure.Size = new System.Drawing.Size(206, 22);
+            this.Edit_Figure.TabIndex = 15;
+            this.Edit_Figure.Text = "Режим редактирования";
+            this.Edit_Figure.UseVisualStyleBackColor = true;
+            this.Edit_Figure.Click += new System.EventHandler(this.Edit_Figure_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "winx";
+            // 
+            // modeLabel
+            // 
+            this.modeLabel.AutoSize = true;
+            this.modeLabel.Location = new System.Drawing.Point(12, 97);
+            this.modeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.modeLabel.Name = "modeLabel";
+            this.modeLabel.Size = new System.Drawing.Size(0, 13);
+            this.modeLabel.TabIndex = 16;
+            // 
+            // saveFile
+            // 
+            this.saveFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("saveFile.BackgroundImage")));
+            this.saveFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.saveFile.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.saveFile.Location = new System.Drawing.Point(573, 45);
+            this.saveFile.Margin = new System.Windows.Forms.Padding(2);
+            this.saveFile.Name = "saveFile";
+            this.saveFile.Size = new System.Drawing.Size(33, 31);
+            this.saveFile.TabIndex = 17;
+            this.saveFile.UseVisualStyleBackColor = true;
+            this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
+            // 
+            // openFile
+            // 
+            this.openFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("openFile.BackgroundImage")));
+            this.openFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.openFile.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.openFile.Location = new System.Drawing.Point(519, 45);
+            this.openFile.Margin = new System.Windows.Forms.Padding(2);
+            this.openFile.Name = "openFile";
+            this.openFile.Size = new System.Drawing.Size(33, 31);
+            this.openFile.TabIndex = 18;
+            this.openFile.UseVisualStyleBackColor = true;
+            this.openFile.Click += new System.EventHandler(this.openFile_Click);
+            // 
+            // Reversal
+            // 
+            this.Reversal.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Reversal.BackgroundImage")));
+            this.Reversal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Reversal.Location = new System.Drawing.Point(385, 43);
+            this.Reversal.Margin = new System.Windows.Forms.Padding(2);
+            this.Reversal.Name = "Reversal";
+            this.Reversal.Size = new System.Drawing.Size(30, 29);
+            this.Reversal.TabIndex = 16;
+            this.Reversal.UseVisualStyleBackColor = true;
+            this.Reversal.Click += new System.EventHandler(this.Reversal_Click);
+            // 
+            // showAll
+            // 
+            this.showAll.Location = new System.Drawing.Point(519, 12);
+            this.showAll.Name = "showAll";
+            this.showAll.Size = new System.Drawing.Size(87, 23);
+            this.showAll.TabIndex = 19;
+            this.showAll.Text = "Показать всё";
+            this.showAll.UseVisualStyleBackColor = true;
+            this.showAll.Click += new System.EventHandler(this.showAll_Click);
+            // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1210, 644);
+            this.ClientSize = new System.Drawing.Size(1016, 596);
+            this.Controls.Add(this.showAll);
+            this.Controls.Add(this.openFile);
+            this.Controls.Add(this.saveFile);
+            this.Controls.Add(this.modeLabel);
+            this.Controls.Add(this.Reversal);
+            this.Controls.Add(this.Edit_Figure);
+            this.Controls.Add(this.Change_location);
             this.Controls.Add(this.redo);
             this.Controls.Add(this.undo);
-            this.Controls.Add(this.showAll);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Fill);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.Rubber);
+            this.Controls.Add(this.thicknessValue);
+            this.Controls.Add(this.DeleteFigure);
             this.Controls.Add(this.DeletAll);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Ylabel);
+            this.Controls.Add(this.xLabel);
             this.Controls.Add(this.ColorBox);
             this.Controls.Add(this.toolBox);
             this.Controls.Add(this.pictureBox);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Painter";
             this.Text = "Painter";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,16 +352,24 @@
         private System.Windows.Forms.ComboBox toolBox;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button ColorBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label xLabel;
+        private System.Windows.Forms.Label Ylabel;
         private System.Windows.Forms.Button DeletAll;
-        private System.Windows.Forms.Button Rubber;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button DeleteFigure;
+        private System.Windows.Forms.NumericUpDown thicknessValue;
         private System.Windows.Forms.Button Fill;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button showAll;
         private System.Windows.Forms.Button undo;
         private System.Windows.Forms.Button redo;
+        private System.Windows.Forms.Button Change_location;
+        private System.Windows.Forms.Button Edit_Figure;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label modeLabel;
+        private System.Windows.Forms.Button saveFile;
+        private System.Windows.Forms.Button openFile;
+        private System.Windows.Forms.Button Reversal;
+        private System.Windows.Forms.Button showAll;
     }
 }
 

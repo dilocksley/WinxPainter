@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Painter.Instruments;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using Painter.MathFigures;
-
+using System.Runtime.InteropServices;
 
 namespace Painter.Figures
 {
@@ -14,28 +15,119 @@ namespace Painter.Figures
         Point first;
         Point second;
         public Color color;
-
-        public Circle(Point first, Color color)
+        public int thickness;
+        Point e;
+        Color fillColor = Color.Transparent;
+        public Circle(Point first, Color color, Color fillColor, int thickness)
         {
             this.first = first;
             this.color = color;
             this.second = first;
+            this.thickness = thickness;
+            this.fillColor = fillColor;
         }
-
-        public override List<Point> Math()
+       
+        public override List<Point> DoFigureMath()
         {
-            return new MathCircle().MathFigure(first, second);
+            return new MathCircle().MathFigure(first, second, 0);
         }
 
         public override Color SetColor()
         {
             return color;
         }
+        public override int SetThickness()
+        {
+            return thickness;
+        }
         public override void Update(Point e)
         {
             second = e;
         }
 
+        public override bool IsPointInFigure(Point mousePoint)
+        {
+            int maxX = second.X;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                maxX = first.X;
+                minX = second.X;
+            }
+            int maxY = second.Y;
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                maxY = first.Y;
+                minY = second.Y;
+            }
+            int radius = (maxX - minX) / 2;
+            Point center = new Point(minX + radius, minY + radius);
+            Point right = new Point(center.X + radius, center.Y);
+            Point left = new Point(center.X - radius, center.Y);
+            Point top = new Point(center.X, center.Y - radius);
+            Point bottom = new Point(center.X, center.Y + radius);
+            if (mousePoint == center || mousePoint == right || mousePoint == left || mousePoint == top || mousePoint == bottom)
+            {
+                return true;
+            }
+            else if(mousePoint.X <= right.X && mousePoint.X >= top.X && mousePoint.Y <= right.Y && mousePoint.Y >= top.Y) // top right quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X <= right.X && mousePoint.X >= bottom.X && mousePoint.Y >= right.Y && mousePoint.Y <= bottom.Y) //bottom right quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X <= bottom.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= left.Y) //bottom left quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X >= left.X & mousePoint.X <= top.X && mousePoint.Y <= left.Y && mousePoint.Y >= top.Y) // top left quarter
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override void Move(Point point)
+        {
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y; 
+        }
+
+        public override Color FillSetColor()
+        {
+            return fillColor;
+        }
+
+        public override Point FindPoint()
+        {
+            e = new Fill().FindPointFigure(first, second);
+            return e;
+        }
+
+        public override void FillFigure()
+        {
+            new Fill().FillFigure(e, fillColor);
+        }
+
+        public override void ChangeFillColor(Color color)
+        {
+            fillColor = color;
+        }
+
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
+            return points;
+        }
+
+        
 
         #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры

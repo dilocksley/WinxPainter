@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using Painter.MathFigures;
+using Painter.Instruments;
 using System.Deployment.Application;
+using Painter.Instruments;
 
 namespace Painter.Figures
 {
@@ -14,102 +16,119 @@ namespace Painter.Figures
         Point first;
         Point second;
         public Color color;
-       
-       public Square(Point first, Color color)
+        public int thickness;
+        List<Point> a;
+
+        
+        Color fillColor = Color.Transparent;
+        Point e;
+       public Square(Point first, Color color, Color fillColor, int thickness)
        {
             this.first = first;
             this.color = color;
             this.second = first;
+            this.thickness = thickness;
+            this.fillColor = fillColor;
+            this.angle = 0;
        }
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
 
-       public override List<Point> Math()
-       {
-            return new MathSquare().MathFigure(first,second);
-       }
+            return points;
+        }
+        public override List<Point> DoFigureMath()
+        {
+            a = new MathSquare().MathFigure(first, second, angle);
+            return a;
+        }
 
         public override Color SetColor ()
         {
             return color;
+        }
+        public override int SetThickness()
+        {
+            return thickness;
         }
         public override void Update(Point e)
         {
             second = e;
         }
 
-        #region SquareMathCode
-        //public Square (Point FirstPoint, Point SecondPoint)
+        public override bool IsPointInFigure(Point mousePoint) //ищем принадлежит ли точка квадрату
+        {
+            int maxX = second.X;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                maxX = first.X;
+                minX = second.X;
+            }
+            int maxY = second.Y;
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                maxY = first.Y;
+                minY = second.Y;
+            }
+            return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
+        }
+
+        public override void Move(Point point)
+        {
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y;
+        }
+
+        //public void SetAngle(Point point)
         //{
-        //    this.first = FirstPoint;
-        //    this.second = SecondPoint;
+        //    //Point center = first;
+
+        //    //int length = Math.Abs(second.Y - first.Y);
+
+        //    //if (second.X < first.X)
+        //    //{
+        //    //    second.X = first.X - length;
+        //    //}
+        //    //else
+        //    //{
+        //    //    second.X = first.X + length;
+        //    //}
+
+        //    //center.X = first.X + (second.X - first.X) / 2;
+        //    //center.Y = first.Y + (second.Y - first.Y) / 2;
+
+
+
         //}
-        //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры
-        //{           
-        //    squareList = FindSquarePoints(first, second);
-        //    return squareList;
-        //}
-        //private List<Point> FindSquarePoints(Point first, Point second) // вся матемтика метода поиска точек для квадрата
-        //{
-        //    int length = 0;
-        //    Point next = first;
-        //    Point middle = first;
-        //    Point last = first;          
-        //    if (first.X < second.X && first.Y < second.Y) // IV четверть
-        //    {
-        //        length = second.Y - first.Y;
 
-        //        next.X = first.X + length;
-        //        next.Y = first.Y;
+        public override Color FillSetColor()
+        {
+            return fillColor;
+        }
 
-        //        middle.X = next.X;
-        //        middle.Y = next.Y + length;
+        public override Point FindPoint()
+        {
+            e = new Fill().FindPointFigure(first, second);
+            return e;
+        }
+        
+        public override void FillFigure()
+        {
+            new Fill().FillFigure(e, fillColor);
+        }
 
-        //        last.X = middle.X - length;
-        //        last.Y = middle.Y;
-        //    }
-        //    if (first.X > second.X && first.Y > second.Y) // II четверть
-        //    {
-        //        length = first.X - second.X;
-        //        next.X = first.X - length;
-        //        next.Y = first.Y;
+        public override void ChangeFillColor(Color color)
+        {
+            fillColor = color;
+        }
 
-        //        middle.X = next.X;
-        //        middle.Y = next.Y - length;
 
-        //        last.X = middle.X + length;
-        //        last.Y = middle.Y;
-        //    }
-        //    if (first.X > second.X && first.Y < second.Y) // III четверть
-        //    {
-        //        length = first.X - second.X;
 
-        //        next.X = first.X;
-        //        next.Y = first.Y + length;
-
-        //        middle.X = next.X - length;
-        //        middle.Y = next.Y;
-
-        //        last.X = middle.X;
-        //        last.Y = middle.Y - length;
-        //    }
-        //    if (first.X < second.X && first.Y > second.Y) // I четверть
-        //    {
-        //        length = second.X - first.X;
-
-        //        next.X = first.X;
-        //        next.Y = first.Y - length;
-
-        //        middle.X = next.X + length;
-        //        middle.Y = next.Y;
-
-        //        last.X = middle.X;
-        //        last.Y = middle.Y + length;
-        //    }
-        //    squareList.Add(first);
-        //    squareList.Add(next);
-        //    squareList.Add(middle);
-        //    squareList.Add(last);
-        //    return squareList;
-        //}
-        #endregion
     }
 }

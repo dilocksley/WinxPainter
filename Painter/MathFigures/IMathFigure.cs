@@ -10,7 +10,7 @@ namespace Painter.MathFigures
 {
     public interface IMathFigure 
     {
-        List<Point> MathFigure(Point first, Point second);
+        List<Point> MathFigure(Point first, Point second, int angle);
         
     }
 }

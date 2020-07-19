@@ -10,6 +10,7 @@ namespace Painter.FactoryOfFigures
 {
     public interface IFigureFactory 
     {
-        AFigure Create(Point first, int n, Color color);      
+         
+        AFigure Create(Point first, int n, Color color, Color fillColor, int thickness);      
     }
 }
