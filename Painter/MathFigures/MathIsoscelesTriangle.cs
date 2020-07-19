@@ -18,10 +18,13 @@ namespace Painter.MathFigures
             center.Y = first.Y + (second.Y - first.Y) / 2;
             if (second.X > first.X)
             {
-                center.X = second.X;
-                center.Y = first.Y + (second.Y - first.Y) / 2;
+                //center.X = first.X + (second.X - first.X) / 2;
+                //center.Y = first.Y + (second.Y - first.Y) / 2;
+                center.X = (first.X + first.X + second.X) / 3;
+                center.Y = (first.Y + second.Y + second.Y) / 3;
+
             }
-            
+
 
             triangleList.Add(RotateFigure(first, center, angle));
             triangleList.Add(RotateFigure(next, center, angle));
