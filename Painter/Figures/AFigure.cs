@@ -14,7 +14,16 @@ namespace Painter.Figures
 
         protected IMathFigure math;
         public IFillFigure fillFigure;
+        protected int angle;
 
+        public void SetAngle(int angle) 
+        {
+            this.angle = angle;
+        }
+        public int GetAngle()
+        {
+            return angle;
+        }
         public abstract Point FindPoint();
         public abstract void FillFigure();
         public abstract List<Point> DoFigureMath();
@@ -37,6 +46,7 @@ namespace Painter.Figures
         public abstract void ChangeFillColor(Color color);
         
         public abstract void Move(Point point);
+
 
     }
 

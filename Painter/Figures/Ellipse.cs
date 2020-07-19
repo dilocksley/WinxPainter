@@ -22,6 +22,7 @@ namespace Painter.Figures
             this.color = color;
             this.thickness = thickness;
             this.fillColor = fillColor;
+            this.angle = 0;
         }
         public override List<Point> ReturnPoints()
         {
@@ -32,7 +33,7 @@ namespace Painter.Figures
         }
         public override List<Point> DoFigureMath()
         {
-            return new MathEllipse().MathFigure(first, second);
+            return new MathEllipse().MathFigure(first, second, angle);
         }
         public override Color SetColor()
         {

@@ -25,6 +25,7 @@ namespace Painter.Figures
             this.color = color;
             this.thickness = thickness;
             this.fillColor = fillColor;
+            this.angle = 0;
         }
         public override List<Point> ReturnPoints()
         {
@@ -36,7 +37,7 @@ namespace Painter.Figures
         }
         public override List<Point> DoFigureMath()
         {
-            return new MathRectangle().MathFigure(first, second);
+            return new MathRectangle().MathFigure(first, second, angle);
         }
         public override Color SetColor()
         {

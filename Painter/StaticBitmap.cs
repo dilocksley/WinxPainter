@@ -24,7 +24,7 @@ namespace Painter
 
         public void SetPixel(int x, int y, Color color)
         {
-            if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height)
+            if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height) //!!! 
             {
                 tmpBitmap.SetPixel(x, y, color);
             }

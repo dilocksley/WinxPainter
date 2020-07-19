@@ -29,7 +29,7 @@ namespace Painter.Figures
        
         public override List<Point> DoFigureMath()
         {
-            return new MathCircle().MathFigure(first, second);
+            return new MathCircle().MathFigure(first, second, 0);
         }
 
         public override Color SetColor()

@@ -9,7 +9,7 @@ namespace Painter.MathFigures
 {
     public class MathCircle: IMathFigure
     {
-        public List<Point> MathFigure(Point first, Point second)
+        public List<Point> MathFigure(Point first, Point second, int angle)
         {
             List<Point> circleList = new List<Point>();
             int length = 0;

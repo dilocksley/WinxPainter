@@ -1,10 +1,8 @@
 ﻿using Painter.FactoryOfFigures;
 using Painter.Figures;
-using Painter.MathFigures;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.ExceptionServices;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.Json;
@@ -29,6 +27,8 @@ namespace Painter
         bool q;
         AFigure Current;
         string file;
+        bool _reversal;
+        int angle = 0;
 
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
@@ -51,6 +51,7 @@ namespace Painter
             bitmap.tmpBitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             Change_location.Hide();
             DeleteFigure.Hide();
+            Reversal.Hide();
             textBox1.Hide();
             mode = "Рисуем";
             //saveFile.Click += saveFile_Click;
@@ -200,6 +201,15 @@ namespace Painter
 
             if (mouseDown)
             {
+                if (_reversal && ActiveFigure != null)
+                {
+                    int rev = e.Y - FirstPoint.Y;
+                    ActiveFigure.SetAngle(rev);
+                    bitmap.DeleteFigure(ActiveFigure);
+                    bitmap.DrawFigure(ActiveFigure);
+
+
+                }
                 if (_changeLocation)
                 {
                     fill = false;
@@ -251,6 +261,7 @@ namespace Painter
                         bitmap.DrawFigure(CurrentFigure);
                     }
                 }
+
             }
             if (mode == "Изменить" && mouseDown)  //mode == "Изменить"
             {
@@ -283,6 +294,7 @@ namespace Painter
                 _changeLocation = false;
                 _deletingFigure = false;
                 _editFigure = false;
+                _reversal = false;
 
             }
             label1.Text = $"X = {e.X}";
@@ -291,6 +303,8 @@ namespace Painter
             GC.Collect();
 
             pictureBox.Image = bitmap.tmpBitmap;
+
+
         }
 
 
@@ -358,6 +372,8 @@ namespace Painter
         {
             Change_location.Hide();
             DeleteFigure.Hide();
+            Reversal.Hide();
+
             switch (toolBox.SelectedIndex)
             {
                 case 1:
@@ -467,6 +483,22 @@ namespace Painter
             toolBox.SelectedIndex = -1;
             Change_location.Show();
             DeleteFigure.Show();
+            Reversal.Show();
+
+        }
+
+        private void Reversal_Click(object sender, EventArgs e)
+        {
+
+            if (ActiveFigure == null)
+            {
+                MessageBox.Show("Вы не выбрали фигуру!");
+                return;
+            }
+            _reversal = true;
+
+
+
         }
 
         private void saveFile_Click(object sender, EventArgs e)

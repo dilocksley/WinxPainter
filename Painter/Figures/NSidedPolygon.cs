@@ -27,6 +27,7 @@ namespace Painter.Figures
             this.n = n;
             this.thickness = thickness;
             this.fillColor = fillColor;
+            this.angle = 0;
         }
         public override List<Point> ReturnPoints()
         {
@@ -37,8 +38,8 @@ namespace Painter.Figures
             return points;
         }
         public override List<Point> DoFigureMath()
-        {     
-            points = new MathNSidedPolygon(n).MathFigure(first, second);
+        {
+            points = new MathNSidedPolygon(n).MathFigure(first, second, angle);
             return points;
         }
         public override Color SetColor()

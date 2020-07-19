@@ -23,6 +23,7 @@ namespace Painter.Figures
             this.color = color;
             this.list = list;
             this.fillColor = fillColor;
+            this.angle = 0;
             first = list[0];
             second = list[1];
             third = list[2];
@@ -38,7 +39,7 @@ namespace Painter.Figures
         }
         public override List<Point> DoFigureMath()
         {
-            return new MathTriangle(list).MathFigure(first, second);
+            return new MathTriangle(list).MathFigure(first, second, angle);
         }
         public override Color SetColor()
         {

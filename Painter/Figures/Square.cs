@@ -18,7 +18,8 @@ namespace Painter.Figures
         public Color color;
         public int thickness;
         List<Point> a;
-       
+
+        
         Color fillColor = Color.Transparent;
         Point e;
        public Square(Point first, Color color, Color fillColor, int thickness)
@@ -28,6 +29,7 @@ namespace Painter.Figures
             this.second = first;
             this.thickness = thickness;
             this.fillColor = fillColor;
+            this.angle = 0;
        }
         public override List<Point> ReturnPoints()
         {
@@ -38,10 +40,10 @@ namespace Painter.Figures
             return points;
         }
         public override List<Point> DoFigureMath()
-       {
-            a= new MathSquare().MathFigure(first, second);
+        {
+            a = new MathSquare().MathFigure(first, second, angle);
             return a;
-       }
+        }
 
         public override Color SetColor ()
         {
@@ -83,6 +85,28 @@ namespace Painter.Figures
             second.Y += point.Y;
         }
 
+        //public void SetAngle(Point point)
+        //{
+        //    //Point center = first;
+
+        //    //int length = Math.Abs(second.Y - first.Y);
+
+        //    //if (second.X < first.X)
+        //    //{
+        //    //    second.X = first.X - length;
+        //    //}
+        //    //else
+        //    //{
+        //    //    second.X = first.X + length;
+        //    //}
+
+        //    //center.X = first.X + (second.X - first.X) / 2;
+        //    //center.Y = first.Y + (second.Y - first.Y) / 2;
+
+
+
+        //}
+
         public override Color FillSetColor()
         {
             return fillColor;
@@ -103,5 +127,8 @@ namespace Painter.Figures
         {
             fillColor = color;
         }
+
+
+
     }
 }

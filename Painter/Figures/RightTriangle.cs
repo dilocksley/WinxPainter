@@ -25,6 +25,7 @@ namespace Painter.Figures
             this.color = color;
             this.thickness = thickness;
             this.fillColor = fillColor;
+            this.angle = 0;
         }
         public override List<Point> ReturnPoints()
         {
@@ -36,7 +37,7 @@ namespace Painter.Figures
         }
         public override List<Point> DoFigureMath()                      // реализация метода абстр класса для получения точек фигуры
         {
-            points = new MathRightTriangle().MathFigure(first, second);
+            points = new MathRightTriangle().MathFigure(first, second, angle);
             third = points[1];
             return points;
         }

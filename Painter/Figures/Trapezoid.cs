@@ -14,6 +14,8 @@ namespace Painter.Figures
         public int thickness;
         Color fillColor = Color.Transparent;
         Point e;
+        List<Point> a;
+
         public Trapezoid(Point first, Color color, Color fillColor, int thickness)
         {
             this.first = first;
@@ -21,6 +23,7 @@ namespace Painter.Figures
             this.color = color;
             this.thickness = thickness;
             this.fillColor = fillColor;
+            this.angle = 0;
         }
         public override List<Point> ReturnPoints()
         {
@@ -32,7 +35,8 @@ namespace Painter.Figures
         }
         public override List<Point> DoFigureMath()
         {
-            return new MathTrapezoid().MathFigure(first, second);
+            a = new MathTrapezoid().MathFigure(first, second, angle);
+            return a;
         }
         public override Color SetColor()
         {
