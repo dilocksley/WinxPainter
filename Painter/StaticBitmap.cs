@@ -24,7 +24,7 @@ namespace Painter
 
         public void SetPixel(int x, int y, Color color)
         {
-            if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height) //!!! 
+            if (x >= 0 && x < tmpBitmap.Width && y >= 0 && y < tmpBitmap.Height) 
             {
                 tmpBitmap.SetPixel(x, y, color);
             }
@@ -431,6 +431,15 @@ namespace Painter
                 }
             }
             return false;
+        }
+
+        public List<AFigure> GetListSt()
+        {
+            return aFigures;
+        }
+        public void SetListSt(List<AFigure> list)
+        {
+            aFigures = list;
         }
     }
 }

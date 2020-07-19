@@ -63,7 +63,7 @@
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(5);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1805, 902);
+            this.pictureBox.Size = new System.Drawing.Size(1354, 733);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -260,7 +260,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 97);
+            this.label3.Location = new System.Drawing.Point(12, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 17);
             this.label3.TabIndex = 16;
@@ -271,7 +271,7 @@
             this.saveFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("saveFile.BackgroundImage")));
             this.saveFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.saveFile.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.saveFile.Location = new System.Drawing.Point(556, 45);
+            this.saveFile.Location = new System.Drawing.Point(708, 60);
             this.saveFile.Margin = new System.Windows.Forms.Padding(2);
             this.saveFile.Name = "saveFile";
             this.saveFile.Size = new System.Drawing.Size(30, 29);
@@ -284,7 +284,7 @@
             this.openFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("openFile.BackgroundImage")));
             this.openFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.openFile.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.openFile.Location = new System.Drawing.Point(490, 45);
+            this.openFile.Location = new System.Drawing.Point(758, 59);
             this.openFile.Margin = new System.Windows.Forms.Padding(2);
             this.openFile.Name = "openFile";
             this.openFile.Size = new System.Drawing.Size(30, 29);

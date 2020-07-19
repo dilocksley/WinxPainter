@@ -159,6 +159,7 @@ namespace Painter
 
                     }
                 }
+                mode = "Рисуем";
             }
             // bitmap.ShowOnTheScreen();
         }
@@ -511,24 +512,24 @@ namespace Painter
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = dialog.FileName;
-                //// Get the extension
-                //string strFilExtn =
-                //    fileName.Remove(0, fileName.Length - 3);
-                // Save file
-                file = JsonSerializer.Serialize(bitmap.Bitmap);
-                //File.WriteAllText("Painter.winx", file);
+                //Get the extension
+                string strFilExtn =
+                    fileName.Remove(0, fileName.Length - 4);
+                //Save file
+                file = JsonSerializer.Serialize(bitmap.GetListSt());
+                File.WriteAllText("Painter.winx", file);
                 Console.WriteLine("Проект сохранён.");
-                //using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
-                //{
-                //}
-                //switch (strFilExtn)
-                //{
-                //    case "winx":
-                //       // winx.Save(fileName, System.Drawing.Imaging.ImageFormat.Winx);
-                //        break;
-                //    default:
-                //        break;
-                //}
+                using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
+                {
+                }
+                switch (strFilExtn)
+                {
+                    case "winx":
+                        winx.Save(fileName, System.Drawing.Imaging.ImageFormat.Winx);
+                        break;
+                    default:
+                        break;
+                }
             }
 
         }
@@ -547,7 +548,7 @@ namespace Painter
             using (FileStream fs = new FileStream("Painter.winx", FileMode.OpenOrCreate))
             {
                 file = File.ReadAllText("Painter.winx");
-                bitmap.Bitmap = JsonSerializer.Deserialize<Bitmap>(file);
+                bitmap.SetListSt( JsonSerializer.Deserialize<List<AFigure>>(file));
             }
         }
     }
