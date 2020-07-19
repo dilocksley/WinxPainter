@@ -305,7 +305,7 @@ namespace Painter
                     textBox1.Show();
                     if (textBox1.Text == "Количество граней")
                     {
-                        MessageBox.Show("Введите количество граней 5 или больше.");
+                        MessageBox.Show("Введите количество граней 3 или больше.");
                     }
                     textBox1.Text = "";
                     factoryFigure = new NSidedPolygonFactory();

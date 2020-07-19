@@ -15,12 +15,13 @@ namespace Painter.Figures
         public int thickness;
         Color fillColor = Color.Transparent;
         Point e;
-        public Ellipse(Point first, Color color, int thickness)
+        public Ellipse(Point first, Color color, Color fillColor, int thickness)
         {
             this.first = first;
             this.second = first;
             this.color = color;
             this.thickness = thickness;
+            this.fillColor = fillColor;
         }
         public override List<Point> DoFigureMath()
         {
@@ -51,12 +52,12 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()
         {
-            e = new Fill().FindPointFigure(first, second);
+            e = new Fill().FindCenterPointInEllipse(first, second);
             return e;
         }
 
@@ -67,7 +68,7 @@ namespace Painter.Figures
 
         public override void ChangeFillColor(Color color)
         {
-            throw new NotImplementedException();
+            fillColor = color;
         }
 
         //public override void FillFigure()
