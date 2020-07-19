@@ -61,8 +61,6 @@ namespace Painter.Figures
                 maxY = first.Y;
                 minY = second.Y;
             }
-            //int midX = minX + ((maxX - minX) / 2);
-            //int midY = minY + ((maxY - minY) / 2);
             int radius = (maxX - minX) / 2;
             Point center = new Point(minX + radius, minY + radius);
             Point right = new Point(center.X + radius, center.Y);
@@ -90,7 +88,6 @@ namespace Painter.Figures
                 return true;
             }
             return false;
-            //return (mousePoint.X <= right.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= top.Y);
         }
 
         public override void Move(Point point)
@@ -129,13 +126,6 @@ namespace Painter.Figures
             points.Add(second);
             return points;
         }
-
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
 
         #region CircleMathCode
         //public override List<Point> GetPoints()                      // реализация метода абстр класса для получения точек фигуры

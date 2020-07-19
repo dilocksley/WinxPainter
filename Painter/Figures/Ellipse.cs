@@ -49,12 +49,54 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            throw new NotImplementedException();
+            int diameterY = Math.Abs(second.Y - first.Y);
+            int diameterX = Math.Abs(second.X - first.X);
+            int radiusX = diameterX / 2;
+            int radiusY = diameterY / 2;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                minX = second.X;
+            }
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                minY = second.Y;
+            }
+            Point center = new Point(minX + radiusX, minY + radiusY);
+            Point right = new Point(center.X + radiusX, center.Y);
+            Point left = new Point(center.X - radiusX, center.Y);
+            Point top = new Point(center.X, center.Y - radiusY);
+            Point bottom = new Point(center.X, center.Y + radiusY);
+            if (mousePoint == center || mousePoint == right || mousePoint == left || mousePoint == top || mousePoint == bottom)
+            {
+                return true;
+            }
+            else if (mousePoint.X <= right.X && mousePoint.X >= top.X && mousePoint.Y <= right.Y && mousePoint.Y >= top.Y) // top right quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X <= right.X && mousePoint.X >= bottom.X && mousePoint.Y >= right.Y && mousePoint.Y <= bottom.Y) //bottom right quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X <= bottom.X && mousePoint.X >= left.X && mousePoint.Y <= bottom.Y && mousePoint.Y >= left.Y) //bottom left quarter
+            {
+                return true;
+            }
+            else if (mousePoint.X >= left.X & mousePoint.X <= top.X && mousePoint.Y <= left.Y && mousePoint.Y >= top.Y) // top left quarter
+            {
+                return true;
+            }
+            return false;
         }
 
         public override void Move(Point point)
         {
-            throw new NotImplementedException();
+            first.X += point.X;
+            first.Y += point.Y;
+            second.X += point.X;
+            second.Y += point.Y;
         }
 
         public override Color FillSetColor()
