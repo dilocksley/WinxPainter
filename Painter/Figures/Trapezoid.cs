@@ -80,7 +80,7 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()
@@ -99,9 +99,5 @@ namespace Painter.Figures
             fillColor = color;
         }
 
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

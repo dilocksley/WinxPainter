@@ -101,7 +101,7 @@ namespace Painter
             if (aFigure != null)
             {
                 List<Point> points = aFigure.DoFigureMath();
-                if (points.Count > 100)
+                if (points.Count > 50)
                 {
                     if (points.Count == 360)     // круг
                     {

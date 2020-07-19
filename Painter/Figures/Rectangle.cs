@@ -98,13 +98,8 @@ namespace Painter.Figures
 
         public override void ChangeFillColor(Color color)
         {
-            throw new NotImplementedException();
+            fillColor = color;
         }
-
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
 
         #region RectangleMathCode

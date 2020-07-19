@@ -78,7 +78,7 @@ namespace Painter.Figures
 
         public override Color FillSetColor()
         {
-            throw new System.NotImplementedException();
+            return fillColor;
         }
 
         public override Point FindPoint()

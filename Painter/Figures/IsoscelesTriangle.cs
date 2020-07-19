@@ -96,11 +96,7 @@ namespace Painter.Figures
             fillColor = color;
         }
 
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
+        #region IsoscelesTriangleCode
         //public class IsoscelesTriangle : AFigure
         //{
         //    //List<Point> triangleList = new List<Point>();
@@ -129,5 +125,6 @@ namespace Painter.Figures
         //    //    return triangleList;
         //    //}
         //}
+        #endregion
     }
 }

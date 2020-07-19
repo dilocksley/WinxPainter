@@ -107,10 +107,5 @@ namespace Painter.Figures
         {
             fillColor = color;
         }
-
-        //public override void FillFigure()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

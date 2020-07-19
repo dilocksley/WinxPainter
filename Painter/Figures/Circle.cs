@@ -116,7 +116,7 @@ namespace Painter.Figures
 
         public override void ChangeFillColor(Color color)
         {
-            throw new NotImplementedException();
+            fillColor = color;
         }
 
         public override List<Point> ReturnPoints()

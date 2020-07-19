@@ -38,6 +38,7 @@ namespace Painter
         bool _changeLocation;
         bool _deletingFigure;
         bool fill;
+
         string mode;
         public Painter()
         {
@@ -86,7 +87,6 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-
             mouseDown = true;
             if (mode == "Навел"  )
             {
@@ -94,7 +94,7 @@ namespace Painter
                 {
                     ActiveFigure = CurrentFigure;
                     CurrentFigure = null;
-                    // bitmap.HighlightSelectedFigure(ActiveFigure); 
+                    //bitmap.HighlightSelectedFigure(ActiveFigure); 
                     mode = "Выбрал";
                 }
                 else
@@ -105,7 +105,6 @@ namespace Painter
                     mode = "Рисуем";
                 }
             }
-
             if (mode == "Выбрал")
             {
                 if (q)
@@ -113,15 +112,10 @@ namespace Painter
                     Current = ActiveFigure;
                     mode = "Изменить";
                 }
-              
             }
-
-
             if (toolBox.SelectedIndex != 6)
             {
-
                 CurrentFigure = null;
-
                 if (toolBox.SelectedIndex == 4)
                 {
                     try
@@ -143,9 +137,13 @@ namespace Painter
                 FirstPoint = e.Location;
             }
 
-
-
-
+            //if (mode == "Заливка")
+            //{
+            //    ActiveFigure.ChangeFillColor(_fillColor);
+            //    //ActiveFigure.FindPoint();
+            //    //ActiveFigure.FillFigure();
+            //    mode = "Рисуем";
+            //}
             if (_deletingFigure)
             {
                 if (CurrentFigure == null)
@@ -271,13 +269,13 @@ namespace Painter
 
             }
 
-            if (bitmap.SelectFigureByPointq(e.Location) && mode != "Выбрал" && mode != "Изменить")
+            if (bitmap.SelectFigureByPointq(e.Location) && mode != "Выбрал" && mode != "Изменить" && mode != "Заливка")
             {
                 CurrentFigure = bitmap.GetAFigure();
                 bitmap.HighlightSelectedFigure(CurrentFigure);
                 mode = "Навел";
             }
-            else if (mode != "Выбрал" && mode != "Изменить")
+            else if (mode != "Выбрал" && mode != "Изменить" && mode != "Заливка")
             {
                 mode = "Рисуем";
             }
@@ -303,12 +301,7 @@ namespace Painter
             GC.Collect();
 
             pictureBox.Image = bitmap.tmpBitmap;
-
-
         }
-
-
-
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -332,7 +325,7 @@ namespace Painter
                 }
                 bitmap.AddFigure(CurrentFigure);
             }
-
+           
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
         }
@@ -465,6 +458,10 @@ namespace Painter
             {
                 _fillColor = colorDialog1.Color;
             }
+            if(mode == "Выбрал")
+            {
+                mode = "Заливка";
+            }    
         }
 
         private void thicknessValue_ValueChanged(object sender, EventArgs e)
