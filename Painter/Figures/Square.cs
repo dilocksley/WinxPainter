@@ -56,7 +56,7 @@ namespace Painter.Figures
             second = e;
         }
 
-        public override bool IsPointInFigure(Point mousePoint) //ищем пренадлежит ли точка квадрату
+        public override bool IsPointInFigure(Point mousePoint) //ищем принадлежит ли точка квадрату
         {
             int maxX = second.X;
             int minX = first.X;

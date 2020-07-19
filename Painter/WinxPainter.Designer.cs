@@ -48,6 +48,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.label3 = new System.Windows.Forms.Label();
+            this.saveFile = new System.Windows.Forms.Button();
+            this.openFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thicknessValue)).BeginInit();
             this.SuspendLayout();
@@ -259,20 +261,52 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "winx";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(647, 22);
+            this.label3.Location = new System.Drawing.Point(12, 97);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 16;
             this.label3.Text = "label3";
+            // 
+            // saveFile
+            // 
+            this.saveFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("saveFile.BackgroundImage")));
+            this.saveFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.saveFile.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.saveFile.Location = new System.Drawing.Point(556, 45);
+            this.saveFile.Margin = new System.Windows.Forms.Padding(2);
+            this.saveFile.Name = "saveFile";
+            this.saveFile.Size = new System.Drawing.Size(30, 29);
+            this.saveFile.TabIndex = 17;
+            this.saveFile.UseVisualStyleBackColor = true;
+            this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
+            // 
+            // openFile
+            // 
+            this.openFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("openFile.BackgroundImage")));
+            this.openFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.openFile.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.openFile.Location = new System.Drawing.Point(490, 45);
+            this.openFile.Margin = new System.Windows.Forms.Padding(2);
+            this.openFile.Name = "openFile";
+            this.openFile.Size = new System.Drawing.Size(30, 29);
+            this.openFile.TabIndex = 18;
+            this.openFile.UseVisualStyleBackColor = true;
+            this.openFile.Click += new System.EventHandler(this.openFile_Click);
             // 
             // Painter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1354, 733);
+            this.Controls.Add(this.openFile);
+            this.Controls.Add(this.saveFile);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Edit_Figure);
             this.Controls.Add(this.Change_location);
@@ -320,6 +354,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button saveFile;
+        private System.Windows.Forms.Button openFile;
     }
 }
 
