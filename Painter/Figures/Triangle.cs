@@ -27,6 +27,15 @@ namespace Painter.Figures
             second = list[1];
             third = list[2];
         }
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
+            points.Add(third);
+         
+            return points;
+        }
         public override List<Point> DoFigureMath()
         {
             return new MathTriangle(list).MathFigure(first, second);

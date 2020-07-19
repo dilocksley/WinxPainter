@@ -26,7 +26,7 @@ namespace Painter.Figures
             this.thickness = thickness;
             this.fillColor = fillColor;
         }
-
+       
         public override List<Point> DoFigureMath()
         {
             return new MathCircle().MathFigure(first, second);
@@ -120,6 +120,14 @@ namespace Painter.Figures
         public override void ChangeFillColor(Color color)
         {
             throw new NotImplementedException();
+        }
+
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
+            return points;
         }
 
         //public override void FillFigure()

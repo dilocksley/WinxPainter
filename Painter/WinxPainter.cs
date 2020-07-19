@@ -12,7 +12,7 @@ namespace Painter
     public partial class Painter : Form
     {
         AFigure CurrentFigure;
-       
+        AFigure ActiveFigure;
         StaticBitmap bitmap;
         IFigureFactory factoryFigure;
         Color _fillColor;
@@ -23,22 +23,25 @@ namespace Painter
         Point SecondPoint;
         int n = 1;                  //количество сторон
         int count = 0;
-      
+        bool q;
+
+
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
-      
+
         List<Point> list = new List<Point>();
         bool _editFigure;
         bool _changeLocation;
         bool _deletingFigure;
         bool fill;
+        string mode;
         public Painter()
         {
 
             InitializeComponent();
             bitmap = StaticBitmap.GetInstance();
             _currentColor = Color.Black;
-           
+
             _currentThickness = 1;
             _fillColor = Color.Transparent;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
@@ -46,7 +49,8 @@ namespace Painter
             Change_location.Hide();
             DeleteFigure.Hide();
             textBox1.Hide();
-            
+            mode = "Рисуем";
+            //ActiveFigure = null;
         }
 
         private void DrawTree(double x, double y, double a, double angle)
@@ -74,36 +78,61 @@ namespace Painter
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
             mouseDown = true;
-
-            if (toolBox.SelectedIndex != 6 )
+            if (mode == "Навел")
             {
-               
+                if (ActiveFigure == null)
+                {
+                    ActiveFigure = CurrentFigure;
                     CurrentFigure = null;
+                    // bitmap.HighlightSelectedFigure(ActiveFigure); 
+                    mode = "Выбрал";
+                }
+                else
+                {
+                    bitmap.HighlightSelectedFigureW(ActiveFigure);
+                    bitmap.DrawFigure(ActiveFigure);
+                    ActiveFigure = null;
+                    mode = "Рисуем";
+                }
+            }
 
-                    if (toolBox.SelectedIndex == 4)
+            if (mode == "Выбрал" && q)
+            {
+                mode = "Изменить";
+            }
+
+
+            if (toolBox.SelectedIndex != 6)
+            {
+
+                CurrentFigure = null;
+
+                if (toolBox.SelectedIndex == 4)
+                {
+                    try
                     {
-                        try
+                        n = Convert.ToInt32(textBox1.Text);
+                        if (n < 3)
                         {
-                            n = Convert.ToInt32(textBox1.Text);
-                            if (n < 3)
-                            {
-                                mouseDown = false;
-                                MessageBox.Show("Минимальное количество граней = 3.");
-                            }
-                        }
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Введите число 3 или больше.");
                             mouseDown = false;
+                            MessageBox.Show("Минимальное количество граней = 3.");
                         }
                     }
-                
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Введите число 3 или больше.");
+                        mouseDown = false;
+                    }
+                }
+
                 FirstPoint = e.Location;
             }
-           
-                
+
+
+
+
             if (_deletingFigure)
             {
                 if (CurrentFigure == null)
@@ -111,24 +140,19 @@ namespace Painter
                     CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
                     if (CurrentFigure != null)
                     {
+
                         bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
                         bitmap.DeleteFigure(CurrentFigure);
 
                     }
                 }
             }
-           // bitmap.ShowOnTheScreen();
+            // bitmap.ShowOnTheScreen();
         }
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
 
 
-            if (_editFigure)
-            {
-                CurrentFigure = bitmap.SelectFigureByPoint(e.Location);
-                bitmap.HighlightSelectedFigure(CurrentFigure);
-               
-            }
 
             if (toolBox.SelectedIndex == 6)
             {
@@ -164,7 +188,7 @@ namespace Painter
 
             if (mouseDown)
             {
-                if (_changeLocation)
+                if (_changeLocation )
                 {
                     fill = false;
                     _deletingFigure = false;
@@ -190,7 +214,7 @@ namespace Painter
                         bitmap.ShowOnTheScreen();
                         CurrentFigure.Move(delta);
                         bitmap.DrawFigure(CurrentFigure);
-                        bitmap.HighlightSelectedFigure(CurrentFigure);
+
                     }
                 }
 
@@ -212,9 +236,33 @@ namespace Painter
                     if (CurrentFigure != null)
                     {
                         CurrentFigure.Update(e.Location);
-                        bitmap.DrawFigure(CurrentFigure);                       
+                        bitmap.DrawFigure(CurrentFigure);
                     }
                 }
+            }
+            if (mode == "Изменить" && mouseDown)
+            {
+
+                ActiveFigure.Update(e.Location);
+                bitmap.DrawFigure(ActiveFigure);
+
+            }
+
+            if (bitmap.SelectFigureByPointq(e.Location) && mode != "Выбрал" )
+            {
+                CurrentFigure = bitmap.GetAFigure();
+                bitmap.HighlightSelectedFigure(CurrentFigure);
+                mode = "Навел";
+            }
+            else if(mode != "Выбрал")
+            {
+                mode = "Рисуем";
+            }
+
+            if (mode == "Выбрал")
+            {
+                
+                q = bitmap.PointInPoint(ActiveFigure, e.Location);
             }
 
             if (toolBox.SelectedIndex != -1)
@@ -222,11 +270,13 @@ namespace Painter
                 _changeLocation = false;
                 _deletingFigure = false;
                 _editFigure = false;
+               
             }
             label1.Text = $"X = {e.X}";
             label2.Text = $"Y = {e.Y}";
+            label3.Text = mode;
             GC.Collect();
-           
+
             pictureBox.Image = bitmap.tmpBitmap;
         }
 
@@ -237,17 +287,21 @@ namespace Painter
         {
             mouseDown = false;
             fill = false;
-            
+            if(mode == "Изменить")
+            {
+
+            }
+
             if (CurrentFigure != null)
             {
                 if (_fillColor != Color.Transparent)
                 {
                     CurrentFigure.FindPoint();
                     CurrentFigure.FillFigure();
-                }              
-                bitmap.AddFigure(CurrentFigure);                  
+                }
+                bitmap.AddFigure(CurrentFigure);
             }
-           
+
             bitmap.CopyInOld();
             pictureBox.Image = bitmap.Bitmap;
         }
@@ -388,10 +442,11 @@ namespace Painter
         {
             _editFigure = true;
             if (CurrentFigure != null)
-            {      
+            {
                 bitmap.HighlightSelectedFigure(CurrentFigure);
             }
             //CurrentFigure = null;
+            mode = "Рисуем";
             toolBox.SelectedIndex = -1;
             Change_location.Show();
             DeleteFigure.Show();

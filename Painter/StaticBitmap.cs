@@ -130,6 +130,41 @@ namespace Painter
                 }
             }
         }
+        public void HighlightSelectedFigureW(AFigure aFigure)
+
+        {
+            if (aFigure != null)
+            {
+                List<Point> points = aFigure.DoFigureMath();
+                if (points.Count > 100)
+                {
+                    if (points.Count > 360)
+                    {
+                        for (int i = 0; i < points.Count; i = i + (points.Count / 4))
+                        {
+                            DrawLine(points[i], points[i], 7, Color.White);
+                        }
+                    }
+                    for (int i = 0; i < points.Count; i = i + 45)
+                    {
+                        if (i == 0 || i == 90 || i == 180 || i == 270 || i == 360)
+                        {
+                        }
+                        else
+                        {
+                            DrawLine(points[i], points[i], 7, Color.White);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        DrawLine(points[i], points[i], 7, Color.White);
+                    }
+                }
+            }
+        }
         public static StaticBitmap GetInstance()
         {
             if (instance == null)
@@ -372,6 +407,20 @@ namespace Painter
                     }
                 }
             }
+        }
+
+        public bool PointInPoint(AFigure aF, Point e)
+        {
+            List<Point> points = aF.DoFigureMath();
+            for (int i = 0; i < points.Count; i++)
+            {
+                if(e==points[i])
+                {
+                    DrawLine(points[i], points[i], 7, Color.Green);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

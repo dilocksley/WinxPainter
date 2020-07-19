@@ -25,6 +25,14 @@ namespace Painter.Figures
             this.thickness = thickness;
             this.fillColor = fillColor;
         }
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
+
+            return points;
+        }
         public override List<Point> DoFigureMath()                      // реализация метода абстр класса для получения точек фигуры
         {
             points = new MathIsoscelesTriangle().MathFigure(first, second);

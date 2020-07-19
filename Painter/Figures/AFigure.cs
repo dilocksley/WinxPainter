@@ -20,7 +20,7 @@ namespace Painter.Figures
         public abstract List<Point> DoFigureMath();
        
         public abstract Color SetColor();
-
+        public abstract List<Point> ReturnPoints();
         public abstract int SetThickness();
 
         //public int SetThickness(int thickness)

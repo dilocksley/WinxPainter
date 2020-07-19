@@ -22,6 +22,14 @@ namespace Painter.Figures
             this.thickness = thickness;
             this.fillColor = fillColor;
         }
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
+
+            return points;
+        }
         public override List<Point> DoFigureMath()
         {
             return new MathTrapezoid().MathFigure(first, second);

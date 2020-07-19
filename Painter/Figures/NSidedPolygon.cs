@@ -18,6 +18,7 @@ namespace Painter.Figures
         public int thickness;
         Color fillColor = Color.Transparent;
         Point e;
+        List<Point> points;
         public NSidedPolygon(Point first,int n, Color color, Color fillColor, int thickness)
         {
             this.first = first;
@@ -27,9 +28,18 @@ namespace Painter.Figures
             this.thickness = thickness;
             this.fillColor = fillColor;
         }
+        public override List<Point> ReturnPoints()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(first);
+            points.Add(second);
+
+            return points;
+        }
         public override List<Point> DoFigureMath()
-        {                     
-            return new MathNSidedPolygon(n).MathFigure(first, second);
+        {     
+            points = new MathNSidedPolygon(n).MathFigure(first, second);
+            return points;
         }
         public override Color SetColor()
         {
@@ -46,21 +56,32 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            int maxX = second.X;
-            int minX = first.X;
-            if (first.X > second.X)
+            for (int i = 0; i < points.Count-1; i++)
             {
-                maxX = first.X;
-                minX = second.X;
+                if(i==0)
+                {
+                    int q = (first.X - mousePoint.X) * (points[i].Y - first.Y) - (points[i].X - first.X) * (first.Y - mousePoint.Y);
+                    int w = (points[i].X - mousePoint.X) * (points[points.Count - 1].Y - points[i].Y) - (points[points.Count - 1].X - points[i].X) * (points[i].Y - mousePoint.Y);
+                    int e = (points[points.Count - 1].X - mousePoint.X) * (first.Y - points[points.Count - 1].Y) - (first.X - points[points.Count - 1].X) * (points[points.Count - 1].Y - mousePoint.Y);
+
+                    if ((q >= 0 && w >= 0 && e >= 0) || (q <= 0 && w <= 0 && e <= 0))
+                    {
+                        return true;
+                    }
+                }
+                int a = (first.X - mousePoint.X) * (points[i].Y - first.Y) - (points[i].X - first.X) * (first.Y - mousePoint.Y);
+                int b = (points[i].X - mousePoint.X) * (points[i+1].Y - points[i].Y) - (points[i + 1].X - points[i].X) * (points[i].Y - mousePoint.Y);
+                int c = (points[i + 1].X - mousePoint.X) * (first.Y - points[i + 1].Y) - (first.X - points[i + 1].X) * (points[i + 1].Y - mousePoint.Y);
+                               
+
+                if ((a >= 0 && b >= 0 && c >= 0) || (a <= 0 && b <= 0 && c <= 0))
+                {
+                    return true;
+                }
             }
-            int maxY = second.Y;
-            int minY = first.Y;
-            if (first.Y > second.Y)
-            {
-                maxY = first.Y;
-                minY = second.Y;
-            }
-            return (minX <= mousePoint.X && minY <= mousePoint.Y && maxX >= mousePoint.X && maxY >= mousePoint.Y);
+                return false;         
+
+
         }
 
         public override void Move(Point point)
