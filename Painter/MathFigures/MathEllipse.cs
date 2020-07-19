@@ -67,5 +67,35 @@ namespace Painter.MathFigures
             double YD = Math.Sqrt((1 - p) * radiusY * radiusY) + centerY;
             return Convert.ToInt32(YD);
         }
+
+        public List<Point> FindFocusPoints(Point first, Point second)
+        {
+            List<Point> focusPoints = new List<Point>();
+            int diameterY = Math.Abs(second.Y - first.Y);
+            int diameterX = Math.Abs(second.X - first.X);
+            int radiusX = diameterX / 2;
+            int radiusY = diameterY / 2;
+            int minX = first.X;
+            if (first.X > second.X)
+            {
+                minX = second.X;
+            }
+            int minY = first.Y;
+            if (first.Y > second.Y)
+            {
+                minY = second.Y;
+            }
+            Point center = new Point(minX + radiusX, minY + radiusY);
+            focusPoints.Add(center);
+            Point right = new Point(center.X + radiusX, center.Y);
+            focusPoints.Add(right);
+            Point left = new Point(center.X - radiusX, center.Y);
+            focusPoints.Add(left);
+            Point top = new Point(center.X, center.Y - radiusY);
+            focusPoints.Add(top);
+            Point bottom = new Point(center.X, center.Y + radiusY);
+            focusPoints.Add(bottom);
+            return focusPoints;
+        }
     }
 }

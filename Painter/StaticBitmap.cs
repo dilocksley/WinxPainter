@@ -118,10 +118,17 @@ namespace Painter
                     }
                     else
                     {
-                        for (int i = 0; i < points.Count; i = i + 180)
-                        {
-                            DrawLine(points[i], points[i], 7, Color.Red);
-                        }
+                        Point first = aFigure.ReturnPoints()[0];
+                        Point second = aFigure.ReturnPoints()[1];
+                        List<Point> focusPoints = new MathEllipse().FindFocusPoints(first, second);
+                        Point right = focusPoints[1];
+                        Point left = focusPoints[2];
+                        Point top = focusPoints[3];
+                        Point bottom = focusPoints[4];
+                        DrawLine(right, right, 7, Color.Red);
+                        DrawLine(left, left, 7, Color.Red);
+                        DrawLine(top, top, 7, Color.Red);
+                        DrawLine(bottom, bottom, 7, Color.Red);
                     }
                 }
                 else
