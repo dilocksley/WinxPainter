@@ -298,9 +298,9 @@ namespace Painter
                 _reversal = false;
 
             }
-            label1.Text = $"X = {e.X}";
-            label2.Text = $"Y = {e.Y}";
-            label3.Text = mode;
+            xLabel.Text = $"X = {e.X}";
+            Ylabel.Text = $"Y = {e.Y}";
+            modeLabel.Text = mode;
             GC.Collect();
 
             pictureBox.Image = bitmap.tmpBitmap;
