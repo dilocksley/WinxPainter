@@ -156,7 +156,6 @@ namespace Painter
 
                         bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
                         bitmap.DeleteFigure(CurrentFigure);
-
                     }
                 }
                 mode = "Рисуем";
@@ -237,7 +236,7 @@ namespace Painter
                         bitmap.ShowOnTheScreen();
                         CurrentFigure.Move(delta);
                         bitmap.DrawFigure(CurrentFigure);
-
+                        mode = "Рисуем";
                     }
                 }
 
@@ -324,7 +323,7 @@ namespace Painter
                 q = false;
             }
 
-            if (CurrentFigure != null)
+            if (CurrentFigure != null && _deletingFigure == false)
             {
                 if (_fillColor != Color.Transparent)
                 {
@@ -354,6 +353,7 @@ namespace Painter
             bitmap.Bitmap = null;
             bitmap.Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
             bitmap.ClearStorage();
+            mode = "Рисуем";
         }
         private void DeleteFigure_Click(object sender, EventArgs e)
         {
