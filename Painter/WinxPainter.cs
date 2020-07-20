@@ -29,7 +29,7 @@ namespace Painter
         //string file;
         bool _reversal;
         int angle = 0;
-
+        double angleD = Math.PI / 2;
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
 
@@ -62,7 +62,7 @@ namespace Painter
             //ActiveFigure = null;
         }
 
-        private void DrawTree(double x, double y, double a, double angle)
+        private void DrawTree(double x, double y, double a, double angleD)
         {
             if (a > 2)
             {
@@ -80,8 +80,8 @@ namespace Painter
                 y = ynew;
 
                 //Для левой и правой ветки
-                DrawTree(x, y, a, angle + ang1);
-                DrawTree(x, y, a, angle - ang2);
+                DrawTree(x, y, a, angleD + ang1);
+                DrawTree(x, y, a, angleD - ang2);
             }
         }
 
