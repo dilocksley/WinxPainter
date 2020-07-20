@@ -92,10 +92,10 @@
             "Дерево",
             "Круг",
             "Эллипс"});
-            this.toolBox.Location = new System.Drawing.Point(93, 14);
+            this.toolBox.Location = new System.Drawing.Point(62, 14);
             this.toolBox.Margin = new System.Windows.Forms.Padding(4);
             this.toolBox.Name = "toolBox";
-            this.toolBox.Size = new System.Drawing.Size(110, 21);
+            this.toolBox.Size = new System.Drawing.Size(164, 21);
             this.toolBox.TabIndex = 1;
             this.toolBox.Text = "Инструмент";
             this.toolBox.SelectedIndexChanged += new System.EventHandler(this.toolBox_SelectedIndexChanged);
@@ -104,7 +104,7 @@
             // 
             this.ColorBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ColorBox.BackgroundImage")));
             this.ColorBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ColorBox.Location = new System.Drawing.Point(211, 42);
+            this.ColorBox.Location = new System.Drawing.Point(235, 42);
             this.ColorBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorBox.Name = "ColorBox";
             this.ColorBox.Size = new System.Drawing.Size(43, 30);
@@ -132,7 +132,7 @@
             // 
             // DeletAll
             // 
-            this.DeletAll.Location = new System.Drawing.Point(422, 14);
+            this.DeletAll.Location = new System.Drawing.Point(446, 13);
             this.DeletAll.Margin = new System.Windows.Forms.Padding(4);
             this.DeletAll.Name = "DeletAll";
             this.DeletAll.Size = new System.Drawing.Size(90, 22);
@@ -146,7 +146,7 @@
             this.DeleteFigure.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteFigure.BackgroundImage")));
             this.DeleteFigure.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.DeleteFigure.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.DeleteFigure.Location = new System.Drawing.Point(303, 43);
+            this.DeleteFigure.Location = new System.Drawing.Point(327, 42);
             this.DeleteFigure.Margin = new System.Windows.Forms.Padding(4);
             this.DeleteFigure.Name = "DeleteFigure";
             this.DeleteFigure.Size = new System.Drawing.Size(42, 29);
@@ -170,7 +170,7 @@
             0,
             0});
             this.thicknessValue.Name = "thicknessValue";
-            this.thicknessValue.Size = new System.Drawing.Size(58, 20);
+            this.thicknessValue.Size = new System.Drawing.Size(41, 20);
             this.thicknessValue.TabIndex = 8;
             this.thicknessValue.Value = new decimal(new int[] {
             1,
@@ -183,7 +183,7 @@
             // 
             this.Fill.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Fill.BackgroundImage")));
             this.Fill.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Fill.Location = new System.Drawing.Point(262, 42);
+            this.Fill.Location = new System.Drawing.Point(286, 42);
             this.Fill.Margin = new System.Windows.Forms.Padding(4);
             this.Fill.Name = "Fill";
             this.Fill.Size = new System.Drawing.Size(33, 31);
@@ -193,10 +193,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(93, 43);
+            this.textBox1.Location = new System.Drawing.Point(62, 43);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(110, 20);
+            this.textBox1.Size = new System.Drawing.Size(164, 20);
             this.textBox1.TabIndex = 10;
             this.textBox1.Text = "Количество граней";
             // 
@@ -204,7 +204,7 @@
             // 
             this.undo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("undo.BackgroundImage")));
             this.undo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.undo.Location = new System.Drawing.Point(434, 44);
+            this.undo.Location = new System.Drawing.Point(446, 42);
             this.undo.Margin = new System.Windows.Forms.Padding(4);
             this.undo.Name = "undo";
             this.undo.Size = new System.Drawing.Size(29, 30);
@@ -216,7 +216,7 @@
             // 
             this.redo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("redo.BackgroundImage")));
             this.redo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.redo.Location = new System.Drawing.Point(470, 43);
+            this.redo.Location = new System.Drawing.Point(508, 42);
             this.redo.Margin = new System.Windows.Forms.Padding(4);
             this.redo.Name = "redo";
             this.redo.Size = new System.Drawing.Size(29, 31);
@@ -229,7 +229,7 @@
             this.Change_location.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Change_location.BackgroundImage")));
             this.Change_location.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Change_location.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.Change_location.Location = new System.Drawing.Point(351, 43);
+            this.Change_location.Location = new System.Drawing.Point(375, 42);
             this.Change_location.Margin = new System.Windows.Forms.Padding(2);
             this.Change_location.Name = "Change_location";
             this.Change_location.Size = new System.Drawing.Size(30, 29);
@@ -239,7 +239,7 @@
             // 
             // Edit_Figure
             // 
-            this.Edit_Figure.Location = new System.Drawing.Point(210, 13);
+            this.Edit_Figure.Location = new System.Drawing.Point(235, 13);
             this.Edit_Figure.Name = "Edit_Figure";
             this.Edit_Figure.Size = new System.Drawing.Size(206, 22);
             this.Edit_Figure.TabIndex = 15;
@@ -269,7 +269,7 @@
             this.saveFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("saveFile.BackgroundImage")));
             this.saveFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.saveFile.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.saveFile.Location = new System.Drawing.Point(573, 45);
+            this.saveFile.Location = new System.Drawing.Point(597, 41);
             this.saveFile.Margin = new System.Windows.Forms.Padding(2);
             this.saveFile.Name = "saveFile";
             this.saveFile.Size = new System.Drawing.Size(33, 31);
@@ -282,7 +282,7 @@
             this.openFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("openFile.BackgroundImage")));
             this.openFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.openFile.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.openFile.Location = new System.Drawing.Point(519, 45);
+            this.openFile.Location = new System.Drawing.Point(543, 41);
             this.openFile.Margin = new System.Windows.Forms.Padding(2);
             this.openFile.Name = "openFile";
             this.openFile.Size = new System.Drawing.Size(33, 31);
@@ -294,7 +294,7 @@
             // 
             this.Reversal.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Reversal.BackgroundImage")));
             this.Reversal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Reversal.Location = new System.Drawing.Point(385, 43);
+            this.Reversal.Location = new System.Drawing.Point(409, 42);
             this.Reversal.Margin = new System.Windows.Forms.Padding(2);
             this.Reversal.Name = "Reversal";
             this.Reversal.Size = new System.Drawing.Size(30, 29);
@@ -304,7 +304,7 @@
             // 
             // showAll
             // 
-            this.showAll.Location = new System.Drawing.Point(519, 12);
+            this.showAll.Location = new System.Drawing.Point(543, 13);
             this.showAll.Name = "showAll";
             this.showAll.Size = new System.Drawing.Size(87, 23);
             this.showAll.TabIndex = 19;
