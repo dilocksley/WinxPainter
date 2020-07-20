@@ -36,8 +36,14 @@ namespace Painter.Instruments
             }
             return point;
         }
-
-        public Point FindPointFigure(Point first, Point second, Point thrid)
+        public Point FindPointFigureRE(Point first, Point second)
+        {
+            Point point = new Point();
+            point.X = (first.X + second.X) / 2;
+            point.Y = (first.Y + second.Y) / 2;
+            return point;
+        }
+            public Point FindPointFigure(Point first, Point second, Point thrid)
         {
             Point point = new Point();
            

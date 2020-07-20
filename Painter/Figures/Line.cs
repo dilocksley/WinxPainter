@@ -52,7 +52,7 @@ namespace Painter.Figures
 
         public override bool IsPointInFigure(Point mousePoint)
         {
-            int error = 5;
+            int error = 2;
             if (mousePoint.X >= first.X - error && mousePoint.X <= first.X + error) return true;
             else if (mousePoint.X >= second.X - error && mousePoint.X <= second.X + error) return true;
             else if (mousePoint.Y >= first.Y - error && mousePoint.Y <= first.Y + error) return true;

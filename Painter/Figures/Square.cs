@@ -114,7 +114,7 @@ namespace Painter.Figures
 
         public override Point FindPoint()
         {
-            e = new Fill().FindPointFigure(first, second);
+            e = new Fill().FindPointFigureRE(first, second);
             return e;
         }
         
